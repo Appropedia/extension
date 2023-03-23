@@ -61,93 +61,6 @@ class Appropedia {
 	}
 
 	/**
-	 * Customize file pages
-	 *
-	 * This ugly contraption is here because Extension:UploadWizard has hard-coded
-	 * the structure of the file pages it creates, so we can't modify it via config
-	 * Therefore, we check every single page save and if it has the structure of
-	 * a file page created by Upload Wizard, we transform it to our preferred structure
-	 */
-	function onParserPreSaveTransformComplete( Parser $parser, string &$text ) {
-		if ( preg_match( '/=={{int:filedesc}}==
-{{Information
-\|description={{en\|1=(.*)}}
-\|date=(.*)
-\|source=(.*)
-\|author=(.*)
-\|permission=(.*)
-\|other versions=(.*)
-}}
-
-=={{int:license-header}}==
-{{(.*)}}
-*(.*)/s', $text, $matches ) ) {
-
-			// Get data
-			$description = trim( $matches[1] );
-			$date = $matches[2];
-			$source = $matches[3];
-			$author = $matches[4];
-			$permission = $matches[5];
-			$otherVersions = $matches[6];
-			$license = $matches[7];
-			$licenseDetails = $matches[8];
-
-			// Process data
-			if ( $source === '{{own}}' ) {
-				$source = 'Own work';
-			}
-			if ( preg_match( '/\[\[([^|]+)\|[^]]+\]\]/', $author, $matches ) ) {
-				$author = $matches[1];
-			}
-			if ( $license === 'subst:uwl' ) {
-				$license = 'Unknown';
-			} else if ( preg_match( '/self\|(.*)/', $license, $matches ) ) {
-				$license = strtoupper( $matches[1] );
-			} else {
-				$license = strtoupper( $license );
-			}
-			if ( $license === 'PD' ) {
-			  $license = 'Public domain';
-			}
-			if ( $license === 'FAIR USE' ) {
-			  $license = 'Fair use';
-			}
-			if ( $licenseDetails ) {
-				$license = $licenseDetails;
-			}
-
-			// Build wikitext
-			$text = "$description
-
-{{File data
-| date = $date
-| author = $author
-| source = $source
-| license = $license
-}}";
-		}
-
-		// Also customize file pages created via Special:Upload
-		if ( preg_match( '/== Summary ==
-(.*)
-== Licensing ==
-{{(.*)}}/s', $text, $matches ) ) {
-
-			// Get data
-			$description = trim( $matches[1] );
-			$license = $matches[2];
-		
-			// Build wikitext
-			$text = "$description
-
-{{File data
-| license = $license
-}}";
-		}
-	}
-
-	/**
 	 * Customize footer links
 	 */
 	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
@@ -431,5 +344,92 @@ class Appropedia {
 		}
 
 		$form .= '</div>';
+	}
+
+	/**
+	 * Customize file pages
+	 *
+	 * This ugly contraption is here because Extension:UploadWizard has hard-coded
+	 * the structure of the file pages it creates, so we can't modify it via config
+	 * Therefore, we check every single page save and if it has the structure of
+	 * a file page created by Upload Wizard, we transform it to our preferred structure
+	 */
+	function onParserPreSaveTransformComplete( Parser $parser, string &$text ) {
+		if ( preg_match( '/=={{int:filedesc}}==
+{{Information
+\|description={{en\|1=(.*)}}
+\|date=(.*)
+\|source=(.*)
+\|author=(.*)
+\|permission=(.*)
+\|other versions=(.*)
+}}
+
+=={{int:license-header}}==
+{{(.*)}}
+*(.*)/s', $text, $matches ) ) {
+
+			// Get data
+			$description = trim( $matches[1] );
+			$date = $matches[2];
+			$source = $matches[3];
+			$author = $matches[4];
+			$permission = $matches[5];
+			$otherVersions = $matches[6];
+			$license = $matches[7];
+			$licenseDetails = $matches[8];
+
+			// Process data
+			if ( $source === '{{own}}' ) {
+				$source = 'Own work';
+			}
+			if ( preg_match( '/\[\[([^|]+)\|[^]]+\]\]/', $author, $matches ) ) {
+				$author = $matches[1];
+			}
+			if ( $license === 'subst:uwl' ) {
+				$license = 'Unknown';
+			} else if ( preg_match( '/self\|(.*)/', $license, $matches ) ) {
+				$license = strtoupper( $matches[1] );
+			} else {
+				$license = strtoupper( $license );
+			}
+			if ( $license === 'PD' ) {
+			  $license = 'Public domain';
+			}
+			if ( $license === 'FAIR USE' ) {
+			  $license = 'Fair use';
+			}
+			if ( $licenseDetails ) {
+				$license = $licenseDetails;
+			}
+
+			// Build wikitext
+			$text = "$description
+
+{{File data
+| date = $date
+| author = $author
+| source = $source
+| license = $license
+}}";
+		}
+
+		// Also customize file pages created via Special:Upload
+		if ( preg_match( '/== Summary ==
+(.*)
+== Licensing ==
+{{(.*)}}/s', $text, $matches ) ) {
+
+			// Get data
+			$description = trim( $matches[1] );
+			$license = $matches[2];
+		
+			// Build wikitext
+			$text = "$description
+
+{{File data
+| license = $license
+}}";
+		}
 	}
 }

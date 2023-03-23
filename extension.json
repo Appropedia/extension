@@ -18,7 +18,37 @@
 	"AutoloadClasses": {
 		"Appropedia": "Appropedia.php"
 	},
+	"ResourceModules": {
+		"ext.Appropedia": {
+			"scripts": "Appropedia.js",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		},
+		"ext.Appropedia.styles": {
+			"styles": "Appropedia.less",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "WikiVideos"
+	},
 	"Hooks": {
-		"ShowSearchHit": "Appropedia::onShowSearchHit"
+	    "BeforeInitialize": "Appropedia::onBeforeInitialize",
+	    "BeforePageDisplay": "Appropedia::onBeforePageDisplay",
+	    "SkinAfterBottomScripts": "Appropedia::onSkinAfterBottomScripts",
+	    "ParserPreSaveTransformComplete": "Appropedia::onParserPreSaveTransformComplete",
+	    "SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
+	    "LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
+	    "SpecialSearchProfiles": "Appropedia::onSpecialSearchProfiles",
+	    "SpecialPageBeforeExecute": "Appropedia::onSpecialPageBeforeExecute",
+	    "SpecialSearchProfileForm": "Appropedia::onSpecialSearchProfileForm",
+		"ShowSearchHit": "Appropedia::onShowSearchHit",
+		"ShowSearchHitTitle": "Appropedia::onShowSearchHitTitle"
 	}
 }

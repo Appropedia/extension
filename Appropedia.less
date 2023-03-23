@@ -1,0 +1,413 @@
+@text: #202122;
+@background: #f8f9fa;
+@border: #a2a9b1;
+@highlight: #f7931d;
+@indent: #5abbb6;
+
+@dark-background: #303134;
+@dark-border: #3c4043;
+
+/**
+ * Sidebar
+ */
+#n-newpage {
+	border-top: 1px solid @border;
+}
+
+/**
+ * Grids
+ */
+.grid {
+	display: grid;
+	grid-auto-rows: minmax(100px, auto);
+	grid-gap: 10px;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	margin: 1em 0;
+	width: auto;
+}
+
+/**
+ * Tables
+ */
+table pre {
+	border: none !important;
+	padding: 0 !important;
+	white-space: pre;
+}
+
+/**
+ * Blockquotes
+ */
+blockquote {
+	background: url( "/w/images/2/2e/Quotemark.png" ) no-repeat;
+	margin: 1em 0;
+	padding-left: 40px;
+}
+
+/**
+ * Galleries
+ */
+#mw-content-text .gallerybox {
+	margin-bottom: 1em;
+}
+#mw-content-text .gallerybox .thumb {
+	margin: 2.5px;
+}
+
+/**
+ * Replies
+ */
+.ns-talk dd,
+.ns-4 dd {
+	border-left: .5em solid @indent;
+	margin: 0;
+	margin-top: 1em;
+	padding-top: .5em;
+	padding-left: 1em;
+}
+.ns-talk dd + dd,
+.ns-4 dd + dd {
+	margin-top: 0;
+}
+
+/**
+ * Categories
+ */
+#mw-pages p,
+#mw-subcategories p,
+#mw-subcategories h3 {
+	display: none;
+}
+
+/**
+ * Hide TemplateData button from non-documentation pages
+ * Example: https://www.appropedia.org/w/index.php?title=Template:Header&action=edit
+ */
+body:not( [class*=_doc] ) .tdg-editscreen-main {
+	display: none;
+}
+
+/**
+ * Hide Language menu because Appropedia is a single wiki
+ */
+#poncho-languages-menu {
+	display: none !important;
+}
+
+/**
+ * Hide "Not logged-in" message from anonymous user's menu
+ */
+#pt-anonuserpage {
+	display: none;
+}
+
+/**
+ * Highlight bell icon when new notifications
+ */
+#poncho-bell-item.active .poncho-menu-icon {
+	background-color: @highlight;
+}
+
+/**
+ * Main page
+ */
+.page-Welcome_to_Appropedia #poncho-content-actions {
+	display: none;
+}
+.main-page-intro {
+	background: @background;
+	border: 1px solid @border;
+	margin: 1em 0;
+	padding: 1em;
+	text-align: center;
+}
+.main-page-title {
+	font-size: 1.5em;
+}
+.poncho-dark-mode .main-page-intro {
+	background: @dark-background;
+	border-color: @dark-border;
+	color: #bdc1c6;
+}
+.main-page-gallery .gallerybox {
+	margin-bottom: 5px !important;
+	position: relative;
+}
+.main-page-gallery .gallerybox img {
+	border-radius: 10px;
+}
+.main-page-gallery .gallerytext {
+	color: white;
+	font-size: medium !important;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 !important;
+	pointer-events: none;
+	position: absolute;
+	right: 1px;
+	bottom: 0;
+	text-align: right !important;
+	text-transform: uppercase;
+}
+
+/**
+ * Appropedia:New page
+ */
+.page-Appropedia_New_page #poncho-content-actions {
+	display: none;
+}
+
+/**
+ * Hide message when creating a new page
+ */
+.mw-newarticletext {
+	display: none;
+}
+
+/**
+ * Template:Header
+ * This can't be in Template:Header/styles.css because CSS sanitizer forbids it
+ */
+.template-header-content {
+	pointer-events: none;
+}
+.template-header-content a {
+	pointer-events: all;
+}
+
+/**
+ * Special:ListFiles
+ */
+.mw-special-Listfiles .mw-datatable th:nth-child(6),
+.mw-special-Listfiles .mw-datatable th:nth-child(7),
+.mw-special-Listfiles .mw-datatable td:nth-child(6),
+.mw-special-Listfiles .mw-datatable td:nth-child(7) {
+	display: none;
+}
+
+/**
+ * Special:Search
+ */
+.mw-special-Search .firstHeading,
+.mw-special-Search .mw-indicators,
+.mw-search-createlink {
+	display: none;
+}
+.mw-special-Search .searchresults {
+	margin-top: 1em;
+}
+.mw-special-Search #mw-content-text ul {
+	margin: 0;
+}
+.mw-search-profile-tabs {
+	background: none;
+	border: none;
+}
+.mw-search-profile-tabs .search-types {
+	padding: 0;
+}
+.mw-search-profile-tabs .current {
+	border-bottom: 5px solid @indent;
+}
+.mw-search-profile-form {
+	padding: 1em 0;
+}
+.mw-search-profile-form select {
+	appearance: none;
+	background-color: @background;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
+	background-position: 100%;
+	background-repeat: no-repeat;
+	border: 1px solid @border;
+	border-radius: 20px;
+	box-sizing: content-box;
+	color: inherit;
+	font: inherit;
+	margin-right: 1em;
+	padding: .3em 2.3em .3em .7em;
+}
+.poncho-dark-mode .mw-search-profile-form select {
+	background-color: @dark-background;
+	border-color: @dark-border;
+}
+.mw-search-results {
+	overflow: hidden;
+	padding: 0 !important;
+}
+.mw-search-result {
+	border: 1px solid #aaa;
+	border-radius: 10px;
+	margin: 1em 0;
+	overflow: hidden;
+	padding: 1em !important;
+}
+.mw-search-result .searchresult {
+	overflow: hidden;
+}
+.mw-search-result .searchalttitle {
+	font-size: small;
+}
+.mw-search-result table {
+	border-collapse: collapse;
+}
+.mw-search-result td:first-child {
+	width: 130px !important;
+}
+.mw-search-result td:first-child img {
+	border-radius: 10px;
+}
+.mw-search-result-thumb {
+	border-radius: 10px;
+	margin: 0 0 0 1em;
+}
+.mw-search-result-data {
+	font-size: inherit;
+}
+.mw-search-exists {
+	border: 1px solid @border;
+	border-radius: 10px;
+	box-sizing: border-box;
+	float: right;
+	padding: 1em;
+	width: 332px;
+}
+.mw-search-exists-title {
+	display: block;
+	font-size: 2em;
+	margin: .5em 0;
+}
+.mw-search-exists-text {
+	display: block;
+	margin: 1em 0;
+}
+.mw-search-exists-more {
+	display: block;
+	margin: 1em 0;
+}
+
+/**
+ * Special:UploadWizard
+ */
+.mw-special-UploadWizard .firstHeading,
+#upload-wizard .detailsForm .oo-ui-layout:nth-child(5),
+.mwe-upwiz-singleLanguageInputWidget-language,
+.mwe-upwiz-multipleLanguageInputWidget-addItem,
+.mwe-upwiz-dateDetailsWidget-toggler,
+.mwe-upwiz-details-more-options,
+#mwe-upwiz-stepdiv-file .mwe-upwiz-button-previous,
+#mwe-upwiz-step-tutorial {
+	display: none !important;
+}
+#mwe-upwiz-steps {
+	margin: 0 !important;
+}
+#mwe-upwiz-steps li {
+	width: 25% !important;
+}
+.mwe-upwiz-singleLanguageInputWidget {
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+/**
+ * Special:Upload
+ */
+#mw-license-preview {
+	display: none !important;
+}
+
+/**
+ * Special:CreateAccount
+ */
+#userloginForm .mw-ui-vform {
+	width: 302px;
+}
+
+/**
+ * Extension:Wikivideos
+ */
+.wikivideo-wrapper {
+	margin: 1em 0;
+}
+.wikivideo {
+	background: @background;
+	border: 1px solid @border;
+	box-sizing: border-box;
+	display: block;
+	overflow: hidden;
+	padding: 1em;
+	max-width: 100%;
+}
+.wikivideo-chapters {
+	margin-top: 1em !important;
+}
+.wikivideo-chapters a {
+	color: #3300ff !important;
+}
+
+/**
+ * Extension:VisualEditor
+ */
+.ve-ui-linkContextItem-label,
+.ve-ce-branchNode-blockSlug,
+.oo-ui-tool-name-heading1,
+.oo-ui-tool-name-heading5,
+.oo-ui-tool-name-heading6,
+.oo-ui-tool-name-help,
+.oo-ui-toolbar-popups .oo-ui-popupWidget-head {
+	display: none !important;
+}
+
+/**
+ * Extension:Maps
+ */
+[id^=map] {
+	z-index: 0;
+}
+
+/**
+ * Extension:WikiEditor
+ */
+#wikiEditor-ui-toolbar .option[rel="heading-5"] {
+	display: none;
+}
+
+/**
+ * Extension:NoTitle
+ */
+#siteSub {
+	display: none; /* Temporarily hide authors */
+	font-family: serif;
+}
+#siteSub a {
+	color: inherit;
+}
+
+/**
+ * Extension:Quiz
+ */
+.quiz {
+	border: 0.5em solid rgba(1, 127, 111, 0.5); 
+	border-color: rgba(1, 127, 111, 0.5); 
+	box-shadow: 0px 3px 6px -1px rgba(1, 127, 111, 0.5); 
+	-webkit-box-shadow:  0px 3px 6px -1px rgba(1, 127, 111, 0.5);
+	overflow: hidden;
+	padding-left: .8em;
+}
+.quiz .correction.unselected {
+	display: table-row;
+}
+
+/**
+ * Extension:DiscussionTools
+ */
+.dt-init-replylink-reply {
+	color: #00e;
+}
+.dt-ui-replyWidget-footer p:first-child {
+	margin: .6em 0;
+}
+.dt-ui-replyWidget-footer p:last-child {
+	display: none;
+}

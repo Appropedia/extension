@@ -19,7 +19,10 @@ window.Appropedia = {
 
 		// Track events we're interested in
 		Appropedia.trackEvents();
-	},
+
+		// Add reminder
+		Appropedia.addReminder();
+},
 
 	/**
 	 * In Special:Search, update the search query when a filter changes

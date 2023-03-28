@@ -10,6 +10,7 @@ This extension contains all PHP, JavaScript and CSS specific to Appropedia. We u
 * Simplifies development by allowing us to make use of code editors and LESS
 * Improves performance by allowing us to make use of [MediaWiki's Resource Loader](https://www.mediawiki.org/wiki/ResourceLoader)
 * Allows us to translate strings via https://translatewiki.net
+* Furthers our commitment to open source code as well as content
 
 Many features that were developed specifically for Appropedia have been turned into standalone extensions (such as [CategoryLockdown](https://www.mediawiki.org/wiki/Extension:CategoryLockdown), [PageAuthors](https://www.mediawiki.org/wiki/Extension:PageAuthors), [StandardWikitext](https://www.mediawiki.org/wiki/Extension:StandardWikitext) and [SearchParserFunction](https://www.mediawiki.org/wiki/Extension:SearchParserFunction)) but others are so specific that can't be turned into extensions, so we clump them all together in this extension.
 

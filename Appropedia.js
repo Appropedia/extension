@@ -76,9 +76,7 @@ window.Appropedia = {
 		if ( mainpage ) {
 			return;
 		}
-		mw.loader.getScript( '/MediaWiki:TemplateReminder.js?action=raw&ctype=text/javascript' ).then( function () {
-			TemplateReminder.add();
-		} );
+		mw.loader.load( '/MediaWiki:TemplateReminder.js?action=raw&ctype=text/javascript' );
 	},
 
 	checkForTranslation: function () {

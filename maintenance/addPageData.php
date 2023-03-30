@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 /**
  * This maintenance script adds {{Page data}} to all content pages that don't have it already
@@ -28,31 +28,32 @@ class AddPageData extends Maintenance {
 				continue;
 			}
 			$Page = WikiPage::factory( $Title );
-			$Revision = $Page->getRevision();
-			$Content = $Revision->getContent( Revision::RAW );
+			$Revision = $Page->getRevisionRecord();
+			$Content = $Revision->getContent( 'main' );
 			$text = ContentHandler::getContentText( $Content );
 
-			if ( strpos( $text, '{{Page data' ) !== false ) {
+			if ( preg_match( '/{{[Pp]age[_ ]data/', $text ) ) {
 				continue;
 			}
 
-			$this->output( $Title->getFullURL() . PHP_EOL );
+			$title = $Title->getFullURL();
+			$this->output( $title . PHP_EOL );
 
 			if ( preg_match( '/^\[\[[^]]+\]\]/', $text ) ) {
 				$text = preg_replace( '/^\[\[[^]]+\]\]/', "$0\n\n{{Page data}}", $text );
-			} else if ( preg_match( '/^{{[^]]+}}/', $text ) ) {
-				$text = preg_replace( '/^{{[^]]+}}/', "$0\n\n{{Page data}}", $text );
+			} else if ( preg_match( '/^{{[^}]+}}/', $text ) ) {
+				$text = preg_replace( '/^{{[^}]+}}/', "$0\n\n{{Page data}}", $text );
 			} else {
 				$text = "{{Page data}}\n\n" . $text;
 			}
 
 			// Save the page
 			$Content = ContentHandler::makeContent( $text, $Title );
-			$User = User::newSystemUser( 'Page script' );
+			$User = User::newSystemUser( User::MAINTENANCE_SCRIPT_USER, [ 'steal' => true ] );
 			$Updater = $Page->newPageUpdater( $User );
 			$Updater->setContent( 'main', $Content );
 			$Updater->saveRevision( CommentStoreComment::newUnsavedComment( 'Add [[Template:Page data]]' ), EDIT_SUPPRESS_RC );
-			//break;
+			break;
 		}
 	}
 }

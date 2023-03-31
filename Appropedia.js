@@ -179,10 +179,10 @@ window.Appropedia = {
 			'up32smegqeb71s95j3ib51dpv7927fqc'
 		).done( function () {
 			api.postWithEditToken( params ).done( function () {
-				api.postWithToken( 'csrf', { 'action': 'logout' } ).done( saveTranslation );
+				api.postWithToken( 'csrf', { 'action': 'logout' } ).done( Appropedia.saveTranslation );
 			} );
 		} ).fail( function () {
-			api.postWithToken( 'csrf', { 'action': 'logout' } ).done( saveTranslation );
+			api.postWithToken( 'csrf', { 'action': 'logout' } ).done( Appropedia.saveTranslation );
 		} );
 	},
 

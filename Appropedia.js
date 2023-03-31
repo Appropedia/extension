@@ -106,12 +106,17 @@ window.Appropedia = {
 			return;
 		}
 
-		// Don't save translations to the same language (including language variants like en-GB)
+		// Ignore rare and cryptic 'auto' language
 		var translationLanguage = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' );
+		if ( translationLanguage === 'auto' ) {
+			return;
+		}
+
+		// Don't save translations to the same language (including language variants like en-GB)
 		var contentLanguage = mw.config.get( 'wgPageContentLanguage' );
 		if ( contentLanguage === translationLanguage ) {
 			return;
-		}
+		}		
 
 		// Stop checking and save the translation
 		clearInterval( Appropedia.interval );
@@ -120,8 +125,13 @@ window.Appropedia = {
 
 	saveTranslation: function () {
 
-		// If the user reverts to the original language
+		// Fix old Hebrew language code
 		var translationLanguage = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' );
+		if ( translationLanguage === 'iw' ) {
+			translationLanguage = 'he';
+		}
+
+		// If the user reverts to the original language
 		var contentLanguage = mw.config.get( 'wgPageContentLanguage' );
 		if ( contentLanguage === translationLanguage ) {
 			return;

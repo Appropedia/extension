@@ -4,5 +4,17 @@
 			"Sophivorus"
 		]
 	},
-	"appropedia-desc": "Custom code for Appropedia.org"
+	"appropedia-desc": "Custom code for Appropedia.org",
+	"appropedia-policies": "Policies",
+	"appropedia-contact": "Contact",
+	"appropedia-anoneditwarning": "'''Warning!''' You are not logged in. '''[$1 Log in]''' or '''[$2 create an account]''' to have your edits attributed to your username rather than your IP, along with other benefits.",
+	"appropedia-copyrightwarning": "'''Warning!''' All contributions to {{SITENAME}} are released under the $2 license unless otherwise noted (see $1 for details). If you do not want your writing to be edited mercilessly and redistributed at will, then do not submit it here! You are also promising us that you wrote this yourself, or copied it from a public domain or similar free resource. '''Do not submit copyrighted material without permission!'''",
+	"appropedia-editnotice-2": "'''Warning!''' You're about to edit a page of another user! Are you trying to [$1 leave a message instead]?",
+	"appropedia-editnotice-8": "Are you familiar with [[$1|Appropedia's user interface guidelines]]?",
+	"appropedia-editnotice-10": "Are you familiar with [[$1|Appropedia's template guidelines]]?",
+	"appropedia-searchprofile-pages": "Pages",
+	"appropedia-searchprofile-files": "Files",
+	"appropedia-searchprofile-users": "Users",
+	"appropedia-searchprofile-talks": "Comments",
+	"appropedia-searchprofile-other": "Other"
 }

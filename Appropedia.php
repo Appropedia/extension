@@ -1,6 +1,6 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
+use RequestContext;
 
 class Appropedia {
 
@@ -10,6 +10,58 @@ class Appropedia {
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		$out->addModules( 'ext.Appropedia' );
 		$out->addModuleStyles( 'ext.Appropedia.styles' );
+	}
+
+	/**
+	 * Customize interface messages
+	 */
+	public static function onMessagesPreLoad( $title, &$message, $code ) {
+		if ( $code === 'qqx' ) {
+			return;
+		}
+
+		$parts = explode( '/', $title );
+		$key = $parts[0];
+		$key = strtolower( $key );
+		switch ( $key ) {
+
+			// Remove messages
+			case 'privacy': // See onSkinAddFooterLinks
+			case 'disclaimers': // See onSkinAddFooterLinks
+			case 'histlegend':
+			case 'hcaptcha-createaccount':
+			case 'hcaptcha-edit':
+				$message = '';
+				break;
+
+			// Override messages
+			case 'anoneditwarning':
+			case 'copyrightwarning':
+			case 'editnotice-8':
+			case 'editnotice-10':
+				$message = wfMessage( "appropedia-$key" )->text();
+				break;
+			case 'editnotice-2':
+				$context = RequestContext::getMain();
+				$title = $context->getTitle();
+				$user = $context->getUser()->getUserPage();
+				if ( !$title->equals( $user ) ) {
+					$link = $title->getTalkPage()->getFullURL( [ 'action' => 'edit', 'section' => 'new' ] );
+					$message = wfMessage( "appropedia-$key", $link )->text();
+				}
+				break;
+			case 'editnotice-8':
+				$page = 'Appropedia:UI'; // @todo Should probably be elsewhere
+				$message = wfMessage( "appropedia-$key", $talk )->text();
+				break;
+			case 'editnotice-10':
+				$page = 'Appropedia:Templates'; // @todo Should probably be elsewhere
+				$message = wfMessage( "appropedia-$key", $talk )->text();
+				break;
+			case 'categorytree-member-num':
+				$message = "($4)";
+				break;
+		}
 	}
 
 	/**
@@ -65,8 +117,8 @@ class Appropedia {
 	 */
 	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
 		if ( $key === 'places' ) {
-			$footerlinks['policies'] = $skin->footerLink( 'policies', 'policiespage' );
-			$footerlinks['contact'] = $skin->footerLink( 'contact', 'contactpage' );
+			$footerlinks['policies'] = $skin->footerLink( 'appropedia-policies', 'policiespage' );
+			$footerlinks['contact'] = $skin->footerLink( 'appropedia-contact', 'contactpage' );
 		};
 		return false; // Prevent other extensions (like MobileFrontend) from adding more links
 	}
@@ -125,25 +177,25 @@ class Appropedia {
 	public static function onSpecialSearchProfiles( &$profiles ) {
 		$profiles = [
 			'pages' => [
-				'message' => 'searchprofile-pages',
+				'message' => 'appropedia-searchprofile-pages',
 				'tooltip' => 'searchprofile-articles-tooltip',
 				'namespaces' => [ NS_MAIN ],
 				'namespace-messages' => [ 'content pages' ]
 			],
 			'files' => [
-				'message' => 'searchprofile-files',
+				'message' => 'appropedia-searchprofile-files',
 				'tooltip' => 'searchprofile-articles-tooltip',
 				'namespaces' => [ NS_FILE ],
 				'namespace-messages' => [ 'files' ]
 			],
 			'users' => [
-				'message' => 'searchprofile-users',
+				'message' => 'appropedia-searchprofile-users',
 				'tooltip' => 'searchprofile-articles-tooltip',
 				'namespaces' => [ NS_USER ],
 				'namespace-messages' => [ 'user pages' ]
 			],
-			'comments' => [
-				'message' => 'searchprofile-comments',
+			'talks' => [
+				'message' => 'appropedia-searchprofile-talks',
 				'tooltip' => 'searchprofile-articles-tooltip',
 				'namespaces' => [
 					NS_TALK,
@@ -160,7 +212,7 @@ class Appropedia {
 				'namespace-messages' => [ 'talk pages' ]
 			],
 			'other' => [
-				'message' => 'searchprofile-other',
+				'message' => 'appropedia-searchprofile-other',
 				'tooltip' => 'searchprofile-articles-tooltip',
 				'namespaces' => [
 					NS_PROJECT,
@@ -346,15 +398,50 @@ class Appropedia {
 		$form .= '</div>';
 	}
 
+
 	/**
-	 * Customize file pages
+	 * Fix pages
+	 */
+	function onParserPreSaveTransformComplete( Parser $parser, string &$text ) {
+		$page = $parser->getPage();
+		$namespace = $page->getNamespace();
+		switch ( $namespace ) {
+			case 0:
+				$text = Appropedia::fixContentPage( $text );
+				break;
+			case 2:
+				$text = Appropedia::fixUserPage( $text );
+				break;
+			case 6:
+				$text = Appropedia::fixFilePage( $text );
+				break;
+			case 14:
+				$text = Appropedia::fixCategoryPage( $text );
+				break;
+		}
+	}
+
+	function fixContentPage( $text ) {
+		return $text;
+	}
+
+	function fixUserPage( $text ) {
+		return $text;
+	}
+
+	function fixCategoryPage( $text ) {
+		return $text;
+	}
+
+	/**
+	 * Fix file page
 	 *
 	 * This ugly contraption is here because Extension:UploadWizard has hard-coded
-	 * the structure of the file pages it creates, so we can't modify it via config
+	 * the structure of the file pages it creates, so we can't modify them via config
 	 * Therefore, we check every single page save and if it has the structure of
 	 * a file page created by Upload Wizard, we transform it to our preferred structure
 	 */
-	function onParserPreSaveTransformComplete( Parser $parser, string &$text ) {
+	function fixFilePage( $text ) {
 		if ( preg_match( '/=={{int:filedesc}}==
 {{Information
 \|description={{en\|1=(.*)}}
@@ -387,7 +474,7 @@ class Appropedia {
 				$author = $matches[1];
 			}
 			if ( $license === 'subst:uwl' ) {
-				$license = 'Unknown';
+				$license = null; // Unknown license
 			} else if ( preg_match( '/self\|(.*)/', $license, $matches ) ) {
 				$license = strtoupper( $matches[1] );
 			} else {
@@ -403,15 +490,20 @@ class Appropedia {
 				$license = $licenseDetails;
 			}
 
-			// Build wikitext
-			$text = "$description
+			$params = [
+				'date' => $date,
+				'author' => $author,
+				'source' => $source,
+				'license' => $license,
+			];
+			$params = array_filter( $params );
 
-{{File data
-| date = $date
-| author = $author
-| source = $source
-| license = $license
-}}";
+			// Build wikitext
+			$text = "$description\n\n{{File data";
+			foreach ( $params as $param => $value ) {
+				$text .= "\n| $param = $value";
+			}
+			$text .= "\n}}";
 		}
 
 		// Also customize file pages created via Special:Upload
@@ -431,5 +523,6 @@ class Appropedia {
 | license = $license
 }}";
 		}
+		return $text;
 	}
 }

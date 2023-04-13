@@ -320,21 +320,6 @@ class Appropedia {
 				$form .= '<option' . ( in_array( $value, $terms ) ? ' selected' : '' ) . ' value="' . $value . '">' . $text . '</option>';
 			}
 			$form .= '</select>';
-
-			// Location
-			$form .= '<select style="width: 77px;">';
-			$form .= '<option value="">Any location</option>';
-			$options = [ 'Argentina', 'Australia', 'Bangladesh', 'Belgium', 'Bolivia', 'Cambodia', 'Canada', 'China', 'Colombia', 'Costa Rica',
-				'Denmark', 'Ecuador', 'El Salvador', 'Ethiopia', 'England', 'France', 'Germany', 'Guatemala', 'Haiti', 'India', 'Indonesia', 'Italy',
-				'Japan', 'Jordan', 'Kenya', 'Korea', 'Mexico', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Nigeria', 'Panama', 'Philippines',
-				'Portugal', 'Scotland', 'Senegal', 'South Africa', 'Sweden', 'Switzerland', 'Taiwan', 'Tanzania', 'Thailand', 'Turkey',
-				'United Kingdom', 'United States', 'Wales'
-			];
-			foreach ( $options as $text ) {
-				$value = 'incategory:' . str_replace( ' ', '_', $text );
-				$form .= '<option' . ( in_array( $value, $terms ) ? ' selected' : '' ) . ' value="' . $value . '">' . $text . '</option>';
-			}
-			$form .= '</select>';
 		}
 
 		// File pages

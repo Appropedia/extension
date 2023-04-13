@@ -35,31 +35,47 @@ class Appropedia {
 				break;
 
 			// Override messages
-			case 'anoneditwarning':
 			case 'copyrightwarning':
-			case 'editnotice-8':
-			case 'editnotice-10':
-				$message = wfMessage( "appropedia-$key" )->text();
+				$message = wfMessage( "appropedia-page-edit-warning" )->text();
 				break;
+
+			case 'anoneditwarning':
+				$message = wfMessage( "appropedia-anon-edit-warning" )->text();
+				break;
+
 			case 'editnotice-2':
 				$context = RequestContext::getMain();
 				$title = $context->getTitle();
 				$user = $context->getUser()->getUserPage();
-				if ( !$title->equals( $user ) ) {
-					$link = $title->getTalkPage()->getFullURL( [ 'action' => 'edit', 'section' => 'new' ] );
-					$message = wfMessage( "appropedia-$key", $link )->text();
+				if ( $title->equals( $user ) ) {
+					break;
 				}
+				$link = $title->getTalkPage()->getFullURL( [ 'action' => 'edit', 'section' => 'new' ] );
+				$message = wfMessage( 'appropedia-user-edit-warning', $link )->text();
 				break;
+
 			case 'editnotice-8':
 				$page = 'Appropedia:UI'; // @todo Should probably be elsewhere
-				$message = wfMessage( "appropedia-$key", $talk )->text();
+				$message = wfMessage( 'appropedia-interface-edit-warning', $talk )->text();
 				break;
+
 			case 'editnotice-10':
 				$page = 'Appropedia:Templates'; // @todo Should probably be elsewhere
-				$message = wfMessage( "appropedia-$key", $talk )->text();
 				break;
+
 			case 'categorytree-member-num':
 				$message = "($4)";
+				break;
+
+			case 'noarticletext':
+				$context = RequestContext::getMain();
+				$title = $context->getTitle();
+				$namespace = $title->getNamespace();
+				$action = in_array( $namespace, [ 0, 2, 4, 12 ] ) ? 'veaction' : 'action';
+				$preload = $namespace === 2 ? 'Preload:User' : null;
+				$link = $title->getFullURL( [ $action => 'edit', 'preload' => $preload ] );
+				$text = wfMessage( 'appropedia-create-page' )->text();
+				$message = '[' . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 		}
 	}
@@ -249,7 +265,9 @@ class Appropedia {
 			$options = [
 				'Projects',
 				'Devices',
-				'Organizations'
+				'Organizations',
+				'Papers',
+				'Books'
 			];
 			foreach ( $options as $text ) {
 				$value = 'incategory:' . str_replace( ' ', '_', $text );

@@ -267,7 +267,8 @@ class Appropedia {
 				'Devices',
 				'Organizations',
 				'Papers',
-				'Books'
+				'Books',
+				'Literature reviews'
 			];
 			foreach ( $options as $text ) {
 				$value = 'incategory:' . str_replace( ' ', '_', $text );

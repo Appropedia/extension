@@ -22,7 +22,7 @@ window.Appropedia = {
 
 		// Add reminder
 		Appropedia.addReminder();
-},
+	},
 
 	/**
 	 * In Special:Search, update the search query when a filter changes
@@ -287,17 +287,17 @@ window.Appropedia = {
 		} );
 
 		// Track clicks on "Type" filter
-		$( '.mw-search-profile-form select:nth-child(1)' ).click( function () {
+		$( '#search-filter-page-type' ).click( function () {
 			gtag( 'event', 'search_filter_type' );
 		} );
 
 		// Track clicks on "SDG" filter
-		$( '.mw-search-profile-form select:nth-child(2)' ).click( function () {
+		$( '#search-filter-page-sdg' ).click( function () {
 			gtag( 'event', 'search_filter_sdg' );
 		} );
 
 		// Track clicks on "Language" filter
-		$( '.mw-search-profile-form select:nth-child(3)' ).click( function () {
+		$( '#search-filter-page-language' ).click( function () {
 			gtag( 'event', 'search_filter_language' );
 		} );
 

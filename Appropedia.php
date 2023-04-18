@@ -25,10 +25,13 @@ class Appropedia {
 		$key = strtolower( $key );
 		switch ( $key ) {
 
-			// Remove messages
+			// Unwanted elements are generally hidden via CSS
+			// but the following messages require special treatment
+			// due to various technical reasons
 			case 'privacy': // See onSkinAddFooterLinks
 			case 'disclaimers': // See onSkinAddFooterLinks
-			case 'histlegend':
+			case 'histlegend': // @todo Hide via CSS
+			case 'newarticletext':
 			case 'hcaptcha-createaccount':
 			case 'hcaptcha-edit':
 				$message = '';
@@ -260,7 +263,7 @@ class Appropedia {
 		if ( $profile === 'pages' ) {
 
 			// Page type
-			$form .= '<select style="width: 55px;">';
+			$form .= '<select id="search-filter-page-type" style="width: 55px;">';
 			$form .= '<option value="">Any type</option>';
 			$options = [
 				'Projects',
@@ -277,7 +280,7 @@ class Appropedia {
 			$form .= '</select>';
 
 			// Sustainable Development Goal
-			$form .= '<select style="width: 58px;">';
+			$form .= '<select id="search-filter-page-sdg" style="width: 58px;">';
 			$form .= '<option value="">Any SDG</option>';
 			$options = [
 				'SDG01 No poverty',
@@ -305,7 +308,7 @@ class Appropedia {
 			$form .= '</select>';
 
 			// Language
-			$form .= '<select style="width: 87px;">';
+			$form .= '<select id="search-filter-page-language" style="width: 87px;">';
 			$form .= '<option value="">Any language</option>';
 			$options = [
 				'English' => 'en',
@@ -327,7 +330,7 @@ class Appropedia {
 
 			// File type
 			$filetype = strtolower( $filetype );
-			$form .= '<select style="width: 55px;">';
+			$form .= '<select id="search-filter-file-type" style="width: 55px;">';
 			$form .= '<option value="">Any type</option>';
 			$options = [
 				'Images' => 'bitmap',
@@ -345,7 +348,7 @@ class Appropedia {
 
 			// File MIME
 			$filemime = $request->getText( 'filemime' );
-			$form .= '<select style="width: 69px;">';
+			$form .= '<select id="search-filter-file-mime" style="width: 69px;">';
 			$form .= '<option value="">Any format</option>';
 			$options = [
 				'JPG' => 'image/jpeg',
@@ -361,7 +364,7 @@ class Appropedia {
 			$form .= '</select>';
 
 			// File license
-			$form .= '<select style="width: 72px;">';
+			$form .= '<select id="search-filter-file-license" style="width: 72px;">';
 			$form .= '<option value="">Any license</option>';
 			$options = [
 				'CC-BY-SA-4.0' => 'CC-BY-SA-4.0 files',
@@ -384,7 +387,7 @@ class Appropedia {
 
 			// User location
 			$location = $request->getText( 'location' );
-			$form .= '<select style="width: 77px;">';
+			$form .= '<select id="search-filter-user-location" style="width: 77px;">';
 			$form .= '<option value="">Any location</option>';
 			$options = [ 'Argentina', 'Australia', 'Bangladesh', 'Belgium', 'Bolivia', 'Cambodia', 'Canada', 'China', 'Colombia', 'Costa Rica',
 				'Denmark', 'Ecuador', 'El Salvador', 'Ethiopia', 'England', 'France', 'Germany', 'Guatemala', 'Haiti', 'India', 'Indonesia', 'Italy',

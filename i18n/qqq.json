@@ -4,5 +4,19 @@
 			"Sophivorus"
 		]
 	},
-	"appropedia-desc": "{{desc|name=Appropedia|url=https://github.com/Appropedia/extension}}"
+	"appropedia-desc": "{{desc|name=Appropedia|url=https://github.com/Appropedia/extension}}",
+	"appropedia-policies": "Text of the Policies link in the footer",
+	"appropedia-contact": "Text of the Contact link in the footer",
+	"appropedia-admin-panel": "Text of the Admin panel link in the sidebar",
+	"appropedia-page-edit-warning": "Warning message when editing a page",
+	"appropedia-anon-edit-warning": "Warning message when editing a page anonymously",
+	"appropedia-user-edit-warning": "Warning message when editing a user page other than your own",
+	"appropedia-interface-edit-warning": "Warning message when editing a page in the MediaWiki namespace",
+	"appropedia-template-edit-warning": "Warning message when editing a template",
+	"appropedia-create-page": "Text of the button to create this page when following a red link",
+	"appropedia-searchprofile-pages": "Text of the search tab for content pages",
+	"appropedia-searchprofile-files": "Text of the search tab for file pages",
+	"appropedia-searchprofile-users": "Text of the search tab for user pages",
+	"appropedia-searchprofile-talks": "Text of the search tab for talk pages",
+	"appropedia-searchprofile-other": "Text of the search tab for other pages"
 }

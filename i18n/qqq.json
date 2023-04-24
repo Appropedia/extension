@@ -14,6 +14,7 @@
 	"appropedia-interface-edit-warning": "Warning message when editing a page in the MediaWiki namespace",
 	"appropedia-template-edit-warning": "Warning message when editing a template",
 	"appropedia-create-page": "Text of the button to create this page when following a red link",
+	"appropedia-not-own-work": "Message when uploading a file through the simplified upload form of the visual editor",
 	"appropedia-searchprofile-pages": "Text of the search tab for content pages",
 	"appropedia-searchprofile-files": "Text of the search tab for file pages",
 	"appropedia-searchprofile-users": "Text of the search tab for user pages",

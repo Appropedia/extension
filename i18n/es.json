@@ -14,6 +14,7 @@
 	"appropedia-interface-edit-warning": "¿Conoces la [[$1|documentación de UX y UI de Appropedia]]?",
 	"appropedia-template-edit-warning": "¿Conoces la [[$1|documentación de plantillas de Appropedia]]?",
 	"appropedia-create-page": "Crear esta página",
+	"appropedia-not-own-work": "Si este archivo no es de tu autoría, por favor utiliza [[$1|este otro formulario]].",
 	"appropedia-searchprofile-pages": "Páginas",
 	"appropedia-searchprofile-files": "Archivos",
 	"appropedia-searchprofile-users": "Usuarios",

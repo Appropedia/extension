@@ -27,13 +27,15 @@ class Appropedia {
 
 			// Unwanted elements are generally hidden via CSS
 			// but the following messages require special treatment
-			// due to various technical reasons
+			// because they don't have an id or easy way to select them via CSS
+			// or some other technical reason
 			case 'privacy': // See onSkinAddFooterLinks
 			case 'disclaimers': // See onSkinAddFooterLinks
 			case 'histlegend': // @todo Hide via CSS
 			case 'newarticletext':
 			case 'hcaptcha-createaccount':
 			case 'hcaptcha-edit':
+			case 'upload-form-label-not-own-work-local-generic-local': // Upload dialog of Extension:VisualEditor
 				$message = '';
 				break;
 
@@ -70,6 +72,10 @@ class Appropedia {
 				$page = 'Appropedia:Templates'; // @todo Should probably be defined elsewhere
 				$message = wfMessage( 'appropedia-template-edit-warning', $page )->text();
 				break;
+
+			case 'upload-form-label-not-own-work-message-generic-local':
+				$page = 'Special:UploadWizard';
+				$message = wfMessage( 'appropedia-not-own-work', $page )->text();
 
 			case 'categorytree-member-num':
 				$message = "($4)";

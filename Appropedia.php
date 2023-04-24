@@ -25,16 +25,16 @@ class Appropedia {
 		$key = strtolower( $key );
 		switch ( $key ) {
 
-			// Unwanted elements are generally hidden via CSS
-			// but the following messages require special treatment
-			// because they don't have an id or easy way to select them via CSS
+			// Unwanted stuff is generally hidden via CSS
+			// but the following messages are hidden by making them empty
+			// because they don't have an easy way to select them via CSS
 			// or some other technical reason
-			case 'privacy': // See onSkinAddFooterLinks
-			case 'disclaimers': // See onSkinAddFooterLinks
+			case 'privacy': // Part of the footer, see onSkinAddFooterLinks below
+			case 'disclaimers': // Part of the footer, see onSkinAddFooterLinks below
 			case 'histlegend': // @todo Hide via CSS
 			case 'newarticletext':
-			case 'hcaptcha-createaccount':
-			case 'hcaptcha-edit':
+			case 'hcaptcha-createaccount': // Extension:ConfirmEdit
+			case 'hcaptcha-edit': // Extension:ConfirmEdit
 			case 'upload-form-label-not-own-work-local-generic-local': // Upload dialog of Extension:VisualEditor
 				$message = '';
 				break;
@@ -76,6 +76,11 @@ class Appropedia {
 			case 'upload-form-label-not-own-work-message-generic-local':
 				$page = 'Special:UploadWizard';
 				$message = wfMessage( 'appropedia-not-own-work', $page )->text();
+				break;
+
+			case 'poncho-print':
+				$message = wfMessage( 'appropedia-download-pdf' )->text();
+				break;
 
 			case 'categorytree-member-num':
 				$message = "($4)";

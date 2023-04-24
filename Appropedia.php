@@ -33,6 +33,7 @@ class Appropedia {
 			case 'disclaimers': // Part of the footer, see onSkinAddFooterLinks below
 			case 'histlegend': // @todo Hide via CSS
 			case 'newarticletext':
+			case 'prefs-help-realname':
 			case 'hcaptcha-createaccount': // Extension:ConfirmEdit
 			case 'hcaptcha-edit': // Extension:ConfirmEdit
 			case 'upload-form-label-not-own-work-local-generic-local': // Upload dialog of Extension:VisualEditor

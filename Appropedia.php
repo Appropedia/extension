@@ -49,8 +49,12 @@ class Appropedia {
 			case 'editnotice-2':
 				$context = RequestContext::getMain();
 				$title = $context->getTitle();
+				if ( $title->isSubpage() ) {
+					break;
+				}
+				$root = $title->getRootTitle();
 				$user = $context->getUser()->getUserPage();
-				if ( $title->equals( $user ) ) {
+				if ( $root->equals( $user ) ) {
 					break;
 				}
 				$link = $title->getTalkPage()->getFullURL( [ 'action' => 'edit', 'section' => 'new' ] );

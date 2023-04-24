@@ -73,20 +73,6 @@ class Appropedia {
 				$message = wfMessage( 'appropedia-template-edit-warning', $page )->text();
 				break;
 
-			case 'mwe-upwiz-add-file-0-free':
-				$message = wfMessage( 'appropedia-select-files' )->text();
-				break;
-
-			case 'upload-form-label-not-own-work-message-generic-local':
-				$page = 'Special:UploadWizard';
-				$message = wfMessage( 'appropedia-not-own-work', $page )->text();
-				break;
-
-			// @todo For some reason this one doesn't work
-			case 'poncho-print':
-				$message = wfMessage( 'appropedia-download-pdf' )->text();
-				break;
-
 			case 'categorytree-member-num':
 				$message = "($4)";
 				break;
@@ -100,6 +86,21 @@ class Appropedia {
 				$link = $title->getFullURL( [ $action => 'edit', 'preload' => $preload ] );
 				$text = wfMessage( 'appropedia-create-page' )->text();
 				$message = '[' . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
+				break;
+
+			// Override extension and skin messages
+			// These require setting the language explictly
+			case 'mwe-upwiz-add-file-0-free':
+				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
+				break;
+
+			case 'upload-form-label-not-own-work-message-generic-local':
+				$page = 'Special:UploadWizard';
+				$message = wfMessage( 'appropedia-not-own-work', $page )->inLanguage( $code )->text();
+				break;
+
+			case 'poncho-print':
+				$message = wfMessage( 'appropedia-download-pdf' )->inLanguage( $code )->text();
 				break;
 		}
 	}

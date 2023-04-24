@@ -73,11 +73,16 @@ class Appropedia {
 				$message = wfMessage( 'appropedia-template-edit-warning', $page )->text();
 				break;
 
+			case 'mwe-upwiz-add-file-0-free':
+				$message = wfMessage( 'appropedia-select-files' )->text();
+				break;
+
 			case 'upload-form-label-not-own-work-message-generic-local':
 				$page = 'Special:UploadWizard';
 				$message = wfMessage( 'appropedia-not-own-work', $page )->text();
 				break;
 
+			// @todo For some reason this one doesn't work
 			case 'poncho-print':
 				$message = wfMessage( 'appropedia-download-pdf' )->text();
 				break;

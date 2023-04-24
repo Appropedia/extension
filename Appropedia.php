@@ -62,12 +62,13 @@ class Appropedia {
 				break;
 
 			case 'editnotice-8':
-				$page = 'Appropedia:UI'; // @todo Should probably be elsewhere
-				$message = wfMessage( 'appropedia-interface-edit-warning', $talk )->text();
+				$page = 'Appropedia:UI'; // @todo Should probably be defined elsewhere
+				$message = wfMessage( 'appropedia-interface-edit-warning', $page )->text();
 				break;
 
 			case 'editnotice-10':
-				$page = 'Appropedia:Templates'; // @todo Should probably be elsewhere
+				$page = 'Appropedia:Templates'; // @todo Should probably be defined elsewhere
+				$message = wfMessage( 'appropedia-template-edit-warning', $page )->text();
 				break;
 
 			case 'categorytree-member-num':

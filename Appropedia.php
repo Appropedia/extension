@@ -1,7 +1,5 @@
 <?php
 
-use RequestContext;
-
 class Appropedia {
 
 	/**
@@ -27,7 +25,7 @@ class Appropedia {
 
 			// Unwanted stuff is generally hidden via CSS
 			// but the following messages are hidden by making them empty
-			// because they don't have an easy way to select them via CSS
+			// because there's no easy way to target them via CSS
 			// or some other technical reason
 			case 'privacy': // Part of the footer, see onSkinAddFooterLinks below
 			case 'disclaimers': // Part of the footer, see onSkinAddFooterLinks below

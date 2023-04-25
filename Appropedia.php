@@ -105,18 +105,6 @@ class Appropedia {
 			 * These require setting the language explictly
 			 */
 
-			// Add "yes" as a valid true word for all languages
-			case 'smw true words':
-				$message = wfMessage( 'smw true words' )->inLanguage( $code )->text();
-				$message .= ',yes';
-				break;
-
-			// Add "no" as a valid false word for all languages
-			case 'smw false words':
-				$message = wfMessage( 'smw true words' )->inLanguage( $code )->text();
-				$message .= ',no';
-				break;
-
 			case 'mwe-upwiz-add-file-0-free':
 				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
 				break;

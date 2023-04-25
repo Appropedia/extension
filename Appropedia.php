@@ -100,6 +100,13 @@ class Appropedia {
 				$message .= "\n\n[" . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 
+			case 'searchmenu-exists':
+				$message = '<span class="mw-search-exists-title">{{TARGET|$1}}</span>
+				<span class="mw-search-exists-image">{{#if:{{#show:$1|?Image#}}|[[{{#show:$1|?Image#}}|300px|link=]]}}</span>
+				<span class="mw-search-exists-text">{{#invoke:Transcluder|main|$1#|only=paragraphs|paragraphs=1|templates=0|references=0|noLinks=true}}</span>
+				<span class="mw-search-exists-more">[[{{TARGET|$1}}|Read more »]]</span>';
+				break;
+
 			/**
 			 * Override extension and skin messages
 			 * These require setting the language explictly

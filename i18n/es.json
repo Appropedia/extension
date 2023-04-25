@@ -13,6 +13,8 @@
 	"appropedia-user-edit-warning": "'''¡Atención!''' ¡Estás por editar una página de otro usuario! ¿Acaso no intentas [$1 dejar un mensaje solamente]?",
 	"appropedia-interface-edit-warning": "¿Conoces la [[$1|documentación de UX y UI de Appropedia]]?",
 	"appropedia-template-edit-warning": "¿Conoces la [[$1|documentación de plantillas de Appropedia]]?",
+	"appropedia-account-created": "¡Se ha creado tu cuenta!",
+	"appropedia-create-user-page": "Crea tu página de usuario",
 	"appropedia-create-page": "Crear esta página",
 	"appropedia-select-files": "Selecciona archivos para subir",
 	"appropedia-not-own-work": "Si el archivo no es de tu autoría, por favor utiliza [[$1|este otro formulario]].",

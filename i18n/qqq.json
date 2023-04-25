@@ -13,6 +13,8 @@
 	"appropedia-user-edit-warning": "Warning message when editing a user page other than your own",
 	"appropedia-interface-edit-warning": "Warning message when editing a page in the MediaWiki namespace",
 	"appropedia-template-edit-warning": "Warning message when editing a template",
+	"appropedia-account-created": "Message when a user creates an account",
+	"appropedia-create-user-page": "Text of the button to create your user page",
 	"appropedia-create-page": "Text of the button to create this page when following a red link",
 	"appropedia-select-files": "Text of the button to select files to upload",
 	"appropedia-not-own-work": "Message when uploading a file through the simplified upload form of the visual editor",

@@ -89,6 +89,14 @@ class Appropedia {
 				$message = '[' . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 
+			case 'welcomecreation-msg':
+				$message = wfMessage( 'appropedia-account-created' )->text();
+				$context = RequestContext::getMain();
+				$link = $context->getUser()->getUserPage()->getFullURL( [ 'veaction' => 'edit', 'preload' => 'Preload:User' ] );
+				$text = wfMessage( 'appropedia-create-user-page' )->text();
+				$message .= "\n\n[" . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
+				break;
+
 			// Override extension and skin messages
 			// These require setting the language explictly
 			case 'mwe-upwiz-add-file-0-free':

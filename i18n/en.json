@@ -13,6 +13,8 @@
 	"appropedia-user-edit-warning": "'''Warning!''' You're about to edit a page of another user! Are you trying to [$1 leave a message instead]?",
 	"appropedia-interface-edit-warning": "Are you familiar with [[$1|Appropedia's user interface guidelines]]?",
 	"appropedia-template-edit-warning": "Are you familiar with [[$1|Appropedia's template guidelines]]?",
+	"appropedia-account-created": "Your account has been created!",
+	"appropedia-create-user-page": "Create your user page",
 	"appropedia-create-page": "Create this page",
 	"appropedia-select-files": "Select files to upload",
 	"appropedia-not-own-work": "If the file is not your own work, please use [[$1|this upload form]] instead.",

@@ -311,12 +311,12 @@ window.Appropedia = {
 		} );
 
 		// Track clicks on "Visual editor" button
-		$( '#ca-ve-edit, .mw-editsection a:nth-child(1)' ).click( function () {
+		$( '#poncho-visual-edit-button' ).click( function () {
 			gtag( 'event', 'page_actions_edit_visual' );
 		} );
 
 		// Track clicks on "Source editor" button
-		$( '#ca-edit, .mw-editsection a:nth-child(2)' ).click( function () {
+		$( '#poncho-edit-button' ).click( function () {
 			gtag( 'event', 'page_actions_edit_source' );
 		} );
 
@@ -326,7 +326,7 @@ window.Appropedia = {
 		} );
 
 		// Track clicks on "Print" button
-		$( '#t-print' ).click( function () {
+		$( '#poncho-print-button' ).click( function () {
 			gtag( 'event', 'page_actions_print' );
 		} );
 
@@ -341,7 +341,7 @@ window.Appropedia = {
 		} );
 
 		// Track clicks on "Talk" button
-		$( '#ca-talk' ).click( function () {
+		$( '#poncho-talk-button' ).click( function () {
 			gtag( 'event', 'page_actions_talk' );
 		} );
 

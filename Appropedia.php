@@ -40,7 +40,10 @@ class Appropedia {
 				$message = '';
 				break;
 
-			// Override messages
+			/**
+			 * Override messages
+			 */
+
 			case 'copyrightwarning':
 				$message = wfMessage( "appropedia-page-edit-warning" )->text();
 				break;
@@ -97,8 +100,23 @@ class Appropedia {
 				$message .= "\n\n[" . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 
-			// Override extension and skin messages
-			// These require setting the language explictly
+			/**
+			 * Override extension and skin messages
+			 * These require setting the language explictly
+			 */
+
+			// Add "yes" as a valid true word for all languages
+			case 'smw true words':
+				$message = wfMessage( 'smw true words' )->inLanguage( $code )->text();
+				$message .= ',yes';
+				break;
+
+			// Add "no" as a valid false word for all languages
+			case 'smw false words':
+				$message = wfMessage( 'smw true words' )->inLanguage( $code )->text();
+				$message .= ',no';
+				break;
+
 			case 'mwe-upwiz-add-file-0-free':
 				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
 				break;

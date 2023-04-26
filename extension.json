@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "2.2",
+	"version": "2.4",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -16,7 +16,9 @@
 		]
 	},
 	"AutoloadClasses": {
-		"Appropedia": "Appropedia.php"
+		"Appropedia": "Appropedia.php",
+		"AppropediaMessages": "AppropediaMessages.php",
+		"AppropediaSearch": "AppropediaSearch.php"
 	},
 	"ResourceModules": {
 		"ext.Appropedia": {
@@ -40,16 +42,16 @@
 	},
 	"Hooks": {
 	    "BeforeInitialize": "Appropedia::onBeforeInitialize",
-		"MessagesPreLoad": "Appropedia::onMessagesPreLoad",
 	    "BeforePageDisplay": "Appropedia::onBeforePageDisplay",
 	    "SkinAfterBottomScripts": "Appropedia::onSkinAfterBottomScripts",
 	    "ParserPreSaveTransformComplete": "Appropedia::onParserPreSaveTransformComplete",
 	    "SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
 	    "LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
-	    "SpecialSearchProfiles": "Appropedia::onSpecialSearchProfiles",
-	    "SpecialPageBeforeExecute": "Appropedia::onSpecialPageBeforeExecute",
-	    "SpecialSearchProfileForm": "Appropedia::onSpecialSearchProfileForm",
-		"ShowSearchHit": "Appropedia::onShowSearchHit",
-		"ShowSearchHitTitle": "Appropedia::onShowSearchHitTitle"
+		"MessagesPreLoad": "AppropediaMessages::onMessagesPreLoad",
+	    "SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
+	    "SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
+	    "SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
+		"ShowSearchHit": "AppropediaSearch::onShowSearchHit",
+		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle"
 	}
 }

@@ -267,6 +267,9 @@ window.Appropedia = {
 		} );
 	},
 
+	/**
+	 * Track events we're interested in
+	 */
 	trackEvents: function () {
 		if ( typeof gtag === 'undefined' ) {
 			return;
@@ -276,6 +279,17 @@ window.Appropedia = {
 		$( '.template-create .mw-ui-button' ).click( function () {
 			gtag( 'event', 'create_page' );
 		} );
+
+		// Track long reads
+		var track = true;
+		var scroll = 0;
+		window.onscroll = function ( event ) {
+			scroll++;
+			if ( scroll > 100 && track ) {
+				track = false;
+				gtag( 'event', 'long_read' );
+			}
+		};
 
 		////////////////////
 		// Search filters //
@@ -578,11 +592,6 @@ window.Appropedia = {
 			gtag( 'event', 'main_page_adobe_construction' );
 		} );
 
-		// Track clicks on "Cobb construction" button
-		$( '.main-page-gallery li:nth-child(22) a' ).click( function () {
-			gtag( 'event', 'main_page_cobb_construction' );
-		} );
-
 		// Track clicks on "Bamboo construction" button
 		$( '.main-page-gallery li:nth-child(23) a' ).click( function () {
 			gtag( 'event', 'main_page_bamboo_construction' );
@@ -595,7 +604,7 @@ window.Appropedia = {
 
 		// Track clicks on "Ecoladrillo" button
 		$( '.main-page-gallery li:nth-child(25) a' ).click( function () {
-			gtag( 'event', 'main_page_straw_ecoladrillo' );
+			gtag( 'event', 'main_page_ecoladrillo' );
 		} );
 	}
 };

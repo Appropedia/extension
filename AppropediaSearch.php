@@ -121,6 +121,7 @@ class AppropediaSearch {
 				'Projects',
 				'Devices',
 				'Organizations',
+				'Skills',
 				'Papers',
 				'Books',
 				'Literature reviews'

@@ -216,10 +216,10 @@ window.Appropedia = {
 		// Append the wikitext to the talk page
 		var api = new mw.Api();
 		return api.get( {
-			action: 'parse',
-			page: talk,
-			prop: 'text',
-			formatversion: 2
+			'action': 'parse',
+			'page': talk,
+			'prop': 'text',
+			'formatversion': 2
 		} ).always( function ( data ) {
 
 			// Figure out if the section already exists and its number
@@ -258,8 +258,8 @@ window.Appropedia = {
 
 				// If the user is not logged in, we post with a bot account
 				return api.login(
-					'Bot@Widgets',
-					'bejns8tt24m14r909kcfe4k4aahfn9vp'
+					'Bot@Quizzes',
+					'ogs8314dohsujap2pf249pgpv0av5q8a'
 				).then( function () {
 					return api.postWithEditToken( params );
 				} );
@@ -283,7 +283,7 @@ window.Appropedia = {
 		// Track long reads
 		var track = true;
 		var scroll = 0;
-		window.onscroll = function ( event ) {
+		window.onscroll = function () {
 			scroll++;
 			if ( scroll > 100 && track ) {
 				track = false;

@@ -2,11 +2,13 @@ window.Appropedia = {
 
 	init: function () {
 
-		// Enable popups on the user, project and help namespaces
-		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
+		// Add paragraph edit buttons
+		$( '#mw-content-text p' ).each( Appropedia.addEditButton );
+		$( '#mw-content-text p' ).on( 'mouseenter', Appropedia.showEditButton );
+		$( '#mw-content-text p' ).on( 'mouseleave', Appropedia.hideEditButton );
 
 		// Update the search query when a search filter changes
-		$( '.mw-search-profile-form select' ).change( Appropedia.updateSearchQuery );
+		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
 
 		// Fix the width of the search filters
 		$( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
@@ -22,6 +24,118 @@ window.Appropedia = {
 
 		// Add reminder
 		Appropedia.addReminder();
+
+		// Enable popups on the user, project and help namespaces
+		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
+	},
+
+	/**
+	 * Add experimental paragraph edit button
+	 */
+	addEditButton: function () {
+		var paragraph = $( this );
+		var span = $( '<span class="paragraph-edit-button"></span>' );
+		var page = mw.config.get( 'wgPageName' );
+		var href = mw.util.getUrl( page, { 'veaction': 'edit' } );
+		var link = $( '<a href="' + href + '">edit</a>' );
+		link.on( 'click', Appropedia.addEditForm );
+		span.append( link );
+		paragraph.append( span );
+	},
+
+	/**
+	 * Add experimental paragraph edit form
+	 */
+	addEditForm: function () {
+		event.preventDefault();
+		var paragraph = $( this ).closest( 'p' );
+		var page = mw.config.get( 'wgPageName' );
+		var params = {
+			'page': page,
+			'action': 'parse',
+			'prop': 'wikitext',
+			'formatversion': 2
+		};
+		new mw.Api().get( params ).done( function ( data ) {
+			var wikitext = data.parse.wikitext;
+			var firstTextNode = paragraph.contents().filter( function () {
+				return this.nodeType === Node.TEXT_NODE && this.nodeValue.trim();
+			} ).first().text().trim();
+			var escaped = firstTextNode.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' ); // Escape all special characters
+			var regexp = new RegExp( escaped + '.*' );
+			var matches = regexp.exec( wikitext );
+			var text = matches[0];
+
+			// Make the form
+			var form = $( '<div class="paragraph-edit-form"></div>' );
+			var input = $( '<div class="paragraph-edit-form-input" contenteditable="true"></div>' ).text( text );
+			var footer = $( '<div class="paragraph-edit-form-footer"></div>' );
+			var submit = $( '<button class="paragraph-edit-form-submit mw-ui-button mw-ui-progressive">Save</button>' );
+			var cancel = $( '<button class="paragraph-edit-form-cancel mw-ui-button">Cancel</button>' );
+			footer.append( submit, cancel );
+			form.append( input, footer );
+			paragraph.replaceWith( form );
+			input.focus();
+
+			// Handle the submit
+			submit.on( 'click', { 'wikitext': wikitext }, function ( event ) {
+				var submit = $( this );
+				var footer = submit.closest( '.paragraph-edit-form-footer' );
+				var form = submit.closest( '.paragraph-edit-form' );
+				footer.text( 'Saving...' );
+				var input = form.find( '.paragraph-edit-form-input' )[0].innerText;
+				if ( input === text ) {
+					form.replaceWith( paragraph );
+					return;
+				}
+				var summary = 'Edit paragraph: ' + input;
+				if ( !input ) {
+					summary = 'Delete paragraph: ' + text;
+				}
+				var wikitext = event.data.wikitext.replace( regexp, input );
+				var params = {
+					'action': 'edit',
+					'title': page,
+					'text': wikitext,
+					'summary': summary,
+					'bot': true,
+				};
+				var api = new mw.Api();
+				if ( mw.config.get( 'wgUserName' ) ) {
+					return api.postWithEditToken( params ).done( function () {
+						window.location.reload( true );
+					} );
+				} else {
+					return api.login(
+						'Bot@Paragraphs',
+						'rth8br2dl90g0curufg0s5r02d63t83j'
+					).then( function () {
+						return api.postWithEditToken( params ).done( function () {
+							window.location.reload( true );
+						} );
+					} );
+				}
+			} );
+
+			// Handle the cancel
+			cancel.on( 'click', function () {
+				form.replaceWith( paragraph );
+			} );
+		} );
+	},
+
+	/**
+	 * Show experimental paragraph edit button
+	 */
+	showEditButton: function () {
+		$( this ).find( '.paragraph-edit-button' ).show();
+	},
+
+	/**
+	 * Hide experimental paragraph edit button
+	 */
+	hideEditButton: function () {
+		$( this ).find( '.paragraph-edit-button' ).hide();
 	},
 
 	/**
@@ -172,7 +286,7 @@ window.Appropedia = {
 		// The following login-logout routine is a carefully choreographed dance
 		// because of things like that logging in twice without logging out first
 		// causes an error, while logging out twice causes the real user to log out
-		// and failing to log in as Bot causes edits on behalf of the real user, etc
+		// and failing to log in as Bot causes edits on behalf of the real user
 		var api = new mw.Api();
 		api.login(
 			'Bot@Translations',
@@ -276,7 +390,7 @@ window.Appropedia = {
 		}
 
 		// Track clicks on "Create page" button
-		$( '.template-create .mw-ui-button' ).click( function () {
+		$( '.template-create .mw-ui-button' ).on( 'click', function () {
 			gtag( 'event', 'create_page' );
 		} );
 
@@ -301,17 +415,17 @@ window.Appropedia = {
 		} );
 
 		// Track clicks on "Type" filter
-		$( '#search-filter-page-type' ).click( function () {
+		$( '#search-filter-page-type' ).on( 'click', function () {
 			gtag( 'event', 'search_filter_type' );
 		} );
 
 		// Track clicks on "SDG" filter
-		$( '#search-filter-page-sdg' ).click( function () {
+		$( '#search-filter-page-sdg' ).on( 'click', function () {
 			gtag( 'event', 'search_filter_sdg' );
 		} );
 
 		// Track clicks on "Language" filter
-		$( '#search-filter-page-language' ).click( function () {
+		$( '#search-filter-page-language' ).on( 'click', function () {
 			gtag( 'event', 'search_filter_language' );
 		} );
 
@@ -320,97 +434,97 @@ window.Appropedia = {
 		/////////////////////
 
 		// Track clicks on content actions
-		$( '#poncho-content-actions' ).click( function () {
+		$( '#poncho-content-actions' ).on( 'click', function () {
 			gtag( 'event', 'page_actions' );
 		} );
 
 		// Track clicks on "Visual editor" button
-		$( '#poncho-visual-edit-button' ).click( function () {
+		$( '#poncho-visual-edit-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_edit_visual' );
 		} );
 
 		// Track clicks on "Source editor" button
-		$( '#poncho-edit-button' ).click( function () {
+		$( '#poncho-edit-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_edit_source' );
 		} );
 
 		// Track clicks on "Transalte" button
-		$( '#poncho-translate-button' ).click( function () {
+		$( '#poncho-translate-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_translate' );
 		} );
 
 		// Track clicks on "Print" button
-		$( '#poncho-print-button' ).click( function () {
+		$( '#poncho-print-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_print' );
 		} );
 
 		// Track clicks on "Read aloud" button
-		$( '#poncho-read-aloud-button' ).click( function () {
+		$( '#poncho-read-aloud-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_read_aloud' );
 		} );
 
 		// Track clicks on "Share" button
-		$( '#poncho-share-button' ).click( function () {
+		$( '#poncho-share-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_share' );
 		} );
 
 		// Track clicks on "Talk" button
-		$( '#poncho-talk-button' ).click( function () {
+		$( '#poncho-talk-button' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_talk' );
 		} );
 
 		// Track clicks on "Read" button
-		$( '#ca-view' ).click( function () {
+		$( '#ca-view' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_read' );
 		} );
 
 		// Trach clicks on "History" button
-		$( '#ca-history' ).click( function () {
+		$( '#ca-history' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_history' );
 		} );
 
 		// Trach clicks on "Delete" button
-		$( '#ca-delete' ).click( function () {
+		$( '#ca-delete' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_delete' );
 		} );
 
 		// Trach clicks on "Move" button
-		$( '#ca-move' ).click( function () {
+		$( '#ca-move' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_move' );
 		} );
 
 		// Trach clicks on "Watch" button
-		$( '#ca-watch' ).click( function () {
+		$( '#ca-watch' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_watch' );
 		} );
 
 		// Trach clicks on "Purge" button
-		$( '#ca-purge' ).click( function () {
+		$( '#ca-purge' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_purge' );
 		} );
 
 		// Trach clicks on "What links here" button
-		$( '#t-whatlinkshere' ).click( function () {
+		$( '#t-whatlinkshere' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_what_links_here' );
 		} );
 
 		// Trach clicks on "Related changes" button
-		$( '#t-recentchangeslinked' ).click( function () {
+		$( '#t-recentchangeslinked' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_recent_changes' );
 		} );
 
 		// Trach clicks on "Permanent link" button
-		$( '#t-permalink' ).click( function () {
+		$( '#t-permalink' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_permalink' );
 		} );
 
 		// Trach clicks on "Page info" button
-		$( '#t-info' ).click( function () {
+		$( '#t-info' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_page_info' );
 		} );
 
 		// Trach clicks on "Browse properties" button
-		$( '#t-smwbrowselink' ).click( function () {
+		$( '#t-smwbrowselink' ).on( 'click', function () {
 			gtag( 'event', 'page_actions_browse_properties' );
 		} );
 
@@ -419,67 +533,67 @@ window.Appropedia = {
 		/////////////
 
 		// Track clicks on "Main page" button
-		$( '#n-mainpage-description' ).click( function () {
+		$( '#n-mainpage-description' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_main_page');
 		} );
 
 		// Track clicks on "Categories" button
-		$( '#n-categories' ).click( function () {
+		$( '#n-categories' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_categories');
 		} );
 
 		// Track clicks on "Map" button
-		$( '#n-maps_map' ).click( function () {
+		$( '#n-maps_map' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_map');
 		} );
 
 		// Track clicks on "Random page" button
-		$( '#n-randompage' ).click( function () {
+		$( '#n-randompage' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_random_page');
 		} );
 
 		// Track clicks on "Popular pages" button
-		$( '#n-popularpages' ).click( function () {
+		$( '#n-popularpages' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_popular_page');
 		} );
 
 		// Track clicks on "Recent changes" button
-		$( '#n-recentchanges' ).click( function () {
+		$( '#n-recentchanges' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_recent_changes');
 		} );
 
 		// Track clicks on "New page" button
-		$( '#n-newpage' ).click( function () {
+		$( '#n-newpage' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_new_page');
 		} );
 
 		// Track clicks on "Upload" button
-		$( '#n-upload' ).click( function () {
+		$( '#n-upload' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_upload');
 		} );
 
 		// Track clicks on "Toolbox" button
-		$( '#n-toolbox' ).click( function () {
+		$( '#n-toolbox' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_toolbox');
 		} );
 
 		// Track clicks on "Help" button
-		$( '#n-help' ).click( function () {
+		$( '#n-help' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_help');
 		} );
 
 		// Track clicks on "Community portal" button
-		$( '#n-portal' ).click( function () {
+		$( '#n-portal' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_portal');
 		} );
 
 		// Track clicks on "Special pages" button
-		$( '#n-specialpages' ).click( function () {
+		$( '#n-specialpages' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_special_pages');
 		} );
 
 		// Track clicks on "Admin panel" button
-		$( '#n-adminpanel' ).click( function () {
+		$( '#n-adminpanel' ).on( 'click', function () {
 			gtag( 'event', 'sidebar_admin_panel');
 		} );
 
@@ -488,122 +602,122 @@ window.Appropedia = {
 		///////////////
 
 		// Track clicks on "New page" button
-		$( '.main-page-gallery li:first-child a' ).click( function () {
+		$( '.main-page-gallery li:first-child a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_new_page' );
 		} );
 
 		// Track clicks on "Solar cooker" button
-		$( '.main-page-gallery li:nth-child(2) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(2) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_solar_cooker' );
 		} );
 
 		// Track clicks on "Photovoltaic system" button
-		$( '.main-page-gallery li:nth-child(3) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(3) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_photovoltaic' );
 		} );
 
 		// Track clicks on "Solar hot water" button
-		$( '.main-page-gallery li:nth-child(4) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(4) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_solar_hot_water' );
 		} );
 
 		// Track clicks on "Solar still" button
-		$( '.main-page-gallery li:nth-child(5) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(5) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_solar_still' );
 		} );
 
 		// Track clicks on "Rainwater system" button
-		$( '.main-page-gallery li:nth-child(6) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(6) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_rainwater_system' );
 		} );
 
 		// Track clicks on "Greywater syste" button
-		$( '.main-page-gallery li:nth-child(7) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(7) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_greywater_system' );
 		} );
 
 		// Track clicks on "Water quality testing" button
-		$( '.main-page-gallery li:nth-child(8) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(8) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_water_quality_testing' );
 		} );
 
 		// Track clicks on "Water filter" button
-		$( '.main-page-gallery li:nth-child(9) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(9) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_water_filter' );
 		} );
 
 		// Track clicks on "Water pump" button
-		$( '.main-page-gallery li:nth-child(10) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(10) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_water_pump' );
 		} );
 
 		// Track clicks on "Vertical garden" button
-		$( '.main-page-gallery li:nth-child(11) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(11) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_vertical_garden' );
 		} );
 
 		// Track clicks on "Living roof" button
-		$( '.main-page-gallery li:nth-child(12) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(12) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_living_roof' );
 		} );
 
 		// Track clicks on "Greenhouse" button
-		$( '.main-page-gallery li:nth-child(13) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(13) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_greenhouse' );
 		} );
 
 		// Track clicks on "Aquaponic" button
-		$( '.main-page-gallery li:nth-child(14) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(14) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_aquaponic' );
 		} );
 
 		// Track clicks on "Compost bin" button
-		$( '.main-page-gallery li:nth-child(15) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(15) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_compost_bin' );
 		} );
 
 		// Track clicks on "Natural paint" button
-		$( '.main-page-gallery li:nth-child(16) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(16) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_natural_paint' );
 		} );
 
 		// Track clicks on "Composting toilet" button
-		$( '.main-page-gallery li:nth-child(17) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(17) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_composting_toilet' );
 		} );
 
 		// Track clicks on "Rocket stove" button
-		$( '.main-page-gallery li:nth-child(18) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(18) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_rocket_stove' );
 		} );
 
 		// Track clicks on "Bike trailer" button
-		$( '.main-page-gallery li:nth-child(19) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(19) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_bike_trailer' );
 		} );
 
 		// Track clicks on "Pedal power generator" button
-		$( '.main-page-gallery li:nth-child(20) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(20) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_pedal_power_generator' );
 		} );
 
 		// Track clicks on "Adobe construction" button
-		$( '.main-page-gallery li:nth-child(21) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(21) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_adobe_construction' );
 		} );
 
 		// Track clicks on "Bamboo construction" button
-		$( '.main-page-gallery li:nth-child(23) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(23) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_bamboo_construction' );
 		} );
 
 		// Track clicks on "Straw bale construction" button
-		$( '.main-page-gallery li:nth-child(24) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(24) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_straw_bale_construction' );
 		} );
 
 		// Track clicks on "Ecoladrillo" button
-		$( '.main-page-gallery li:nth-child(25) a' ).click( function () {
+		$( '.main-page-gallery li:nth-child(25) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_ecoladrillo' );
 		} );
 	}

@@ -84,7 +84,7 @@ class Appropedia {
 	/**
 	 * Fix wikitext
 	 */
-	function onParserPreSaveTransformComplete( Parser $parser, string &$text ) {
+	public static function onParserPreSaveTransformComplete( Parser $parser, string &$text ) {
 		$page = $parser->getPage();
 		$namespace = $page->getNamespace();
 		switch ( $namespace ) {
@@ -103,15 +103,18 @@ class Appropedia {
 		}
 	}
 
-	function fixContentPage( $text ) {
+	public static function fixContentPage( $text ) {
+		// @todo
 		return $text;
 	}
 
-	function fixUserPage( $text ) {
+	public static function fixUserPage( $text ) {
+		// @todo
 		return $text;
 	}
 
-	function fixCategoryPage( $text ) {
+	public static function fixCategoryPage( $text ) {
+		// @todo
 		return $text;
 	}
 
@@ -123,7 +126,7 @@ class Appropedia {
 	 * Therefore, we check every single page save and if it has the structure of
 	 * a file page created by Upload Wizard, we transform it to our preferred structure
 	 */
-	function fixFilePage( $text ) {
+	public static function fixFilePage( $text ) {
 		if ( preg_match( '/=={{int:filedesc}}==
 {{Information
 \|description={{en\|1=(.*)}}

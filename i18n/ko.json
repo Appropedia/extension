@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"appropedia-admin-panel": "관리 패널",
+	"appropedia-create-page": "이 문서 만들기",
+	"appropedia-select-files": "올릴 파일 선택",
+	"appropedia-download-pdf": "PDF 다운로드",
+	"appropedia-searchprofile-pages": "문서",
+	"appropedia-searchprofile-files": "파일",
+	"appropedia-searchprofile-users": "사용자",
+	"appropedia-searchprofile-talks": "토론",
+	"appropedia-searchprofile-other": "기타"
+}

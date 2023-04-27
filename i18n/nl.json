@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"appropedia-policies": "Beleid",
+	"appropedia-account-created": "Uw account is aangemaakt!",
+	"appropedia-create-user-page": "Uw gebruikerspagina aanmaken",
+	"appropedia-create-page": "Deze pagina aanmaken",
+	"appropedia-select-files": "Selecteer bestanden om te uploaden",
+	"appropedia-download-pdf": "PDF downloaden",
+	"appropedia-searchprofile-pages": "Pagina's",
+	"appropedia-searchprofile-files": "Bestanden",
+	"appropedia-searchprofile-users": "Gebruikers",
+	"appropedia-searchprofile-talks": "Overleg",
+	"appropedia-searchprofile-other": "Overige"
+}

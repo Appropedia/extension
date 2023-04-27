@@ -98,7 +98,6 @@ window.Appropedia = {
 					'title': page,
 					'text': wikitext,
 					'summary': summary,
-					'bot': true,
 				};
 				var api = new mw.Api();
 				if ( mw.config.get( 'wgUserName' ) ) {

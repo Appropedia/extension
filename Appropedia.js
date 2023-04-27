@@ -3,9 +3,9 @@ window.Appropedia = {
 	init: function () {
 
 		// Add paragraph edit buttons
-		$( '#mw-content-text p' ).each( Appropedia.addEditButton );
-		$( '#mw-content-text p' ).on( 'mouseenter', Appropedia.showEditButton );
-		$( '#mw-content-text p' ).on( 'mouseleave', Appropedia.hideEditButton );
+		$( '#mw-content-text > .mw-parser-output > p' ).each( Appropedia.addEditButton );
+		$( '#mw-content-text > .mw-parser-output > p' ).on( 'mouseenter', Appropedia.showEditButton );
+		$( '#mw-content-text > .mw-parser-output > p' ).on( 'mouseleave', Appropedia.hideEditButton );
 
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );

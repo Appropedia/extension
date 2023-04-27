@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"appropedia-desc": "Прилагоден код за Appropedia.org",
+	"appropedia-policies": "Правила",
+	"appropedia-contact": "Контакт",
+	"appropedia-admin-panel": "Администраторска табла",
+	"appropedia-page-edit-warning": "'''Предупредување!''' Сите придонеси на {{SITENAME}} се објавуваат под лиценцата $2 освен ако не е поинаку наведено (повеќе на $1). Ако не сакате напишаното да ви биде слободно менувано и распространувано, тогаш не го поднесувајте тука! Со ова воедно ветувате дека автор на напишаното сте самите вие, или дека сте го прекопирале од извор во јавна сопственост или сличен слободен извор. '''Не поднесувајте материјал заштитен со авторски права без претходна дозвола!'''",
+	"appropedia-anon-edit-warning": "'''Предупредување!''' Не сте најавени. '''[$1 Најавете се]''' или '''[$2 направете сметка]''' за вашите уредувања да ви се припишуваат вам наместо на IP-адреса, заедно со други придобивки.",
+	"appropedia-user-edit-warning": "'''Предупредување!''' На пат сте да уредите страница на друг корисник! Да не сакате да [$1 оставите порака]?",
+	"appropedia-interface-edit-warning": "Дали сте запознаени со [[$1|напатствијата за корисничкиот посредник на Appropedia]]?",
+	"appropedia-template-edit-warning": "Дали сте запознаени со [[$1|напатствијата за предлошките на Appropedia]]?",
+	"appropedia-account-created": "Вашата сметка е создадена!",
+	"appropedia-create-user-page": "Создајте своја корисничка страница",
+	"appropedia-create-page": "Создај ја страницава",
+	"appropedia-select-files": "Изберете податотеки за подигање",
+	"appropedia-not-own-work": "Ако податотеката не е ваше дело, послужете се со [[$1|овој образец за подигање]].",
+	"appropedia-download-pdf": "Преземи PDF",
+	"appropedia-searchprofile-pages": "Страници",
+	"appropedia-searchprofile-files": "Податотеки",
+	"appropedia-searchprofile-users": "Корисници",
+	"appropedia-searchprofile-talks": "Разговори",
+	"appropedia-searchprofile-other": "Друго"
+}

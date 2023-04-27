@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"appropedia-desc": "Codice personalisate pro Appropedia.org",
+	"appropedia-policies": "Politicas",
+	"appropedia-contact": "Contacto",
+	"appropedia-admin-panel": "Pannello de administration",
+	"appropedia-page-edit-warning": "'''Attention!''' Tote le contributiones a {{SITENAME}} es liberate sub le licentia $2 salvo indication contrari (vide $1 pro detalios). Si tu non vole que tu scripto sia modificate impietosemente e redistribuite a voluntate, alora non submitte lo hic! In addition, tu nos promitte que tu es le autor de isto, o que tu lo ha copiate de un ressource a dominio public o alteremente libere. '''Non submitte material protegite per derectos de autor sin permission!'''",
+	"appropedia-anon-edit-warning": "'''Attention!''' Tu non ha aperite session. '''[$1 Aperi session]''' o '''[$2 crea un conto]''' pro facer que tu modificationes es attribuite a tu nomine de usator in loco de tu adresse IP, inter altere beneficios.",
+	"appropedia-user-edit-warning": "'''Attention!''' Tu es sur le puncto de modificar le pagina de un altere usator! Tenta tu solmente [$1 lassar un message]?"
+}

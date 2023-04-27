@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sabelöga"
+		]
+	},
+	"appropedia-desc": "Anpassad kod för Appropedia.org",
+	"appropedia-policies": "Policyer",
+	"appropedia-contact": "Kontakt",
+	"appropedia-admin-panel": "Administratörspanel",
+	"appropedia-page-edit-warning": "'''Varning!''' Alla bidrag till {{SITENAME}} publiceras under licensen $2 så länge inget annat anges (läs $1 för detaljer). Om du inte vill att dina bidrag ska redigeras och kopieras efters andra gottfinnande ska du inte bidra! Du lovar också att du själv skrev detta eller kopierat det från en offentlig domän eller liknande fri resurs. '''Skrev inte upphovsrättsskyddat material utan tillåtelse!'''",
+	"appropedia-anon-edit-warning": "'''Varning!''' Du är inte inloggad. '''[$1 Logga in]''' eller '''[$2 skapa ett konto]''' så att dina redigeringar tillskrivs ditt användarnamn istället för din IP-adress, tillsammans med andra fördelar.",
+	"appropedia-user-edit-warning": "'''Varning!''' Du redigerar en annan användares sida! Vill du istället [$1 skriva ett meddelande]?",
+	"appropedia-interface-edit-warning": "Är du bekant med [[$1|Appropedias riktlinjer för användargränssnittet]]?",
+	"appropedia-template-edit-warning": "Är du bekant med [[$1|Appropedias riktlinjer för mallar]]?",
+	"appropedia-account-created": "Ditt konto har skapats!",
+	"appropedia-create-user-page": "Skapa din användarsida",
+	"appropedia-create-page": "Skapa denna sida",
+	"appropedia-select-files": "Välj filer att ladda upp",
+	"appropedia-not-own-work": "Om din fil inte är ditt eget verk, använd [[$1|det här uppladdningsformuläret]] istället.",
+	"appropedia-download-pdf": "Ladda ner PDF",
+	"appropedia-searchprofile-pages": "Sidor",
+	"appropedia-searchprofile-files": "Filer",
+	"appropedia-searchprofile-users": "Användare",
+	"appropedia-searchprofile-talks": "Diskussioner",
+	"appropedia-searchprofile-other": "Övrigt"
+}

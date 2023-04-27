@@ -4,10 +4,14 @@
 			"Abijeet Patro"
 		]
 	},
+	"appropedia-desc": "Appropedia.org के लिए कस्टम कोड",
+	"appropedia-policies": "पॉलिसी",
 	"appropedia-contact": "संपर्क करें",
+	"appropedia-admin-panel": "व्यवस्थापक पैनल",
 	"appropedia-create-page": "यह पृष्ठ बनाएँ",
 	"appropedia-searchprofile-pages": "पृष्ठ",
 	"appropedia-searchprofile-files": "फ़ाइलें",
 	"appropedia-searchprofile-users": "सदस्य",
+	"appropedia-searchprofile-talks": "वार्ता",
 	"appropedia-searchprofile-other": "अन्य"
 }

@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"appropedia-desc": "Koda po meri za Appropedia.org",
+	"appropedia-policies": "Pravila",
+	"appropedia-contact": "Stik",
+	"appropedia-admin-panel": "Administratorska plošča",
+	"appropedia-page-edit-warning": "'''Opozorilo!''' Vsi prispevki k projektu {{SITENAME}} se obravnavajo kot objave pod pogoji $2 (za podrobnosti glejte $1). Če niste pripravljeni na neusmiljeno urejanje in prosto razširjanje vašega gradiva, ga ne prispevajte.<br />\nPoleg tega zagotavljate, da ste prispevke napisali oziroma ustvarili sami ali pa prepisali iz javno dostopnega ali podobnega prostega vira.\n'''Ne dodajajte avtorsko varovanega dela brez dovoljenja!'''",
+	"appropedia-anon-edit-warning": "'''Opozorilo!''' Niste prijavljeni. '''[$1 Prijavite se]''' ali si '''[$2 ustvarite račun]''', da bodo poleg drugih ugodonosti vaša urejanja pripisana vašemu uporabniškemu imenu namesto vašemu IP-ju.",
+	"appropedia-user-edit-warning": "'''Opozorilo!''' Urejali boste stran drugega uporabnika! Ali bi želeli namesto tega [$1 pustiti sporočilo]?",
+	"appropedia-interface-edit-warning": "Ali poznate [[$1|smernice za uporabniški vmesnik Apropedije]]?",
+	"appropedia-template-edit-warning": "Ali poznate [[$1|smernice za predloge v Apropediji]]?",
+	"appropedia-account-created": "Vaš račun je ustvarjen!",
+	"appropedia-create-user-page": "Ustvarite svojo uporabniško stran",
+	"appropedia-create-page": "Ustvari to stran",
+	"appropedia-select-files": "Izberite datoteke za naložitev",
+	"appropedia-not-own-work": "Če datoteka ni vaše delo, namesto tega uporabite [[$1|ta obrazec za nalaganje]].",
+	"appropedia-download-pdf": "Prenesi PDF",
+	"appropedia-searchprofile-pages": "Strani",
+	"appropedia-searchprofile-files": "Datoteke",
+	"appropedia-searchprofile-users": "Uporabniki",
+	"appropedia-searchprofile-talks": "Pogovori",
+	"appropedia-searchprofile-other": "Drugo"
+}

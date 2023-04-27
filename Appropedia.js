@@ -106,8 +106,8 @@ window.Appropedia = {
 					} );
 				} else {
 					return api.login(
-						'Bot@Paragraphs',
-						'rth8br2dl90g0curufg0s5r02d63t83j'
+						'Anon@Paragraphs',
+						'76v00dvvfio71tafvhqn2mhhqisg6uli'
 					).then( function () {
 						return api.postWithEditToken( params ).done( function () {
 							window.location.reload( true );

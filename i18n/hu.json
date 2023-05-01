@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hanna Tardos"
+		]
+	},
+	"appropedia-policies": "Irányelvek",
+	"appropedia-contact": "Kapcsolat",
+	"appropedia-admin-panel": "Adminisztrátori felület",
+	"appropedia-user-edit-warning": "'''Figyelem!''' Egy másik felhasználó lapját készülsz szerkeszteni. Nem akarsz inkább [$1 üzenetet hagyni]?",
+	"appropedia-account-created": "Fiókod sikeresen létrehoztad!",
+	"appropedia-create-user-page": "Szerkesztői lap elkészítése",
+	"appropedia-create-page": "Lap létrehozása",
+	"appropedia-select-files": "Válaszd ki a feltöltendő fájlokat",
+	"appropedia-download-pdf": "Letöltés PDF-ben",
+	"appropedia-searchprofile-pages": "Lapok",
+	"appropedia-searchprofile-files": "Fájlok",
+	"appropedia-searchprofile-users": "Felhasználók",
+	"appropedia-searchprofile-other": "Egyéb"
+}

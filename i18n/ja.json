@@ -4,10 +4,16 @@
 			"MathXplore"
 		]
 	},
+	"appropedia-policies": "ポリシー",
+	"appropedia-contact": "連絡先",
+	"appropedia-admin-panel": "管理者用パネル",
+	"appropedia-create-user-page": "自分の利用者ページを作成",
 	"appropedia-create-page": "このページを作成",
+	"appropedia-select-files": "アップロードするには、まずファイルを選択してください",
 	"appropedia-download-pdf": "PDFをダウンロード",
 	"appropedia-searchprofile-pages": "ページ",
 	"appropedia-searchprofile-files": "ファイル",
 	"appropedia-searchprofile-users": "利用者",
+	"appropedia-searchprofile-talks": "話し",
 	"appropedia-searchprofile-other": "その他"
 }

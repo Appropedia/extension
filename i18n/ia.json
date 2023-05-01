@@ -10,5 +10,18 @@
 	"appropedia-admin-panel": "Pannello de administration",
 	"appropedia-page-edit-warning": "'''Attention!''' Tote le contributiones a {{SITENAME}} es liberate sub le licentia $2 salvo indication contrari (vide $1 pro detalios). Si tu non vole que tu scripto sia modificate impietosemente e redistribuite a voluntate, alora non submitte lo hic! In addition, tu nos promitte que tu es le autor de isto, o que tu lo ha copiate de un ressource a dominio public o alteremente libere. '''Non submitte material protegite per derectos de autor sin permission!'''",
 	"appropedia-anon-edit-warning": "'''Attention!''' Tu non ha aperite session. '''[$1 Aperi session]''' o '''[$2 crea un conto]''' pro facer que tu modificationes es attribuite a tu nomine de usator in loco de tu adresse IP, inter altere beneficios.",
-	"appropedia-user-edit-warning": "'''Attention!''' Tu es sur le puncto de modificar le pagina de un altere usator! Tenta tu solmente [$1 lassar un message]?"
+	"appropedia-user-edit-warning": "'''Attention!''' Tu es sur le puncto de modificar le pagina de un altere usator! Tenta tu solmente [$1 lassar un message]?",
+	"appropedia-interface-edit-warning": "Cognosce tu le [[$1|directivas de interfacie de usator de Appropedia]]?",
+	"appropedia-template-edit-warning": "Cognosce tu el [[$1|directivas de patronos de Appropedia]]?",
+	"appropedia-account-created": "Tu conto ha essite create!",
+	"appropedia-create-user-page": "Crear tu pagina de usator",
+	"appropedia-create-page": "Crear iste pagina",
+	"appropedia-select-files": "Selige files a incargar",
+	"appropedia-not-own-work": "Si le file non es tu proprie obra, per favor usa [[$1|iste formulario de incargamento]] in vice.",
+	"appropedia-download-pdf": "Discargar PDF",
+	"appropedia-searchprofile-pages": "Paginas",
+	"appropedia-searchprofile-files": "Files",
+	"appropedia-searchprofile-users": "Usatores",
+	"appropedia-searchprofile-talks": "Discussiones",
+	"appropedia-searchprofile-other": "Altere"
 }

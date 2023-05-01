@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"appropedia-desc": "Código personalizado para Appropedia.org",
+	"appropedia-policies": "Polícias",
+	"appropedia-contact": "Contacto",
+	"appropedia-admin-panel": "Painel de administração",
+	"appropedia-account-created": "A sua conta foi criada!",
+	"appropedia-create-user-page": "Criar a sua página de utilizador",
+	"appropedia-create-page": "Criar esta página",
+	"appropedia-select-files": "Selecione os ficheiros para enviar",
+	"appropedia-download-pdf": "Descarregar PDF",
+	"appropedia-searchprofile-pages": "Páginas",
+	"appropedia-searchprofile-files": "Ficheiros",
+	"appropedia-searchprofile-users": "Utilizadores",
+	"appropedia-searchprofile-talks": "Discussões",
+	"appropedia-searchprofile-other": "Outro"
+}

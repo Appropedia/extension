@@ -1,12 +1,6 @@
 window.Appropedia = {
 
 	init: function () {
-
-		// Add paragraph edit buttons
-		$( '#mw-content-text > .mw-parser-output > p' ).each( Appropedia.addEditButton );
-		$( '#mw-content-text > .mw-parser-output > p' ).on( 'mouseenter', Appropedia.showEditButton );
-		$( '#mw-content-text > .mw-parser-output > p' ).on( 'mouseleave', Appropedia.hideEditButton );
-
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
 
@@ -27,114 +21,6 @@ window.Appropedia = {
 
 		// Enable popups on the user, project and help namespaces
 		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
-	},
-
-	/**
-	 * Add experimental paragraph edit button
-	 */
-	addEditButton: function () {
-		var paragraph = $( this );
-		var span = $( '<span class="paragraph-edit-button"></span>' );
-		var page = mw.config.get( 'wgPageName' );
-		var href = mw.util.getUrl( page, { 'veaction': 'edit' } );
-		var link = $( '<a href="' + href + '">edit</a>' );
-		link.on( 'click', Appropedia.addEditForm );
-		span.append( link );
-		paragraph.append( span );
-	},
-
-	/**
-	 * Add experimental paragraph edit form
-	 */
-	addEditForm: function () {
-		event.preventDefault();
-		var paragraph = $( this ).closest( 'p' );
-		var page = mw.config.get( 'wgPageName' );
-		var params = {
-			'page': page,
-			'action': 'parse',
-			'prop': 'wikitext',
-			'formatversion': 2
-		};
-		new mw.Api().get( params ).done( function ( data ) {
-			var wikitext = data.parse.wikitext;
-			var firstTextNode = paragraph.contents().filter( function () {
-				return this.nodeType === Node.TEXT_NODE && this.nodeValue.trim();
-			} ).first().text().trim();
-			var escaped = firstTextNode.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' ); // Escape all special characters
-			var regexp = new RegExp( escaped + '.*' );
-			var matches = regexp.exec( wikitext );
-			var text = matches[0];
-
-			// Make the form
-			var form = $( '<div class="paragraph-edit-form"></div>' );
-			var input = $( '<div class="paragraph-edit-form-input" contenteditable="true"></div>' ).text( text );
-			var footer = $( '<div class="paragraph-edit-form-footer"></div>' );
-			var submit = $( '<button class="paragraph-edit-form-submit mw-ui-button mw-ui-progressive">Save</button>' );
-			var cancel = $( '<button class="paragraph-edit-form-cancel mw-ui-button">Cancel</button>' );
-			footer.append( submit, cancel );
-			form.append( input, footer );
-			paragraph.replaceWith( form );
-			input.focus();
-
-			// Handle the submit
-			submit.on( 'click', { 'wikitext': wikitext }, function ( event ) {
-				var submit = $( this );
-				var footer = submit.closest( '.paragraph-edit-form-footer' );
-				var form = submit.closest( '.paragraph-edit-form' );
-				footer.text( 'Saving...' );
-				var input = form.find( '.paragraph-edit-form-input' )[0].innerText;
-				if ( input === text ) {
-					form.replaceWith( paragraph );
-					return;
-				}
-				var summary = 'Edit paragraph: ' + input;
-				if ( !input ) {
-					summary = 'Delete paragraph: ' + text;
-				}
-				var wikitext = event.data.wikitext.replace( regexp, input );
-				var params = {
-					'action': 'edit',
-					'title': page,
-					'text': wikitext,
-					'summary': summary,
-				};
-				var api = new mw.Api();
-				if ( mw.config.get( 'wgUserName' ) ) {
-					return api.postWithEditToken( params ).done( function () {
-						window.location.reload( true );
-					} );
-				} else {
-					return api.login(
-						'Anon@Paragraphs',
-						'76v00dvvfio71tafvhqn2mhhqisg6uli'
-					).then( function () {
-						return api.postWithEditToken( params ).done( function () {
-							window.location.reload( true );
-						} );
-					} );
-				}
-			} );
-
-			// Handle the cancel
-			cancel.on( 'click', function () {
-				form.replaceWith( paragraph );
-			} );
-		} );
-	},
-
-	/**
-	 * Show experimental paragraph edit button
-	 */
-	showEditButton: function () {
-		$( this ).find( '.paragraph-edit-button' ).show();
-	},
-
-	/**
-	 * Hide experimental paragraph edit button
-	 */
-	hideEditButton: function () {
-		$( this ).find( '.paragraph-edit-button' ).hide();
 	},
 
 	/**

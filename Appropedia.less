@@ -1,11 +1,24 @@
+/**
+ * Color palette
+ */
 @text: #202122;
 @background: #f8f9fa;
 @border: #a2a9b1;
 @highlight: #f7931d;
 @indent: #5abbb6;
 
+/**
+ * Dark mode palette
+ */
 @dark-background: #303134;
 @dark-border: #3c4043;
+
+/**
+ * Break points
+ */
+@small: 600px;
+@medium: 1016px;
+@large: 1500px;
 
 /**
  * Sidebar
@@ -303,6 +316,16 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	.mw-search-exists-more {
 		display: block;
 		margin: 1em 0;
+	}
+}
+@media ( max-width: @small ) {
+	.mw-special-Search .mw-search-exists {
+		float: none;
+		width: 100%;
+	}
+	.mw-special-Search .mw-search-profile-form {
+		overflow-x: scroll;
+		white-space: nowrap;
 	}
 }
 

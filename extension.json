@@ -20,6 +20,9 @@
 		"AppropediaMessages": "AppropediaMessages.php",
 		"AppropediaSearch": "AppropediaSearch.php"
 	},
+	"ExtensionMessagesFiles": {
+		"AppropediaMagic": "Appropedia.magic.php"
+	},
 	"ResourceModules": {
 		"ext.Appropedia": {
 			"scripts": "Appropedia.js",

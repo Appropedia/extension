@@ -24,7 +24,7 @@ class Appropedia {
 	 * but we copy it here rather than enabling the extension
 	 * because it's the only thing we want from it
 	 */
-	public static function onFunctionHook() {
+	public static function onFunctionHook( Parser $parser, $frame, $args ) {
 		// Set variables
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';

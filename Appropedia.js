@@ -294,23 +294,44 @@ window.Appropedia = {
 		// Search filters //
 		////////////////////
 
-		// Track clicks on all search filters
-		$( '.mw-search-profile-form select' ).change( function () {
-			gtag( 'event', 'search_filter' );
+		// Track clicks on search tabs
+		$( '.search-types li:nth-child(1) a' ).on( 'click', function () {
+			gtag( 'event', 'search_tab_pages' );
 		} );
 
+		$( '.search-types li:nth-child(2) a' ).on( 'click', function () {
+			gtag( 'event', 'search_tab_files' );
+		} );
+
+		$( '.search-types li:nth-child(3) a' ).on( 'click', function () {
+			gtag( 'event', 'search_tab_users' );
+		} );
+
+		$( '.search-types li:nth-child(4) a' ).on( 'click', function () {
+			gtag( 'event', 'search_tab_talks' );
+		} );
+
+		$( '.search-types li:nth-child(5) a' ).on( 'click', function () {
+			gtag( 'event', 'search_tab_other' );
+		} );
+
+		// Track clicks on all search filters
+		$( '.mw-search-profile-form select' ).on( 'change', function () {
+			gtag( 'event', 'search_filter' );
+		} );
+		
 		// Track clicks on "Type" filter
-		$( '#search-filter-page-type' ).on( 'click', function () {
+		$( '#search-filter-page-type' ).on( 'change', function () {
 			gtag( 'event', 'search_filter_type' );
 		} );
 
 		// Track clicks on "SDG" filter
-		$( '#search-filter-page-sdg' ).on( 'click', function () {
+		$( '#search-filter-page-sdg' ).on( 'change', function () {
 			gtag( 'event', 'search_filter_sdg' );
 		} );
 
 		// Track clicks on "Language" filter
-		$( '#search-filter-page-language' ).on( 'click', function () {
+		$( '#search-filter-page-language' ).on( 'change', function () {
 			gtag( 'event', 'search_filter_language' );
 		} );
 

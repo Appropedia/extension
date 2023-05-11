@@ -66,6 +66,14 @@ blockquote {
 #mw-content-text .gallerybox .thumb {
 	margin: 2.5px;
 }
+@media ( max-width: @small ) {
+	#mw-content-text .gallery {
+		padding-left: 0 !important;
+	}
+	#mw-content-text .gallerybox {
+		width: 49% !important;
+	}
+}
 
 /**
  * Replies
@@ -180,12 +188,20 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		text-align: right !important;
 		text-transform: uppercase;
 	}
+	.main-page-gallery .gallerytext p {
+		margin: 0;
+	}
+	&.skin-minerva .page-heading {
+		display: none;
+	}
 }
 
 /**
  * Appropedia:New page
  */
-.page-Appropedia_New_page #poncho-content-actions {
+.page-Appropedia_New_page #poncho-content-actions,
+.page-Appropedia_New_page .page-actions-menu,
+.page-Appropedia_New_page .minerva__tab-container {
 	display: none;
 }
 
@@ -441,6 +457,9 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	-webkit-box-shadow:  0px 3px 6px -1px rgba(1, 127, 111, 0.5);
 	overflow: hidden;
 	padding-left: .8em;
+}
+.quiz .header {
+	white-space: normal;
 }
 .quiz .correction.unselected {
 	display: table-row;

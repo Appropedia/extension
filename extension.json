@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "2.7",
+	"version": "2.8",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -44,6 +44,7 @@
 	    "BeforeInitialize": "Appropedia::onBeforeInitialize",
 	    "BeforePageDisplay": "Appropedia::onBeforePageDisplay",
 	    "SkinAfterBottomScripts": "Appropedia::onSkinAfterBottomScripts",
+		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
 	    "ParserPreSaveTransformComplete": "Appropedia::onParserPreSaveTransformComplete",
 	    "SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
 	    "LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",

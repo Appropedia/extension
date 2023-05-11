@@ -150,7 +150,8 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
  * Main page
  */
 .page-Welcome_to_Appropedia {
-	#poncho-content-actions {
+	#poncho-content-actions,
+	&.skin-minerva .page-heading {
 		display: none;
 	}
 	.main-page-intro {
@@ -191,8 +192,19 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	.main-page-gallery .gallerytext p {
 		margin: 0;
 	}
-	&.skin-minerva .page-heading {
-		display: none;
+	.main-page-stat {
+		display: inline-block;
+		margin: 1.4em;
+		text-align: center;
+	}
+	.main-page-stat-number {
+		font-size: 4em;
+	}
+}
+@media ( max-width: @small ) {
+	.main-page-stat {
+		margin: 1.5em 0;
+		width: 100%;
 	}
 }
 

@@ -1,15 +1,23 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Hamilton Abreu"
+		]
 	},
 	"appropedia-desc": "Código personalizado para Appropedia.org",
 	"appropedia-policies": "Polícias",
 	"appropedia-contact": "Contacto",
 	"appropedia-admin-panel": "Painel de administração",
+	"appropedia-page-edit-warning": "'''Aviso!''' Todas as contribuições na wiki {{SITENAME}} são publicadas nos termos da licença $2 salvo indicação em contrário (consulte $1 para mais detalhes). Se não deseja que o seu texto seja inexoravelmente editado e redistribuído, então não o coloque aqui! Garante-nos também que isto é algo escrito por si ou copiado do domínio público ou de outra fonte de teor livre. '''Não coloque conteúdos cujos direitos de autor estão protegidos, sem ter a devida permissão!'''",
+	"appropedia-anon-edit-warning": "'''Aviso!''' Não tem sessão iniciada. '''[$1 Inicie uma sessão]''' ou '''[$2 crie uma conta]''' para que as suas edições sejam atribuídas ao seu nome de utilizador em vez de o serem ao seu IP, para além de outras vantagens.",
+	"appropedia-user-edit-warning": "'''Aviso!''' Está prestes a editar a página de outro utilizador! Pretenderá antes [$1 deixar-lhe uma mensagem]?",
+	"appropedia-interface-edit-warning": "Conhece as [[$1|diretrizes da Appropedia para a interface do utilizador]]?",
+	"appropedia-template-edit-warning": "Conhece as [[$1|diretrizes da Appropedia para predefinições]]?",
 	"appropedia-account-created": "A sua conta foi criada!",
 	"appropedia-create-user-page": "Criar a sua página de utilizador",
 	"appropedia-create-page": "Criar esta página",
 	"appropedia-select-files": "Selecione os ficheiros para enviar",
+	"appropedia-not-own-work": "Se o ficheiro não é de sua autoria, use antes [[$1|este formulário de carregamento]].",
 	"appropedia-download-pdf": "Descarregar PDF",
 	"appropedia-searchprofile-pages": "Páginas",
 	"appropedia-searchprofile-files": "Ficheiros",

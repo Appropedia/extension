@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Justman10000"
+		]
+	},
+	"appropedia-desc": "Benutzerdefinierter Code für Appropedia.org",
+	"appropedia-policies": "Richtlinien",
+	"appropedia-contact": "Kontakt",
+	"appropedia-admin-panel": "Verwaltungsbereich",
+	"appropedia-page-edit-warning": "'''Warnung!''' Alle Beiträge zu {{SITENAME}} werden unter der $2-Lizenz veröffentlicht, sofern nicht anders angegeben (siehe $1 für Details). Wenn du nicht möchtest, dass dein Text gnadenlos bearbeitet und nach Belieben weiterverbreitet wird, dann reiche ihn nicht hier ein! Du versprichst uns zudem, dass du den Text selbst geschrieben oder ihn aus einer gemeinfreien oder ähnlichen Quelle kopiert hast. '''Reiche kein urheberrechtlich geschütztes Material ohne Erlaubnis ein!'''",
+	"appropedia-anon-edit-warning": "'''Warnung!''' Du bist nicht eingeloggt. '''[$1 Anmelden]''' oder '''[$2 Konto erstellen]''', damit deine Änderungen deinem Benutzernamen und nicht deiner IP zugeordnet werden, sowie weitere Vorteile.",
+	"appropedia-user-edit-warning": "'''Warnung!''' Du bist dabei, eine Seite eines anderen Benutzers zu bearbeiten! Versuchst du stattdessen [$1 eine Nachricht zu hinterlassen]?",
+	"appropedia-interface-edit-warning": "Bist du mit den [[$1|Appropedias Richtlinien für die Benutzeroberfläche]] vertraut?",
+	"appropedia-template-edit-warning": "Bist du mit den [[$1|Appropedia's template guidelines]] vertraut?",
+	"appropedia-account-created": "Dein Konto ist erstellt worden!",
+	"appropedia-create-user-page": "Erstelle deine Benutzerseite",
+	"appropedia-create-page": "Diese Seite erstellen",
+	"appropedia-select-files": "Dateien zum Hochladen auswählen",
+	"appropedia-not-own-work": "Wenn die Datei nicht von dir stammt, verwende bitte stattdessen [[$1|dieses Upload-Formular]].",
+	"appropedia-download-pdf": "PDF herunterladen",
+	"appropedia-searchprofile-pages": "Seiten",
+	"appropedia-searchprofile-files": "Dateien",
+	"appropedia-searchprofile-users": "Benutzer",
+	"appropedia-searchprofile-talks": "Diskussion",
+	"appropedia-searchprofile-other": "Anderes"
+}

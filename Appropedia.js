@@ -1,3 +1,4 @@
+/* global Appropedia, mw, $, gtag */
 window.Appropedia = {
 
 	init: function () {
@@ -106,7 +107,7 @@ window.Appropedia = {
 		}
 
 		// Ignore rare and cryptic 'auto' language
-		var translationLanguage = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' );
+		var translationLanguage = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' ).trim();
 		if ( translationLanguage === 'auto' ) {
 			return;
 		}
@@ -160,7 +161,7 @@ window.Appropedia = {
 		// using a bot account
 		var page = mw.config.get( 'wgPageName' );
 		var lang = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' );
-		params = {
+		var params = {
 			'action': 'edit',
 			'title': page + '/' + lang,
 			'text': wikitext,

@@ -23,5 +23,12 @@
 	"appropedia-searchprofile-files": "Text of the search tab for file pages",
 	"appropedia-searchprofile-users": "Text of the search tab for user pages",
 	"appropedia-searchprofile-talks": "Text of the search tab for talk pages",
-	"appropedia-searchprofile-other": "Text of the search tab for other pages"
+	"appropedia-searchprofile-other": "Text of the search tab for other pages",
+	"appropedia-search-page-type-any": "Text of the search option to search pages of any type",
+	"appropedia-search-page-sdg-any": "Text of the search option to search pages related to any sustainable development goal",
+	"appropedia-search-page-language-any": "Text of the search option to search pages in any language",
+	"appropedia-search-file-type-any": "Text of the search option to search files of any type (images, audios, videos, etc)",
+	"appropedia-search-file-format-any": "Text of the search option to search files of any format (JPG, PNG, WAV, etc)",
+	"appropedia-search-file-license-any": "Text of the search option to search files with any license (CC-BY-SA-4.0, MIT, etc)",
+	"appropedia-search-user-location-any": "Text of the search option to search users in any location"
 }

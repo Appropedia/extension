@@ -116,7 +116,7 @@ class AppropediaSearch {
 
 			// Page type
 			$form .= '<select id="search-filter-page-type" style="width: 55px;">';
-			$form .= '<option value="">Any type</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-page-type-any" )->text() . '</option>';
 			$options = [
 				'Projects',
 				'Devices',
@@ -134,7 +134,7 @@ class AppropediaSearch {
 
 			// Sustainable Development Goal
 			$form .= '<select id="search-filter-page-sdg" style="width: 58px;">';
-			$form .= '<option value="">Any SDG</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-page-sdg-any" )->text() . '</option>';
 			$options = [
 				'SDG01 No poverty',
 				'SDG02 Zero hunger',
@@ -162,7 +162,7 @@ class AppropediaSearch {
 
 			// Language
 			$form .= '<select id="search-filter-page-language" style="width: 87px;">';
-			$form .= '<option value="">Any language</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-page-language-any" )->text() . '</option>';
 			$options = [
 				'English' => 'en',
 				'French' => 'fr',
@@ -184,7 +184,7 @@ class AppropediaSearch {
 			// File type
 			$filetype = strtolower( $filetype );
 			$form .= '<select id="search-filter-file-type" style="width: 55px;">';
-			$form .= '<option value="">Any type</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-file-type-any" )->text() . '</option>';
 			$options = [
 				'Images' => 'bitmap',
 				'Drawings' => 'drawing',
@@ -202,7 +202,7 @@ class AppropediaSearch {
 			// File MIME
 			$filemime = $request->getText( 'filemime' );
 			$form .= '<select id="search-filter-file-mime" style="width: 69px;">';
-			$form .= '<option value="">Any format</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-file-format-any" )->text() . '</option>';
 			$options = [
 				'JPG' => 'image/jpeg',
 				'PNG' => 'image/png',
@@ -218,7 +218,7 @@ class AppropediaSearch {
 
 			// File license
 			$form .= '<select id="search-filter-file-license" style="width: 72px;">';
-			$form .= '<option value="">Any license</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-file-license-any" )->text() . '</option>';
 			$options = [
 				'CC-BY-SA-4.0' => 'CC-BY-SA-4.0 files',
 				'CC-BY-SA-3.0' => 'CC-BY-SA-3.0 files',
@@ -241,7 +241,7 @@ class AppropediaSearch {
 			// User location
 			$location = $request->getText( 'location' );
 			$form .= '<select id="search-filter-user-location" style="width: 77px;">';
-			$form .= '<option value="">Any location</option>';
+			$form .= '<option value="">' . wfMessage( "appropedia-search-user-location-any" )->text() . '</option>';
 			$options = [ 'Argentina', 'Australia', 'Bangladesh', 'Belgium', 'Bolivia', 'Cambodia', 'Canada', 'China', 'Colombia', 'Costa Rica',
 				'Denmark', 'Ecuador', 'El Salvador', 'Ethiopia', 'England', 'France', 'Germany', 'Guatemala', 'Haiti', 'India', 'Indonesia', 'Italy',
 				'Japan', 'Jordan', 'Kenya', 'Korea', 'Mexico', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Nigeria', 'Panama', 'Philippines',

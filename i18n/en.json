@@ -23,5 +23,12 @@
 	"appropedia-searchprofile-files": "Files",
 	"appropedia-searchprofile-users": "Users",
 	"appropedia-searchprofile-talks": "Talks",
-	"appropedia-searchprofile-other": "Other"
+	"appropedia-searchprofile-other": "Other",
+	"appropedia-search-page-type-any": "Any type",
+	"appropedia-search-page-sdg-any": "Any SDG",
+	"appropedia-search-page-language-any": "Any language",
+	"appropedia-search-file-type-any": "Any type",
+	"appropedia-search-file-format-any": "Any format",
+	"appropedia-search-file-license-any": "Any license",
+	"appropedia-search-user-location-any": "Any location"
 }

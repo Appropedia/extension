@@ -24,5 +24,12 @@
 	"appropedia-searchprofile-files": "Archivos",
 	"appropedia-searchprofile-users": "Usuarios",
 	"appropedia-searchprofile-talks": "Debates",
-	"appropedia-searchprofile-other": "Otros"
+	"appropedia-searchprofile-other": "Otros",
+	"appropedia-search-page-type-any": "Cualquier tipo",
+	"appropedia-search-page-sdg-any": "Cualquier ODS",
+	"appropedia-search-page-language-any": "Cualquier lenguaje",
+	"appropedia-search-file-type-any": "Cualquier tipo",
+	"appropedia-search-file-format-any": "Cualquier formato",
+	"appropedia-search-file-license-any": "Cualquier licencia",
+	"appropedia-search-user-location-any": "Cualquier ubicación"
 }

@@ -508,124 +508,89 @@ window.Appropedia = {
 		// Main page //
 		///////////////
 
-		// Track clicks on "New page" button
-		$( '.main-page-gallery li:first-child a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_new_page' );
+		// Track clicks on "Create account" button
+		$( '.main-page-actions span:first-child a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_actions_create_account' );
+		} );
+
+		// Track clicks on "Create a page" button
+		$( '.main-page-actions span:nth-child(3) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_actions_create_page' );
+		} );
+
+		// Track clicks on "Newsletter" button
+		$( '.main-page-actions span:nth-child(5) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_actions_newsletter' );
 		} );
 
 		// Track clicks on "Solar cooker" button
-		$( '.main-page-gallery li:nth-child(2) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:first-child a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_solar_cooker' );
 		} );
 
 		// Track clicks on "Photovoltaic system" button
-		$( '.main-page-gallery li:nth-child(3) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(2) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_photovoltaic' );
 		} );
 
-		// Track clicks on "Solar hot water" button
-		$( '.main-page-gallery li:nth-child(4) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_solar_hot_water' );
-		} );
-
-		// Track clicks on "Solar still" button
-		$( '.main-page-gallery li:nth-child(5) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_solar_still' );
-		} );
-
 		// Track clicks on "Rainwater system" button
-		$( '.main-page-gallery li:nth-child(6) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(3) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_rainwater_system' );
 		} );
 
-		// Track clicks on "Greywater syste" button
-		$( '.main-page-gallery li:nth-child(7) a' ).on( 'click', function () {
+		// Track clicks on "Ecoladrillo" button
+		$( '.main-page-gallery li:nth-child(4) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_ecoladrillo' );
+		} );
+
+		// Track clicks on "Greywater system" button
+		$( '.main-page-gallery li:nth-child(5) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_greywater_system' );
 		} );
 
-		// Track clicks on "Water quality testing" button
-		$( '.main-page-gallery li:nth-child(8) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_water_quality_testing' );
-		} );
-
-		// Track clicks on "Water filter" button
-		$( '.main-page-gallery li:nth-child(9) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_water_filter' );
-		} );
-
-		// Track clicks on "Water pump" button
-		$( '.main-page-gallery li:nth-child(10) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_water_pump' );
-		} );
-
-		// Track clicks on "Vertical garden" button
-		$( '.main-page-gallery li:nth-child(11) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_vertical_garden' );
-		} );
-
-		// Track clicks on "Living roof" button
-		$( '.main-page-gallery li:nth-child(12) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_living_roof' );
-		} );
-
-		// Track clicks on "Greenhouse" button
-		$( '.main-page-gallery li:nth-child(13) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_greenhouse' );
-		} );
-
-		// Track clicks on "Aquaponic" button
-		$( '.main-page-gallery li:nth-child(14) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_aquaponic' );
-		} );
-
 		// Track clicks on "Compost bin" button
-		$( '.main-page-gallery li:nth-child(15) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(6) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_compost_bin' );
 		} );
 
-		// Track clicks on "Natural paint" button
-		$( '.main-page-gallery li:nth-child(16) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_natural_paint' );
-		} );
-
 		// Track clicks on "Composting toilet" button
-		$( '.main-page-gallery li:nth-child(17) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(7) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_composting_toilet' );
 		} );
 
 		// Track clicks on "Rocket stove" button
-		$( '.main-page-gallery li:nth-child(18) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(8) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_rocket_stove' );
 		} );
 
 		// Track clicks on "Bike trailer" button
-		$( '.main-page-gallery li:nth-child(19) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(9) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_bike_trailer' );
 		} );
 
 		// Track clicks on "Pedal power generator" button
-		$( '.main-page-gallery li:nth-child(20) a' ).on( 'click', function () {
+		$( '.main-page-gallery li:nth-child(10) a' ).on( 'click', function () {
 			gtag( 'event', 'main_page_pedal_power_generator' );
 		} );
 
-		// Track clicks on "Adobe construction" button
-		$( '.main-page-gallery li:nth-child(21) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_adobe_construction' );
+		// Track clicks on "Natural paint" button
+		$( '.main-page-gallery li:nth-child(11) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_natural_paint' );
 		} );
 
-		// Track clicks on "Bamboo construction" button
-		$( '.main-page-gallery li:nth-child(23) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_bamboo_construction' );
+		// Track clicks on "Water quality testing" button
+		$( '.main-page-gallery li:nth-child(12) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_water_quality_testing' );
 		} );
 
-		// Track clicks on "Straw bale construction" button
-		$( '.main-page-gallery li:nth-child(24) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_straw_bale_construction' );
+		// Track clicks on "Water filter" button
+		$( '.main-page-gallery li:nth-child(13) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_water_filter' );
 		} );
 
-		// Track clicks on "Ecoladrillo" button
-		$( '.main-page-gallery li:nth-child(25) a' ).on( 'click', function () {
-			gtag( 'event', 'main_page_ecoladrillo' );
+		// Track clicks on "Vertical garden" button
+		$( '.main-page-gallery li:nth-child(14) a' ).on( 'click', function () {
+			gtag( 'event', 'main_page_vertical_garden' );
 		} );
 	}
 };

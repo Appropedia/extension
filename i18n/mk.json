@@ -23,5 +23,12 @@
 	"appropedia-searchprofile-files": "Податотеки",
 	"appropedia-searchprofile-users": "Корисници",
 	"appropedia-searchprofile-talks": "Разговори",
-	"appropedia-searchprofile-other": "Друго"
+	"appropedia-searchprofile-other": "Друго",
+	"appropedia-search-page-type-any": "Било кој вид",
+	"appropedia-search-page-sdg-any": "Било кој SDG",
+	"appropedia-search-page-language-any": "Било кој јазик",
+	"appropedia-search-file-type-any": "Било кој вид",
+	"appropedia-search-file-format-any": "Било кој формат",
+	"appropedia-search-file-license-any": "Било која лиценца",
+	"appropedia-search-user-location-any": "Било кое место"
 }

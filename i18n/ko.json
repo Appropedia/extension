@@ -16,5 +16,12 @@
 	"appropedia-searchprofile-files": "파일",
 	"appropedia-searchprofile-users": "사용자",
 	"appropedia-searchprofile-talks": "토론",
-	"appropedia-searchprofile-other": "기타"
+	"appropedia-searchprofile-other": "기타",
+	"appropedia-search-page-type-any": "모든 유형",
+	"appropedia-search-page-sdg-any": "모든 SDG",
+	"appropedia-search-page-language-any": "모든 언어",
+	"appropedia-search-file-type-any": "모든 유형",
+	"appropedia-search-file-format-any": "모든 형식",
+	"appropedia-search-file-license-any": "모든 라이선스",
+	"appropedia-search-user-location-any": "모든 위치"
 }

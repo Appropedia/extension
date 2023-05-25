@@ -23,5 +23,12 @@
 	"appropedia-searchprofile-files": "Datoteke",
 	"appropedia-searchprofile-users": "Uporabniki",
 	"appropedia-searchprofile-talks": "Pogovori",
-	"appropedia-searchprofile-other": "Drugo"
+	"appropedia-searchprofile-other": "Drugo",
+	"appropedia-search-page-type-any": "Vse vrste",
+	"appropedia-search-page-sdg-any": "Vsi TRC",
+	"appropedia-search-page-language-any": "Vsi jeziki",
+	"appropedia-search-file-type-any": "Vse vrste",
+	"appropedia-search-file-format-any": "Vsi formati",
+	"appropedia-search-file-license-any": "Vse licence",
+	"appropedia-search-user-location-any": "Vse lokacije"
 }

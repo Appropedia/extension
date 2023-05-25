@@ -9,7 +9,7 @@
 	"appropedia-contact": "Contact",
 	"appropedia-admin-panel": "Panneau d’administration",
 	"appropedia-page-edit-warning": "'''Attention !''' Toutes les contributions à {{SITENAME}} sont publiées sous la licence $2, sauf indication contraire (voir $1 pour plus de détails). Si vous ne voulez pas que vos écrits soient modifiés sans pitié et redistribués à volonté, alors ne les soumettez pas ici ! Vous nous promettez également les avoir écrits vous-même ou que vous les avez copiés d’un domaine public ou d’une ressource libre similaire. '''Ne soumettez aucun matériel protégé par des droits d’auteur sans autorisation !'''",
-	"appropedia-anon-edit-warning": "'''Attention !''' Vous n’êtes pas connecté(e). '''[$1 Connectez-vous]''' ou '''[ $2 créez un compte]''' pour que vos modifications soient attribuées à votre nom d’utilisateur plutôt qu’à votre adresse IP et pour bénéficier en même temps d’autres avantages.",
+	"appropedia-anon-edit-warning": "'''Attention !''' Vous n’êtes pas connecté(e). '''[$1 Connectez-vous]''' ou '''[$2 créez un compte]''' pour que vos modifications soient attribuées à votre nom d’utilisateur plutôt qu’à votre adresse IP et pour bénéficier en même temps d’autres avantages.",
 	"appropedia-user-edit-warning": "'''Attention !''' Vous êtes sur le point de modifier la page d’un autre utilisateur ! Essayez-vous de [$1 laisser un message à la place] ?",
 	"appropedia-interface-edit-warning": "Connaissez-vous bien les [[$1|consignes de l’interface utilisateur d’Appropedia]] ?",
 	"appropedia-template-edit-warning": "Maîtrisez-vous bien les [[$1|consignes des modèles d’Appropedia]] ?",
@@ -23,5 +23,12 @@
 	"appropedia-searchprofile-files": "Fichiers",
 	"appropedia-searchprofile-users": "Utilisateurs",
 	"appropedia-searchprofile-talks": "Discussions",
-	"appropedia-searchprofile-other": "Autre"
+	"appropedia-searchprofile-other": "Autre",
+	"appropedia-search-page-type-any": "Tout type",
+	"appropedia-search-page-sdg-any": "Tout ODD",
+	"appropedia-search-page-language-any": "Toute langue",
+	"appropedia-search-file-type-any": "Tout type",
+	"appropedia-search-file-format-any": "Tout format",
+	"appropedia-search-file-license-any": "Toute licence",
+	"appropedia-search-user-location-any": "Tout emplacement"
 }

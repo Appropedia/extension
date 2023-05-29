@@ -16,5 +16,8 @@
 	"appropedia-searchprofile-files": "Датотеке",
 	"appropedia-searchprofile-users": "Корисници",
 	"appropedia-searchprofile-talks": "Разговори",
-	"appropedia-searchprofile-other": "Друго"
+	"appropedia-searchprofile-other": "Друго",
+	"appropedia-search-page-language-any": "Било који језик",
+	"appropedia-search-file-license-any": "Било која лиценца",
+	"appropedia-search-user-location-any": "Било која локација"
 }

@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "3.0",
+	"version": "3.1",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -41,20 +41,19 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "WikiVideos"
+		"remoteExtPath": "Appropedia"
 	},
 	"Hooks": {
-	    "BeforeInitialize": "Appropedia::onBeforeInitialize",
-	    "BeforePageDisplay": "Appropedia::onBeforePageDisplay",
-	    "SkinAfterBottomScripts": "Appropedia::onSkinAfterBottomScripts",
+		"BeforeInitialize": "Appropedia::onBeforeInitialize",
+		"BeforePageDisplay": "Appropedia::onBeforePageDisplay",
 		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
-	    "ParserPreSaveTransformComplete": "Appropedia::onParserPreSaveTransformComplete",
-	    "SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
-	    "LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
+		"ParserPreSaveTransformComplete": "Appropedia::onParserPreSaveTransformComplete",
+		"SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
+		"LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
 		"MessagesPreLoad": "AppropediaMessages::onMessagesPreLoad",
-	    "SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
-	    "SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
-	    "SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
+		"SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
+		"SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
+		"SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
 		"ShowSearchHit": "AppropediaSearch::onShowSearchHit",
 		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle"
 	}

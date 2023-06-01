@@ -1,6 +1,9 @@
 /* global Appropedia, mw, $ */
 window.Appropedia = {
 
+	/**
+	 * Initialization script
+	 */
 	init: function () {
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
@@ -47,8 +50,7 @@ window.Appropedia = {
 		var $select = $( this );
 		var text = $select.find( 'option:selected' ).text();
 		var $dummy = $( '<div></div>' ).text( text );
-		$dummy.css( 'position', 'absolute' );
-		$dummy.css( 'visibility', 'hidden' );
+		$dummy.css( { 'position': 'absolute', 'visibility': 'hidden' } );
 		$( 'body' ).append( $dummy );
 		var width = $dummy.width();
 		$dummy.remove();
@@ -147,13 +149,19 @@ window.Appropedia = {
 		// Count nodes
 		var nodes = $content.find( 'font' ).length;
 
+		// Get categories
+		var categories = mw.config.get( 'wgCategories' );
+
 		// Build wikitext
 		var wikitext = '{{Automatic translation notice';
 		wikitext += '\n| title = ' + title;
 		wikitext += '\n| revision = ' + mw.config.get( 'wgCurRevisionId' );
 		wikitext += '\n| nodes = ' + nodes;
 		wikitext += '\n}}';
-		wikitext += '\n\n<html>' + html + '</html>';
+		wikitext += '\n\n<html>' + html + '</html>\n';
+		for ( var category of categories ) {
+			wikitext += '\n[[Category:' + category + ']]';
+		}
 
 		// Create or update translation subpage
 		// using a bot account

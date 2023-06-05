@@ -100,7 +100,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	}
 
 	public static function fixContentPage( $text ) {
-		// @todo
+		// Append {{Page data}}
+		if ( !preg_match( '/{{[Pp]age[_ ]data/', $text ) ) {
+			$text .= "\n\n{{Page data}}";
+		}
+
+		// Move categories to the bottom
+		$count = preg_match_all( '/\[\[ ?[Cc]ategory ?: ?([^]]+) ?\]\]/', $text, $matches );
+		if ( $count ) {
+			$text .= "\n";
+			foreach ( $matches[0] as $match ) {
+				$text = str_replace( $match, '', $text );
+			}
+			$categories = $matches[1];
+			$categories = array_unique( $categories );
+			foreach ( $categories as $category ) {
+				$text .= "\n[[Category:$category]]";
+			}
+		}
+
 		return $text;
 	}
 

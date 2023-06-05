@@ -15,5 +15,9 @@
 	"appropedia-searchprofile-files": "ファイル",
 	"appropedia-searchprofile-users": "利用者",
 	"appropedia-searchprofile-talks": "話し",
-	"appropedia-searchprofile-other": "その他"
+	"appropedia-searchprofile-other": "その他",
+	"appropedia-search-file-type-images": "画像",
+	"appropedia-search-file-type-code": "コード",
+	"appropedia-search-file-type-videos": "動画",
+	"appropedia-search-file-license-public-domain": "パブリック・ドメイン"
 }

@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dogogos123"
+		]
+	},
+	"appropedia-search-page-type-projects": "Εγχειρήματα",
+	"appropedia-search-page-type-devices": "Συσκευές",
+	"appropedia-search-page-type-organizations": "Οργανισμοί",
+	"appropedia-search-page-type-skills": "Δεξιότητες",
+	"appropedia-search-page-type-essays": "Δοκίμια",
+	"appropedia-search-page-type-papers": "Χαρτιά",
+	"appropedia-search-page-type-books": "Βιβλία",
+	"appropedia-search-page-type-literature-reviews": "Κριτικές λογοτεχνίας",
+	"appropedia-search-page-sdg-01": "SDG01 Όχι φτώχεια",
+	"appropedia-search-page-sdg-02": "SDG02 Μηδενική πείνα",
+	"appropedia-search-page-sdg-03": "SDG03 Καλή υγεία και ευεξία",
+	"appropedia-search-page-sdg-04": "SDG04 Ποιοτική εκπαίδευση",
+	"appropedia-search-page-sdg-05": "SDG05 Ισότητα των φύλων",
+	"appropedia-search-page-sdg-06": "SDG06 Καθαρό νερό και αποχέτευση",
+	"appropedia-search-page-sdg-07": "SDG07 Προσιτή και καθαρή ενέργεια",
+	"appropedia-search-page-sdg-08": "SDG08 Αξιοπρεπής εργασία και οικονομική ανάπτυξη",
+	"appropedia-search-page-sdg-09": "SDG09 Βιομηχανία, καινοτομία και υποδομές",
+	"appropedia-search-page-sdg-10": "SDG10 Μειωμένες ανισότητες",
+	"appropedia-search-page-sdg-11": "SDG11 Βιώσιμες πόλεις και κοινότητες",
+	"appropedia-search-page-sdg-12": "SDG12 Υπεύθυνη κατανάλωση και παραγωγή",
+	"appropedia-search-page-sdg-13": "SDG13 Δράση για το κλίμα",
+	"appropedia-search-page-sdg-14": "SDG14 Ζωή κάτω από το νερό",
+	"appropedia-search-page-sdg-15": "SDG15 Ζωή στη στεριά",
+	"appropedia-search-page-sdg-16": "SDG16 Ειρήνη, δικαιοσύνη και ισχυροί θεσμοί",
+	"appropedia-search-page-sdg-17": "SDG17 Συνεργασίες για τους στόχους",
+	"appropedia-search-file-type-images": "Εικόνες",
+	"appropedia-search-file-type-drawings": "Ζωγραφιές",
+	"appropedia-search-file-type-documents": "Έγγραφα",
+	"appropedia-search-file-type-code": "Κώδικας",
+	"appropedia-search-file-type-videos": "Βίντεο",
+	"appropedia-search-file-type-audios": "Ήχοι",
+	"appropedia-search-file-license-public-domain": "Δημόσιος φορέας"
+}

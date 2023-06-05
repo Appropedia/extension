@@ -64,7 +64,8 @@ window.Appropedia = {
 			return;
 		}
 		var category = mw.cookie.get( 'TemplateReminderCategory' );
-		if ( category && !mw.config.get( 'wgCategories' ).includes( category ) ) {
+		var categories = mw.config.get( 'wgCategories' );
+		if ( category && categories && !categories.includes( category ) ) {
 			return;
 		}
 		var action = mw.config.get( 'wgAction' );

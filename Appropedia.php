@@ -100,8 +100,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	}
 
 	public static function fixContentPage( $text ) {
-		// Append {{Page data}} to all content pages except automatic translations
-		if ( !preg_match( '/{{[Pp]age[_ ]data/', $text ) && !preg_match( '/{{Automatic translation notice/', $text ) ) {
+		// Append {{Page data}} to all content pages
+		if ( !preg_match( '/{{[Pp]age[_ ]data/', $text )
+			&& !preg_match( '/^{{Automatic translation notice/', $text ) // except automatic translations
+			&& !preg_match( '/^#(.+ ?\[\[.+\]\])/', $text ) // and redirects
+		) {
 			$text .= "\n\n{{Page data}}";
 		}
 

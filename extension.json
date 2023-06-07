@@ -17,6 +17,7 @@
 	},
 	"AutoloadClasses": {
 		"Appropedia": "Appropedia.php",
+		"AppropediaFixes": "AppropediaFixes.php",
 		"AppropediaMessages": "AppropediaMessages.php",
 		"AppropediaSearch": "AppropediaSearch.php"
 	},
@@ -47,14 +48,19 @@
 		"BeforeInitialize": "Appropedia::onBeforeInitialize",
 		"BeforePageDisplay": "Appropedia::onBeforePageDisplay",
 		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
-		"ParserPreSaveTransformComplete": "Appropedia::onParserPreSaveTransformComplete",
 		"SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
 		"LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
+		"PageSaveComplete": "AppropediaFixes::onPageSaveComplete",
 		"MessagesPreLoad": "AppropediaMessages::onMessagesPreLoad",
 		"SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
 		"SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
 		"SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
 		"ShowSearchHit": "AppropediaSearch::onShowSearchHit",
 		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle"
+	},
+	"config": {
+		"AppropediaBotAccount": {
+			"value": "Appropedia bot"
+		}
 	}
 }

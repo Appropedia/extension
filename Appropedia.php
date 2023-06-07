@@ -23,7 +23,7 @@ class Appropedia {
 		$categories = $title->getParentCategories();
 		$categories = array_keys( $categories );
 		if ( in_array( 'Category:SELF', $categories ) ) {
-			$wgSitename = 'Surgical Education Learners Forum';
+			$wgSitename = 'SELF';
 			$wgLogos['icon'] = '/logos/SELF-icon.png';
 			$wgLogos['tagline'] = [
 				'src' => '/logos/Appropedia-powered.png',

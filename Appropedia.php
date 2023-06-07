@@ -211,7 +211,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$text .= "\n}}";
 		}
 
-		// Also customize file pages created via Special:Upload
+		// Customize file pages created with the visual editor
+		// Most is done from LocalSettings.php
+		// here we just delink the author
+		$text = preg_replace( '/\| author = \[\[([^|]+)\|[^]]+\]\]/', '| author = $1', $text );
+
+		// Customize file pages created via Special:Upload
 		if ( preg_match( '/== Summary ==
 (.*)
 == Licensing ==

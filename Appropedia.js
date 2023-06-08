@@ -20,6 +20,9 @@ window.Appropedia = {
 		// Add reminder
 		Appropedia.addReminder();
 
+		// Load WikiEdit
+		Appropedia.loadWikiEdit();
+
 		// Enable popups on more namespaces
 		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
 	},
@@ -81,6 +84,41 @@ window.Appropedia = {
 			return;
 		}
 		mw.loader.load( '/MediaWiki:TemplateReminder.js?action=raw&ctype=text/javascript' );
+	},
+
+	/**
+	 * WikiEdit is a tool for quickly editing content without leaving the page
+	 * Documentation at https://www.mediawiki.org/wiki/WikiEdit
+	 */
+	loadWikiEdit: function () {
+		// Only load when viewing
+		var action = mw.config.get( 'wgAction' );
+		if ( action !== 'view' ) {
+			return;
+		}
+
+		// Only load in useful namespaces
+		var namespaces = [ 0, 2, 4, 12, 14 ]; // See https://www.mediawiki.org/wiki/Manual:Namespace_constants
+		var namespace = mw.config.get( 'wgNamespaceNumber' );
+		var talk = namespace % 2 === 1; // Talk pages always have odd namespaces
+		if ( !namespaces.includes( namespace ) && !talk ) {
+			return;
+		}
+
+		// Only load in wikitext pages
+		var model = mw.config.get( 'wgPageContentModel' );
+		if ( model !== 'wikitext' ) {
+			return;
+		}
+
+		// Documentation page to link from the edit summaries
+		mw.config.set( 'wikiedit-page', 'Appropedia:WikiEdit' );
+
+		// Change tag to track edits made with the tool
+		mw.config.set( 'wikiedit-tag', 'wikiedit' );
+
+		// Load the latest code directly from the central version at MediaWiki.org
+		mw.loader.load( '//www.mediawiki.org/wiki/MediaWiki:WikiEdit.js?action=raw&ctype=text/javascript' );
 	},
 
 	checkForTranslation: function () {

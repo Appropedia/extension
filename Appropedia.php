@@ -12,11 +12,27 @@ class Appropedia {
 	}
 
 	/**
+	 * Add Google Tag Manager
+	 */
+	public static function addGoogleTagManager( $out, $skin ) {
+		$user = $skin->getUser();
+		$groups = $user->getGroups();
+		if ( in_array( 'sysop', $groups ) ) {
+			return; // Don't track admins
+		}
+		$out->addInlineScript( "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TL6R9GR');" );
+	}
+
+	/**
 	 * Customize the logo and sidebar
 	 *
 	 * This hook changes the logo and sidebar depending on the category
 	 * so we can offer extra branding to some projects
-	 * like https://www.appropedia.org/SELF
+	 * such as https://www.appropedia.org/SELF
 	 */
 	public static function onBeforeInitialize( Title &$title ) {
 		global $wgSitename, $wgLogos, $wgHooks;
@@ -39,19 +55,20 @@ class Appropedia {
 	}
 
 	/**
-	 * Add Google Tag Manager
-	 */
-	public static function addGoogleTagManager( $out, $skin ) {
-		$user = $skin->getUser();
+	 * Customize the menu of admins
+	 * by replacing SemanticMediaWiki's useless admin links (hidden via CSS)
+	 * for Appropedia's awesome Appropedia:Admin_panel
+ 	 */
+	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
+		$user = $skinTemplate->getUser();
 		$groups = $user->getGroups();
 		if ( in_array( 'sysop', $groups ) ) {
-			return; // Don't track admins
+			$link = [
+				'href' => '/Appropedia:Admin_panel',
+				'text' => wfMessage( 'appropedia-admin-panel' )->text()
+			];
+			array_splice( $links['user-menu'], 3, 0, [ $link ] );
 		}
-		$out->addInlineScript( "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TL6R9GR');" );
 	}
 
 	/**
@@ -88,7 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	/**
 	 * This method is copied from Extension:PageForms
-	 * but we copy it here rather than enabling the extension
+	 * but we put it here rather than enabling the extension
 	 * because it's a big extension and this is the only thing we use from it
 	 */
 	public static function onFunctionHook( Parser $parser, $frame, $args ) {

@@ -145,85 +145,83 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 /**
  * Main page
  */
-.page-Welcome_to_Appropedia {
-	#poncho-content-actions,
-	&.skin-minerva .page-heading {
-		display: none;
-	}
-	.main-page-intro {
-		background: @background;
-		border: 1px solid @border;
-		margin: 1em 0;
-		padding: .5em;
-		text-align: center;
-	}
-	.poncho-dark-mode .main-page-intro {
-		background: @dark-background;
-		border-color: @dark-border;
-		color: #bdc1c6;
-	}
-	.main-page-title {
-		font-size: 1.5em;
-		margin: 10px;
-	}
-	.main-page-subtitle {
-		margin: 10px;
-	}
-	.main-page-actions {
-		margin: 10px;
-	}
-	.main-page-gallery .gallerybox {
-		margin-bottom: 5px !important;
-		position: relative;
-	}
-	.main-page-gallery .gallerybox img {
-		border-radius: 10px;
-	}
-	.main-page-gallery .gallerytext {
-		color: white;
-		font-size: medium !important;
-		font-weight: bold;
-		line-height: 1em;
-		margin: 0 !important;
-		pointer-events: none;
-		position: absolute;
-		right: 4px;
-		bottom: 4px;
-		text-align: right !important;
-		text-transform: uppercase;
-	}
-	.main-page-gallery .gallerytext p {
-		margin: 0;
-	}
-	.main-page-stat {
-		box-sizing: border-box;
-		display: inline-block;
-		padding: 1.4em;
-		text-align: center;
-	}
-	.main-page-stat-number {
-		font-size: 4em;
-	}
+#poncho-content-actions,
+&.skin-minerva .page-heading {
+	display: none;
+}
+.main-page-intro {
+	background: @background;
+	border: 1px solid @border;
+	margin: 1em 0;
+	padding: .5em;
+	text-align: center;
+}
+.poncho-dark-mode .main-page-intro {
+	background-color: @dark-background;
+	border-color: @dark-border;
+	color: #bdc1c6;
+}
+.main-page-title {
+	font-size: 1.5em;
+	margin: 10px;
+}
+.main-page-subtitle {
+	margin: 10px;
+}
+.main-page-actions {
+	margin: 10px;
+}
+.main-page-gallery .gallerybox {
+	margin-bottom: 5px !important;
+	position: relative;
+}
+.main-page-gallery .gallerybox img {
+	border-radius: 10px;
+}
+.main-page-gallery .gallerytext {
+	color: white;
+	font-size: medium !important;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 !important;
+	pointer-events: none;
+	position: absolute;
+	right: 4px;
+	bottom: 4px;
+	text-align: right !important;
+	text-transform: uppercase;
+}
+.main-page-gallery .gallerytext p {
+	margin: 0;
+}
+.main-page-stat {
+	box-sizing: border-box;
+	display: inline-block;
+	padding: 1.4em;
+	text-align: center;
+}
+.main-page-stat-number {
+	font-size: 4em;
 }
 @media ( max-width: @small ) {
-	.page-Welcome_to_Appropedia {
-		.main-page-stat {
-			margin: 1.5em 0;
-			width: 49%;
-		}
-		.main-page-stat-number {
-			font-size: 2em;
-		}
+	.main-page-stat {
+		margin: 1.5em 0;
+		width: 49%;
+	}
+	.main-page-stat-number {
+		font-size: 2em;
 	}
 }
 
 /**
  * Appropedia:New page
  */
-.page-Appropedia_New_page #poncho-content-actions,
-.page-Appropedia_New_page .page-actions-menu,
-.page-Appropedia_New_page .minerva__tab-container {
-	display: none;
+.page-Appropedia_New_page {
+	.page-actions-menu,
+	.minerva__tab-container,
+	#poncho-content-actions {
+		display: none;
+	}
 }
 
 /**
@@ -444,28 +442,10 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 
 /**
- * Extension:Maps
- */
-[id^=map] {
-	z-index: 0;
-}
-
-/**
  * Extension:WikiEditor
  */
 #wikiEditor-ui-toolbar .option[rel="heading-5"] {
 	display: none;
-}
-
-/**
- * Extension:NoTitle
- */
-#siteSub {
-	display: none; /* Temporarily hide authors */
-	font-family: serif;
-}
-#siteSub a {
-	color: inherit;
 }
 
 /**

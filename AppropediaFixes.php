@@ -29,6 +29,13 @@ class AppropediaFixes {
 			return;
 		}
 
+		// Only for wikitext
+		$title = $wikiPage->getTitle();
+		$contentModel = $title->getContentModel();
+		if ( $contentModel !== CONTENT_MODEL_WIKITEXT ) {
+			return;
+		}
+
 		// Do general fixes
 		$content = $wikiPage->getContent();
 		$wikitext = ContentHandler::getContentText( $content );
@@ -54,7 +61,6 @@ class AppropediaFixes {
 		}
 
 		// Save the fixed wikitext
-		$title = $wikiPage->getTitle();
 		$content = ContentHandler::makeContent( $fixed, $title );
 		$user = User::newSystemUser( $wgAppropediaBotAccount );
 		$updater = $wikiPage->newPageUpdater( $user );

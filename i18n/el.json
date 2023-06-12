@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"AProdromou",
 			"Dogogos123"
 		]
 	},
 	"appropedia-search-page-type-projects": "Εγχειρήματα",
 	"appropedia-search-page-type-devices": "Συσκευές",
+	"appropedia-search-page-type-topics": "Θέματα",
 	"appropedia-search-page-type-organizations": "Οργανισμοί",
 	"appropedia-search-page-type-skills": "Δεξιότητες",
 	"appropedia-search-page-type-essays": "Δοκίμια",

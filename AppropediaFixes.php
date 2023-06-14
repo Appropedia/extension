@@ -42,16 +42,16 @@ class AppropediaFixes {
 		$namespace = $wikiPage->getNamespace();
 		switch ( $namespace ) {
 			case 0:
-				$fixed = self::fixContentPage( $wikitext );
+				$fixed = self::fixContentPage( $wikitext, $title );
 				break;
 			case 2:
-				$fixed = self::fixUserPage( $wikitext );
+				$fixed = self::fixUserPage( $wikitext, $title );
 				break;
 			case 6:
-				$fixed = self::fixFilePage( $wikitext );
+				$fixed = self::fixFilePage( $wikitext, $title );
 				break;
 			case 14:
-				$fixed = self::fixCategoryPage( $wikitext );
+				$fixed = self::fixCategoryPage( $wikitext, $title );
 				break;
 		}
 
@@ -73,7 +73,7 @@ class AppropediaFixes {
     /**
      * Fix the wikitext of a content page
      */
-	public static function fixContentPage( $wikitext ) {
+	public static function fixContentPage( $wikitext, $title ) {
 		// Append {{Page data}}
 		if ( !preg_match( '/{{[Pp]age[_ ]data/', $wikitext )
 			&& !preg_match( '/^{{Automatic translation notice/', $wikitext ) // except automatic translations
@@ -89,7 +89,11 @@ class AppropediaFixes {
     /**
      * Fix the wikitext of a user page
      */
-	public static function fixUserPage( $wikitext ) {
+	public static function fixUserPage( $wikitext, $title ) {
+		if ( $title->isSubpage() ) {
+			return;
+		}
+
 		// Prepend {{User data}}
 		if ( !preg_match( '/{{[Uu]ser[_ ]data/', $wikitext ) ) {
 			$wikitext = "{{User data}}\n\n$wikitext";
@@ -101,7 +105,7 @@ class AppropediaFixes {
     /**
      * Fix the wikitext of a category page
      */
-	public static function fixCategoryPage( $wikitext ) {
+	public static function fixCategoryPage( $wikitext, $title ) {
 		// Prepend {{Category data}}
 		if ( !preg_match( '/{{[Cc]ategory[_ ]data/', $wikitext ) ) {
 			$wikitext = "{{Category data}}\n\n$wikitext";
@@ -113,7 +117,7 @@ class AppropediaFixes {
 	/**
      * Fix the wikitext of a file page
 	 */
-	public static function fixFilePage( $wikitext ) {
+	public static function fixFilePage( $wikitext, $title ) {
 	    // This ugly contraption is here because Extension:UploadWizard has hard-coded
 	    // the structure of the file pages it creates, so we can't modify them via config
 	    // Therefore, we check every single page save and if it has the structure of

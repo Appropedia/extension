@@ -168,12 +168,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 /**
  * Main page
  */
-.page-Welcome_to_Appropedia {
-	#poncho-content-actions,
-	&.skin-minerva .page-heading {
-		display: none;
-	}
-}
 .main-page-intro {
 	background: @background;
 	border: 1px solid @border;
@@ -236,14 +230,23 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	.main-page-stat-number {
 		font-size: 2em;
 	}
+	.page-Welcome_to_Appropedia .firstHeading {
+		display: none;
+	}
 }
 
 /**
  * Appropedia:New page
  */
-.page-Appropedia_New_page {
-	#poncho-content-actions,
-	.minerva__tab-container {
+@media ( max-width: @small ) {
+	.main-page-stat {
+		margin: 1.5em 0;
+		width: 49%;
+	}
+	.main-page-stat-number {
+		font-size: 2em;
+	}
+	.page-Appropedia_New_page .firstHeading {
 		display: none;
 	}
 }

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alshamiri1"
+			"Alshamiri1",
+			"Asma"
 		]
 	},
 	"appropedia-desc": "كود مخصص لـ Appropedia.org",
@@ -23,5 +24,38 @@
 	"appropedia-searchprofile-files": "ملفات",
 	"appropedia-searchprofile-users": "المستخدمون",
 	"appropedia-searchprofile-talks": "نقاش",
-	"appropedia-searchprofile-other": "أخرى"
+	"appropedia-searchprofile-other": "أخرى",
+	"appropedia-search-page-type-projects": "مشاريع",
+	"appropedia-search-page-type-devices": "الأجهزة",
+	"appropedia-search-page-type-topics": "مواضيع",
+	"appropedia-search-page-type-organizations": "المنظمات",
+	"appropedia-search-page-type-skills": "مهارات",
+	"appropedia-search-page-type-essays": "مقالات",
+	"appropedia-search-page-type-papers": "أوراق",
+	"appropedia-search-page-type-books": "كتب",
+	"appropedia-search-page-type-literature-reviews": "مراجعات ادبية",
+	"appropedia-search-page-sdg-01": "SDG01 لا فقر",
+	"appropedia-search-page-sdg-02": "SDG02 القضاء على الجوع",
+	"appropedia-search-page-sdg-03": "SDG03 صحة جيدة ورفاهية",
+	"appropedia-search-page-sdg-04": "SDG04 جودة التعليم",
+	"appropedia-search-page-sdg-05": "SDG05 المساواة بين الجنسين",
+	"appropedia-search-page-sdg-06": "SDG06 المياه النظيفة والصرف الصحي",
+	"appropedia-search-page-sdg-07": "SDG07 طاقة نظيفة وبأسعار معقولة",
+	"appropedia-search-page-sdg-08": "SDG08 العمل اللائق والنمو الاقتصادي",
+	"appropedia-search-page-sdg-09": "SDG09 الصناعة والابتكار والبنية التحتية",
+	"appropedia-search-page-sdg-10": "SDG10 الحد من عدم المساواة",
+	"appropedia-search-page-sdg-11": "SDG11 المدن والمجتمعات المستدامة",
+	"appropedia-search-page-sdg-12": "SDG12 استهلاك وإنتاج مسؤول",
+	"appropedia-search-page-sdg-13": "SDG13 العمل المناخي",
+	"appropedia-search-page-sdg-14": "SDG14 الحياة تحت الماء",
+	"appropedia-search-page-sdg-15": "SDG15 الحياة على الأرض",
+	"appropedia-search-page-sdg-16": "SDG16 السلام والعدل والمؤسسات القوية",
+	"appropedia-search-page-sdg-17": "SDG17 الشراكات من أجل الأهداف",
+	"appropedia-search-file-type-images": "الصور",
+	"appropedia-search-file-type-drawings": "الرسومات",
+	"appropedia-search-file-type-documents": "المستندات",
+	"appropedia-search-file-type-code": "رمز",
+	"appropedia-search-file-type-videos": "مقاطع فيديو",
+	"appropedia-search-file-type-audios": "صوت",
+	"appropedia-search-file-license-public-domain": "المجال العام"
 }

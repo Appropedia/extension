@@ -82,7 +82,7 @@ class AppropediaMessages {
 				$title = $context->getTitle();
 				$namespace = $title->getNamespace();
 				$action = in_array( $namespace, [ 0, 2, 4, 12 ] ) ? 'veaction' : 'action';
-				$preload = $namespace === 2 ? 'Preload:User' : null;
+				$preload = $namespace === 2 && !$title->isSubpage() ? 'Preload:User' : null;
 				$link = $title->getFullURL( [ $action => 'edit', 'preload' => $preload ] );
 				$text = wfMessage( 'appropedia-create-page' )->text();
 				$message = '[' . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';

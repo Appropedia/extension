@@ -35,22 +35,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	 * such as https://www.appropedia.org/SELF
 	 */
 	public static function onBeforeInitialize( Title &$title ) {
-		global $wgSitename, $wgLogos, $wgHooks;
+		global $wgSitename, $wgLogos;
 		$categories = $title->getParentCategories();
 		$categories = array_keys( $categories );
 		if ( in_array( 'Category:SELF', $categories ) ) {
-			$wgSitename = 'SELF';
-			$wgLogos['icon'] = '/logos/SELF-icon.png';
-			$wgLogos['tagline'] = [
-				'src' => '/logos/Appropedia-powered.png',
-				'width' => 135,
-				'height' => 15
+			$wgSitename = 'Surgical Education Learners Forum';
+			$wgLogos['wordmark'] = [
+				'src' => '/logos/SELF-logo.png',
+				'width' => 97,
+				'height' => 42,
 			];
-			unset( $wgLogos['wordmark'] );
-			$wgHooks['SkinBuildSidebar'][] = function ( Skin $skin, &$sidebar ) {
-				$sidebar = [];
-				$skin->addToSidebar( $sidebar, 'Sidebar-SELF' );
-			};
+		}
+	}
+	
+	/**
+	 * Add classes to the body
+	 */
+	static function onOutputPageBodyAttributes( OutputPage $out, Skin $skin, &$bodyAttrs ) {
+		global $wgSitename;
+		if ( $wgSitename !== 'Appropedia' ) {
+			$bodyAttrs['class'] .= ' poncho-logo-separator';
 		}
 	}
 

@@ -122,6 +122,18 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 
 /**
+ * Separate other logos from the Appropedia logo
+ */
+.poncho-logo-separator #poncho-logo span:before {
+	color: @border;
+	content: '/';
+	font-size: 2.5em;
+	margin-left: .2em;
+	margin-right: .3em;
+	vertical-align: middle;
+}
+
+/**
  * Hide Language menu because Appropedia is a single wiki
  */
 #poncho-languages-menu {

@@ -46,6 +46,7 @@
 	},
 	"Hooks": {
 		"BeforeInitialize": "Appropedia::onBeforeInitialize",
+		"OutputPageBodyAttributes": "Appropedia::onOutputPageBodyAttributes",
 		"BeforePageDisplay": "Appropedia::onBeforePageDisplay",
 		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
 		"SkinTemplateNavigation::Universal": "Appropedia::onSkinTemplateNavigationUniversal",

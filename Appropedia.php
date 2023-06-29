@@ -40,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		$title = $poncho->getSkin()->getTitle();
 		$categories = $title->getParentCategories();
 		$categories = array_keys( $categories );
-		if ( !in_array( 'Category:SELF', $categories ) ) {
+		if ( in_array( 'Category:SELF', $categories ) ) {
 			$subwikiLogo = '/logos/SELF-logo.png';
 			$subwikiWidth = 97;
 			$subwikiPage = 'Surgical Education Learners Forum';

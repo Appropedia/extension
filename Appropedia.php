@@ -42,7 +42,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		$categories = array_keys( $categories );
 		if ( in_array( 'Category:SELF', $categories ) ) {
 			$subwikiLogo = '/logos/SELF-logo.png';
-			$subwikiWidth = 97;
 			$subwikiPage = 'Surgical Education Learners Forum';
 		}
 
@@ -56,7 +55,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$appropediaLogo = Html::rawElement( 'a', $appropediaLogoAttrs, $appropediaIcon );
 
 			// Make subwiki logo
-			$subwikiIconAttrs = [ 'src' => $subwikiLogo, 'width' => $subwikiWidth, 'height' => 42 ];
+			$subwikiIconAttrs = [ 'src' => $subwikiLogo, 'height' => 42 ];
 			$subwikiIcon = Html::rawElement( 'img', $subwikiIconAttrs );
 			$subwikiTitle = Title::newFromText( $subwikiPage );
 			$subwikiLogoAttrs = [ 'id' => 'subwiki-logo', 'title' => $subwikiPage, 'href' => $subwikiTitle->getFullUrl() ];

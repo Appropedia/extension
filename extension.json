@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "3.5",
+	"version": "4.0",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -45,8 +45,7 @@
 		"remoteExtPath": "Appropedia"
 	},
 	"Hooks": {
-		"BeforeInitialize": "Appropedia::onBeforeInitialize",
-		"OutputPageBodyAttributes": "Appropedia::onOutputPageBodyAttributes",
+		"PonchoLogo": "Appropedia::onPonchoLogo",
 		"BeforePageDisplay": "Appropedia::onBeforePageDisplay",
 		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
 		"SkinTemplateNavigation::Universal": "Appropedia::onSkinTemplateNavigationUniversal",

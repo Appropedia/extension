@@ -28,33 +28,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	}
 
 	/**
-	 * Customize the logo and sidebar
+	 * Customize the logo
 	 *
-	 * This hook changes the logo and sidebar depending on the category
+	 * This hook changes the logo depending on the category
 	 * so we can offer extra branding to some projects
 	 * such as https://www.appropedia.org/SELF
 	 */
-	public static function onBeforeInitialize( Title &$title ) {
-		global $wgSitename, $wgLogos;
+	public static function onPonchoLogo( &$logo, $poncho ) {
+		global $wgLogos;
+
+		$title = $poncho->getSkin()->getTitle();
 		$categories = $title->getParentCategories();
 		$categories = array_keys( $categories );
-		if ( in_array( 'Category:SELF', $categories ) ) {
-			$wgSitename = 'Surgical Education Learners Forum';
-			$wgLogos['wordmark'] = [
-				'src' => '/logos/SELF-logo.png',
-				'width' => 97,
-				'height' => 42,
-			];
+		if ( !in_array( 'Category:SELF', $categories ) ) {
+			$subwikiLogo = '/logos/SELF-logo.png';
+			$subwikiWidth = 97;
+			$subwikiPage = 'Surgical Education Learners Forum';
 		}
-	}
-	
-	/**
-	 * Add classes to the body
-	 */
-	static function onOutputPageBodyAttributes( OutputPage $out, Skin $skin, &$bodyAttrs ) {
-		global $wgSitename;
-		if ( $wgSitename !== 'Appropedia' ) {
-			$bodyAttrs['class'] .= ' poncho-logo-separator';
+
+		if ( $subwikiLogo ) {
+			// Make Appropedia logo
+			$appropediaIconAttrs = [ 'src' => $wgLogos['icon'], 'width' => 42, 'height' => 42 ];
+			$appropediaIcon = Html::rawElement( 'img', $appropediaIconAttrs );
+			$appropediaLogoAttrs = Linker::tooltipAndAccesskeyAttribs( 'p-logo' );
+			$appropediaLogoAttrs['id'] = 'appropedia-logo';
+			$appropediaLogoAttrs['href'] = htmlspecialchars( $poncho->data['nav_urls']['mainpage']['href'] );
+			$appropediaLogo = Html::rawElement( 'a', $appropediaLogoAttrs, $appropediaIcon );
+
+			// Make subwiki logo
+			$subwikiIconAttrs = [ 'src' => $subwikiLogo, 'width' => $subwikiWidth, 'height' => 42 ];
+			$subwikiIcon = Html::rawElement( 'img', $subwikiIconAttrs );
+			$subwikiTitle = Title::newFromText( $subwikiPage );
+			$subwikiLogoAttrs = [ 'id' => 'subwiki-logo', 'title' => $subwikiPage, 'href' => $subwikiTitle->getFullUrl() ];
+			$subwikiLogo = Html::rawElement( 'a', $subwikiLogoAttrs, $subwikiIcon );
+
+			// Make wrapper
+			$separator = Html::rawElement( 'span', [ 'id' => 'appropedia-logo-separator' ], '/' );
+			$logoAttrs = [ 'id' => 'appropedia-logo-wrapper' ];
+			$logo = Html::rawElement( 'div', $logoAttrs, $appropediaLogo . $separator . $subwikiLogo );
 		}
 	}
 

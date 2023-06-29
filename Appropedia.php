@@ -44,6 +44,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$subwikiLogo = '/logos/SELF-logo.png';
 			$subwikiPage = 'Surgical Education Learners Forum';
 		}
+		if ( in_array( 'Category:Fashion_Revolution', $categories ) ) {
+			$subwikiLogo = '/logos/fashion-revolution-logo.png';
+			$subwikiPage = 'Fashion Revolution';
+		}
 
 		if ( $subwikiLogo ) {
 			// Make Appropedia logo

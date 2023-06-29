@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$subwikiPage = 'Surgical Education Learners Forum';
 		}
 		if ( in_array( 'Category:Fashion_Revolution', $categories ) ) {
-			$subwikiLogo = '/logos/fashion-revolution-logo.png';
+			$subwikiLogo = '/logos/fashion-revolution-logo.svg';
 			$subwikiPage = 'Fashion Revolution';
 		}
 

@@ -61,8 +61,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$subwikiLogoAttrs = [ 'id' => 'subwiki-logo', 'title' => $subwikiPage, 'href' => $subwikiTitle->getFullUrl() ];
 			$subwikiLogo = Html::rawElement( 'a', $subwikiLogoAttrs, $subwikiIcon );
 
-			// Make wrapper
-			$separator = Html::rawElement( 'span', [ 'id' => 'appropedia-logo-separator' ], '/' );
+			// Make the composite logo
+			$separator = Html::rawElement( 'span', [ 'id' => 'appropedia-logo-separator' ] );
 			$logoAttrs = [ 'id' => 'appropedia-logo-wrapper' ];
 			$logo = Html::rawElement( 'div', $logoAttrs, $appropediaLogo . $separator . $subwikiLogo );
 		}

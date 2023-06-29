@@ -41,11 +41,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		$categories = $title->getParentCategories();
 		$categories = array_keys( $categories );
 		if ( in_array( 'Category:SELF', $categories ) ) {
-			$subwikiLogo = '/logos/SELF-logo.png';
+			$subwikiLogo = '/w/images/e/ef/SELF_Logo.png';
 			$subwikiPage = 'Surgical Education Learners Forum';
 		}
 		if ( in_array( 'Category:Fashion_Revolution', $categories ) ) {
-			$subwikiLogo = '/logos/fashion-revolution-logo.svg';
+			$subwikiLogo = '/w/images/7/7a/Fashion_Revolution_Logo.svg';
 			$subwikiPage = 'Fashion Revolution';
 		}
 

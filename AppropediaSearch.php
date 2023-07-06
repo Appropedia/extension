@@ -9,15 +9,6 @@ use MediaWiki\MediaWikiServices;
 class AppropediaSearch {
 
 	/**
-	 * Customize the content of search results
-	 */
-	public static function onShowSearchHit( $searchPage, $result, $terms, &$link, &$redirect, &$section, &$extract, &$score, &$size, &$date, &$related, &$html ) {
-
-		// Remove time from date, per mostly useless and noisy (only works in English and some other languages)
-		$date = substr( $date, strpos( $date, ', ' ) + 1 );
-	}
-
-	/**
 	 * Customize the title of search results
 	 */
 	public static function onShowSearchHitTitle( Title &$title, &$titleSnippet, SearchResult $result, $terms, SpecialSearch $specialSearch, array &$query, array &$attributes ) {

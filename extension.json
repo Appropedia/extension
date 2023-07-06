@@ -56,7 +56,6 @@
 		"SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
 		"SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
 		"SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
-		"ShowSearchHit": "AppropediaSearch::onShowSearchHit",
 		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle"
 	},
 	"config": {

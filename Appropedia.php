@@ -52,6 +52,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$subwikiLogo = '/w/images/7/7a/Fashion_Revolution_Logo.svg';
 			$subwikiPage = 'Fashion Revolution';
 		}
+		if ( in_array( 'Category:Public_Lab', $categories ) ) {
+			$subwikiLogo = '/w/images/9/90/Public_Lab.png';
+			$subwikiPage = 'Public Lab';
+		}
+		if ( in_array( 'Category:Catholic_Relief_Services', $categories ) ) {
+			$subwikiLogo = '/w/images/1/14/Catholic_Relief_Services.png';
+			$subwikiPage = 'Catholic Relief Services';
+		}
 
 		if ( $subwikiLogo ) {
 			// Make Appropedia logo

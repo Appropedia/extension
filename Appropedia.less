@@ -491,3 +491,15 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 .dt-ui-replyWidget-footer p:last-child {
 	display: none;
 }
+
+// Hide or show some stuff in mobile contexts
+@media ( max-width: @small ) {
+	.nomobile {
+		display: none;
+	}
+}
+@media ( min-width: @small ) {
+	.mobileonly {
+		display: none;
+	}
+}

@@ -1,4 +1,3 @@
-/* global Appropedia, mw, $ */
 window.Appropedia = {
 
 	/**
@@ -123,24 +122,25 @@ window.Appropedia = {
 
 	checkForTranslation: function () {
 
-		// Only save translations when viewing content
+		// Only check for translations when viewing content
 		var action = mw.config.get( 'wgAction' );
 		if ( action !== 'view' ) {
 			return;
 		}
 
-		// Only save translations to main, project and help namespaces
+		// Only check for translations to main, project and help namespaces
 		var namespace = mw.config.get( 'wgNamespaceNumber' );
 		if ( ! [ 0, 4, 12 ].includes( namespace ) ) {
 			return;
 		}
 
 		// Check for <font> tags because Google Translate inserts MANY such tags
-		if ( $( '#mw-content-text font' ).length < 10 ) {
+		var nodes = $( '#mw-content-text font' ).length;
+		if ( nodes < 10 ) {
 			return;
 		}
 
-		// Don't save translations of translations (check for [[Template:Automatic translation notice]])
+		// Don't check for translations of translations (check for [[Template:Automatic translation notice]])
 		if ( $( '.automatic-translation' ).length ) {
 			return;
 		}
@@ -151,15 +151,31 @@ window.Appropedia = {
 			return;
 		}
 
-		// Don't save translations to the same language (including language variants like en-GB)
+		// Don't check for translations to the same language (including language variants like en-GB)
 		var contentLanguage = mw.config.get( 'wgPageContentLanguage' );
 		if ( contentLanguage === translationLanguage ) {
 			return;
-		}		
+		}
 
-		// Stop checking and save the translation
-		clearInterval( Appropedia.interval );
-		Appropedia.saveTranslation();
+		// Check to see if there is a translation already
+		var title = mw.config.get( 'wgPageName' );
+		new mw.Api().get( {
+			'action': 'query',
+			'titles': title + '/' + translationLanguage,
+			'prop': 'pageprops',
+			'formatversion': 2
+		} ).done( function ( data ) {
+
+			// If there is a translation already, check if the current one is better
+			var page = data.query.pages[0];
+			if ( 'pageprops' in page && 'nodes' in page.pageprops && nodes < page.pageprops.nodes ) {
+				return;
+			}
+
+			// If we reach this point, stop checking and just save the translation
+			clearInterval( Appropedia.interval );
+			Appropedia.saveTranslation();
+		} );
 	},
 
 	saveTranslation: function () {

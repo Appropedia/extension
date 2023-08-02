@@ -405,8 +405,13 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 
 // Extension:TalkBelow
 .talkbelow-section {
-	border-top: 1px solid @border;
+	border: 1px solid @border;
+	background: @background;
 	margin-top: 2.5em;
+	padding: 1em;
+}
+.talkbelow-heading {
+	margin-top: 0;
 }
 .talkbelow-heading .mw-editsection {
 	text-transform: lowercase;
@@ -416,6 +421,10 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 #poncho-talk-button {
 	display: none;
+}
+.poncho-dark-mode .talkbelow-section {
+	border-color: @dark-border;
+	background-color: @dark-background;
 }
 
 // Extension:SemanticMediaWiki

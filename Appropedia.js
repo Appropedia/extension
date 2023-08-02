@@ -157,25 +157,32 @@ window.Appropedia = {
 			return;
 		}
 
-		// Check to see if there is a translation already
-		var title = mw.config.get( 'wgPageName' );
-		new mw.Api().get( {
-			'action': 'query',
-			'titles': title + '/' + translationLanguage,
-			'prop': 'pageprops',
-			'formatversion': 2
-		} ).done( function ( data ) {
+		// If we reach this point, check if there's a saved translation already
+		if ( Appropedia.nodes === undefined ) {
+			var title = mw.config.get( 'wgPageName' );
+			new mw.Api().get( {
+				'action': 'query',
+				'titles': title + '/' + translationLanguage,
+				'prop': 'pageprops',
+				'formatversion': 2
+			} ).done( function ( data ) {
+				var page = data.query.pages[0];
+				if ( 'pageprops' in page && 'nodes' in page.pageprops ) {
+					Appropedia.nodes = Number( page.pageprops.nodes );
+				} else {
+					Appropedia.nodes = 0;
+				}
+			} );
+			return;
+		}
 
-			// If there is a translation already, check if the current one is better
-			var page = data.query.pages[0];
-			if ( 'pageprops' in page && 'nodes' in page.pageprops && nodes < page.pageprops.nodes ) {
-				return;
-			}
-
-			// If we reach this point, stop checking and just save the translation
+		// Save the current translation only if it's better than the saved one
+		console.log( Appropedia.nodes, nodes );
+		if ( Appropedia.nodes <= nodes ) {
+			Appropedia.nodes = nodes;
 			clearInterval( Appropedia.interval );
 			Appropedia.saveTranslation();
-		} );
+		}
 	},
 
 	saveTranslation: function () {

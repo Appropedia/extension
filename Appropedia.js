@@ -135,7 +135,9 @@ window.Appropedia = {
 		}
 
 		// Check for <font> tags because Google Translate inserts MANY such tags
-		var nodes = $( '#mw-content-text font' ).length;
+		var $content = $( '#mw-content-text > .mw-parser-output' ).clone();
+		$content.find( '.mw-editsection' ).remove(); // Remove edit section links
+		var nodes = $content.find( 'font' ).length;
 		if ( nodes < 10 ) {
 			return;
 		}
@@ -177,7 +179,6 @@ window.Appropedia = {
 		}
 
 		// Save the current translation only if it's better than the saved one
-		console.log( Appropedia.nodes, nodes );
 		if ( Appropedia.nodes <= nodes ) {
 			Appropedia.nodes = nodes;
 			clearInterval( Appropedia.interval );
@@ -208,9 +209,6 @@ window.Appropedia = {
 		var html = $content.html();
 		html = html.replace( /\n\s+|\n/g, '' );
 
-		// Count nodes
-		var nodes = $content.find( 'font' ).length;
-
 		// Get categories
 		var categories = mw.config.get( 'wgCategories' );
 
@@ -218,7 +216,7 @@ window.Appropedia = {
 		var wikitext = '{{Automatic translation notice';
 		wikitext += '\n| title = ' + title;
 		wikitext += '\n| revision = ' + mw.config.get( 'wgCurRevisionId' );
-		wikitext += '\n| nodes = ' + nodes;
+		wikitext += '\n| nodes = ' + Appropedia.nodes;
 		wikitext += '\n}}';
 		wikitext += '\n\n<html>' + html + '</html>\n';
 		for ( var category of categories ) {

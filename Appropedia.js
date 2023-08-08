@@ -179,8 +179,7 @@ window.Appropedia = {
 		}
 
 		// Save the current translation only if it's better than the saved one
-		if ( Appropedia.nodes <= nodes ) {
-			Appropedia.nodes = nodes;
+		if ( Appropedia.nodes < nodes ) {
 			clearInterval( Appropedia.interval );
 			Appropedia.saveTranslation();
 		}
@@ -212,11 +211,14 @@ window.Appropedia = {
 		// Get categories
 		var categories = mw.config.get( 'wgCategories' );
 
+		// Count the nodes
+		var nodes = $content.find( 'font' ).length;
+
 		// Build wikitext
 		var wikitext = '{{Automatic translation notice';
 		wikitext += '\n| title = ' + title;
 		wikitext += '\n| revision = ' + mw.config.get( 'wgCurRevisionId' );
-		wikitext += '\n| nodes = ' + Appropedia.nodes;
+		wikitext += '\n| nodes = ' + nodes;
 		wikitext += '\n}}';
 		wikitext += '\n\n<html>' + html + '</html>\n';
 		for ( var category of categories ) {

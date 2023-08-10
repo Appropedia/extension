@@ -107,21 +107,9 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 #appropedia-logo {
 	vertical-align: middle;
 }
-#appropedia-logo-separator {
-	border-left: 3px solid @border;
-	cursor: default;
-	font-size: 2.5em;
-	margin: 0 .4em;
-	vertical-align: middle;
-}
 #subwiki-logo {
+	margin-left: 1em;
 	vertical-align: middle;
-}
-@media ( max-width: @small ) {
-	#appropedia-logo-separator {
-		border: none;
-		margin: 0 .2em;
-	}
 }
 
 // Hide Language menu because Appropedia is a single wiki
@@ -415,6 +403,16 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 #talkbelow-heading .mw-editsection {
 	text-transform: lowercase;
+}
+#talkbelow-section dd {
+	border-left: .5em solid @indent;
+	margin: 0;
+	margin-top: 1em;
+	padding-top: .5em;
+	padding-left: 1em;
+}
+#talkbelow-section dd + dd {
+	margin-top: 0;
 }
 #talkbelow-add-topic {
 	margin-top: 2em;

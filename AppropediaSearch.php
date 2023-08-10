@@ -112,10 +112,10 @@ class AppropediaSearch {
 			$form .= '<option value="">' . wfMessage( 'appropedia-search-page-type-any' )->text() . '</option>';
 			$options = [
 				wfMessage( 'appropedia-search-page-type-projects' )->text() => 'Projects',
-				wfMessage( 'appropedia-search-page-type-devices' )->text() => 'Devices',
+				wfMessage( 'appropedia-search-page-type-guides' )->text() => 'How tos',
 				wfMessage( 'appropedia-search-page-type-topics' )->text() => 'Topics',
 				wfMessage( 'appropedia-search-page-type-organizations' )->text() => 'Organizations',
-				wfMessage( 'appropedia-search-page-type-skills' )->text() => 'Skills',
+				wfMessage( 'appropedia-search-page-type-devices' )->text() => 'Devices',
 				wfMessage( 'appropedia-search-page-type-essays' )->text() => 'Essays',
 				wfMessage( 'appropedia-search-page-type-papers' )->text() => 'Papers',
 				wfMessage( 'appropedia-search-page-type-books' )->text() => 'Books',

@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$subwikiPage = 'Catholic Relief Services';
 		}
 
-		if ( $subwikiLogo ) {
+		if ( isset( $subwikiLogo ) ) {
 			// Make Appropedia logo
 			$appropediaIconAttrs = [ 'src' => $wgLogos['icon'], 'width' => 42, 'height' => 42 ];
 			$appropediaIcon = Html::rawElement( 'img', $appropediaIconAttrs );
@@ -78,9 +78,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			$subwikiLogo = Html::rawElement( 'a', $subwikiLogoAttrs, $subwikiIcon );
 
 			// Make the composite logo
-			$separator = Html::rawElement( 'span', [ 'id' => 'appropedia-logo-separator' ] );
 			$logoAttrs = [ 'id' => 'appropedia-logo-wrapper' ];
-			$logo = Html::rawElement( 'div', $logoAttrs, $appropediaLogo . $separator . $subwikiLogo );
+			$logo = Html::rawElement( 'div', $logoAttrs, $appropediaLogo . $subwikiLogo );
 		}
 	}
 

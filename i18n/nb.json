@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"EdoAug"
+			"EdoAug",
+			"Event"
 		]
 	},
 	"appropedia-desc": "Tilpasset kode for Appropedia.org",
@@ -24,7 +25,7 @@
 	"appropedia-search-page-type-devices": "Enheter",
 	"appropedia-search-page-type-topics": "Emner",
 	"appropedia-search-page-type-organizations": "Organisasjoner",
-	"appropedia-search-page-type-skills": "Ferdigheter",
+	"appropedia-search-page-type-guides": "Guider",
 	"appropedia-search-page-type-essays": "Essayer",
 	"appropedia-search-page-type-papers": "Artikler",
 	"appropedia-search-page-type-books": "Bøker",

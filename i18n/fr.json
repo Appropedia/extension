@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Gomoko",
 			"Verdy p"
 		]
 	},
@@ -29,7 +30,7 @@
 	"appropedia-search-page-type-devices": "Appareils",
 	"appropedia-search-page-type-topics": "Sujets",
 	"appropedia-search-page-type-organizations": "Organisation",
-	"appropedia-search-page-type-skills": "Compétences",
+	"appropedia-search-page-type-guides": "Guides",
 	"appropedia-search-page-type-essays": "Essais",
 	"appropedia-search-page-type-papers": "Articles",
 	"appropedia-search-page-type-books": "Livres",

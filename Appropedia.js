@@ -34,7 +34,7 @@ window.Appropedia = {
 		var value = $select.val();
 		var $options = $select.find( 'option' );
 		var params = new URLSearchParams( window.location.search );
-		var search = params.get( 'search' );
+		var search = params.get( 'search' ) || '';
 		$options.each( function () {
 			var option = $( this ).val();
 			search = search.replace( option, '' );

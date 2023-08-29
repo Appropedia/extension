@@ -1,14 +1,18 @@
 <?php
 
+/**
+ * This class localizes various interface messages
+ *
+ * We use this class rather than editing the MediaWiki namespace
+ * because editing the MediaWiki namespace only changes one language at a time,
+ * whereas here it changes all languages at once
+ * and also sends the messages for translation to translatewiki.net
+ *
+ * @note When Appropedia updates to MediaWiki 1.41+
+ * some of this code should migrate to the MessageCacheFetchOverrides hook
+ */
 class AppropediaMessages {
 
-	/**
-	 * Customize interface messages
-	 *
-	 * When Appropedia updates to MediaWiki 1.41+
-	 * some of this code should migrate to the MessageCacheFetchOverrides hook instead
-	 * see https://www.mediawiki.org/wiki/Manual:Hooks/MessageCacheFetchOverrides
-	 */
 	public static function onMessagesPreLoad( $title, &$message, $code ) {
 		if ( $code === 'qqx' ) {
 			return;
@@ -40,11 +44,11 @@ class AppropediaMessages {
 			 * Override messages
 			 */
 			case 'copyrightwarning':
-				$message = wfMessage( "appropedia-page-edit-warning" )->text();
+				$message = wfMessage( 'appropedia-page-edit-warning' )->text();
 				break;
 
 			case 'anoneditwarning':
-				$message = wfMessage( "appropedia-anon-edit-warning" )->text();
+				$message = wfMessage( 'appropedia-anon-edit-warning' )->text();
 				break;
 
 			case 'editnotice-2':

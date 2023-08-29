@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * This class contains all code not covered by more specific classes
+ */
 class Appropedia {
 
 	/**
@@ -96,7 +99,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	}
 
 	/**
-	 * Main hook
+	 * #arraymap parser function
 	 *
 	 * @param Parser $parser Parser object
 	 */

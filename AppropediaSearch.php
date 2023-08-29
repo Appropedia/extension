@@ -4,7 +4,8 @@ use MediaWiki\MediaWikiServices;
 
 /**
  * This class contains all PHP code related to search customization
- * (there's some relevant JavaScript code at Appropedia.js too)
+ *
+ * @note There's some relevant JavaScript code at Appropedia.js
  */
 class AppropediaSearch {
 

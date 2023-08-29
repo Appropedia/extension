@@ -18,7 +18,7 @@ class Appropedia {
 	/**
 	 * Add Google Tag Manager
 	 */
-	public static function addGoogleTagManager( $out, $skin ) {
+	private static function addGoogleTagManager( OutputPage $out, Skin $skin ) {
 		$user = $skin->getUser();
 		$groups = $user->getGroups();
 		if ( in_array( 'sysop', $groups ) ) {
@@ -84,34 +84,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	}
 
 	/**
-	 * Customize the menu of admins
-	 * by replacing SemanticMediaWiki's useless admin links (hidden via CSS)
-	 * for Appropedia's awesome Appropedia:Admin_panel
- 	 */
-	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
-		$user = $skinTemplate->getUser();
-		$groups = $user->getGroups();
-		if ( in_array( 'sysop', $groups ) ) {
-			$link = [
-				'href' => '/Appropedia:Admin_panel',
-				'text' => wfMessage( 'appropedia-admin-panel' )->text()
-			];
-			array_splice( $links['user-menu'], 3, 0, [ $link ] );
-		}
-	}
-
-	/**
-	 * Customize the footer links
-	 */
-	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
-		if ( $key === 'places' ) {
-			$footerlinks['policies'] = $skin->footerLink( 'appropedia-policies', 'policiespage' );
-			$footerlinks['contact'] = $skin->footerLink( 'appropedia-contact', 'contactpage' );
-		};
-		return false; // Prevent other extensions (like MobileFrontend) from adding more links
-	}
-
-	/**
 	 * Make "external" links like [https://www.appropedia.org/Water Water] behave as internal links
 	 */
 	public static function onLinkerMakeExternalLink( &$url, &$text, &$link, &$attribs, $linktype ) {
@@ -129,15 +101,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	 * @param Parser $parser Parser object
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'arraymap', [ self::class, 'onFunctionHook' ], Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymap', [ self::class, 'onArrayMap' ], Parser::SFH_OBJECT_ARGS );
 	}
 
 	/**
-	 * This method is copied from Extension:PageForms
+	 * This method is essentially copied from Extension:PageForms
 	 * but we put it here rather than enabling the extension
 	 * because it's a big extension and this is the only thing we use from it
 	 */
-	public static function onFunctionHook( Parser $parser, $frame, $args ) {
+	public static function onArrayMap( Parser $parser, $frame, $args ) {
 		// Set variables
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';

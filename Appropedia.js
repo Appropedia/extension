@@ -4,6 +4,12 @@ window.Appropedia = {
 	 * Initialization script
 	 */
 	init: function () {
+		$( '#ca-print' ).on( 'click', Appropedia.print ),
+		$( '#ca-translate' ).on( 'click', Appropedia.translate );
+		$( '#ca-read-aloud' ).on( 'click', Appropedia.readAloud );
+		$( '#ca-pause-reading' ).on( 'click', Appropedia.pauseReading );
+		$( '#ca-share' ).on( 'click', Appropedia.share ),
+
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
 
@@ -22,8 +28,213 @@ window.Appropedia = {
 		// Load WikiEdit
 		Appropedia.loadWikiEdit();
 
+		// Stop any running voice
+		window.speechSynthesis.cancel();
+
 		// Enable popups on more namespaces
 		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
+	},
+
+	/**
+	 * Print or download the current page
+	 */
+	print: function () {
+		window.print();
+	},
+
+	/**
+	 * Translate the current page by loading Google Translate
+	 */
+	translate: function () {
+		var googleTranslateElement = $( '#google-translate-element' );
+		if ( googleTranslateElement.length ) {
+			Appropedia.initGoogleTranslate();
+		} else {
+			googleTranslateElement = $( '<div hidden id="google-translate-element"></div>' );
+			$( 'body' ).after( googleTranslateElement );
+			$.getScript( '//translate.google.com/translate_a/element.js?cb=Appropedia.initGoogleTranslate' );
+		}
+	},
+
+	/**
+	 * Initialize Google Translate by clicking the hidden Google Translate element
+	 */
+	initGoogleTranslate: function () {
+		new google.translate.TranslateElement( {
+			pageLanguage: mw.config.get( 'wgPageContentLanguage' ),
+			layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+		}, 'google-translate-element' );
+
+		// Wait for the element to load and then open the language list
+		// @todo Wait for the relevant element rather than setTimeout
+		setTimeout( function () {
+			$( '.goog-te-gadget-simple' ).trigger( 'click' );
+		}, 1000 );
+
+		// Make the language menu scrollable in small screens
+		// @todo Wait for the relevant element rather than setTimeout
+		// @note Because the number and position of the iframes varies wildly
+		// and there's barely any CSS class or anything to distinguish them
+		// we just apply the changes to all of them
+		setTimeout( function () {
+			var $frames = $( '#goog-gt-tt' ).nextAll( 'iframe' );
+			if ( $frames.length ) {
+				$frames.attr( 'scrollable', true ).css( 'max-width', '100%' );
+				$frames.contents().find( 'body' ).css( 'overflow', 'scroll' );
+			}
+		}, 1000 );
+	},
+
+	/**
+	 * Read the current page aloud
+	 */
+	readAloud: function () {
+
+		// Swap buttons
+		$( this ).hide();
+		$( '#ca-pause-reading' ).show();
+
+		// If speech was paused, just resume
+		if ( window.speechSynthesis.paused ) {
+			window.speechSynthesis.resume();
+			return;
+		}
+
+		// Remove elements we don't want to read
+		var $content = $( '#mw-content-text .mw-parser-output' );
+		var $elements = $content.children( 'h1, h2, h3, h4, h5, h6, p, ul, ol' );
+		$elements.addClass( 'read' ).on( 'click', Appropedia.jumpToElement );
+		Appropedia.readNextElement();
+	},
+
+	index: 0,
+	readNextElement: function () {
+		var $element = $( '.read' ).eq( Appropedia.index );
+		Appropedia.index++;
+		$( '.reading' ).removeClass( 'reading' );
+		$element.addClass( 'reading' ).get(0).scrollIntoView( { behavior: 'auto', block: 'center', inline: 'center' } );
+		var text = $element.text();
+		text = text.replace( / ([A-Z])\./g, ' $1' ); // Remove dots from acronyms to prevent confusion with sentences
+		text = text.replace( /[([].*?[\])]/g, '' ); // Don't read parentheses
+		var sentences = text.split( '. ' ); // Include space to prevent matching things like "99.9%"
+		sentences = sentences.filter( s => s ); // Remove empty sentences
+		Appropedia.sentences = sentences;
+		Appropedia.readNextSentence();
+	},
+
+	sentences: [],
+	readNextSentence: function () {
+		var sentence = Appropedia.sentences.shift();
+		var utterance = new window.SpeechSynthesisUtterance( sentence );
+		utterance.lang = mw.config.get( 'wgPageContentLanguage' );
+		window.speechSynthesis.cancel();
+		window.speechSynthesis.speak( utterance );
+		utterance.onend = Appropedia.onUtteranceEnd;
+	},
+
+	/**
+	 * Note! This will fire not only when the utterance finishes
+	 * but also when the speechSynthesis is cancelled
+	 * notably when jumping to another element
+	 * This is why we need the ugly skipNextSentence hack seen below
+	 */
+	onUtteranceEnd: function () {
+		if ( Appropedia.skipNextSentence ) {
+			Appropedia.skipNextSentence = false;
+			return;
+		}
+		if ( Appropedia.sentences.length ) {
+			Appropedia.nextSentenceTimeout = setTimeout( Appropedia.readNextSentence, 500 );
+			return;
+		}
+		if ( Appropedia.index < $( '.read' ).length ) {
+			Appropedia.nextElementTimeout = setTimeout( Appropedia.readNextElement, 1000 );
+			return;
+		}
+	},
+
+	/**
+	 * Jump to a specific element
+	 */
+	nextElementTimeout: null,
+	nextSentenceTimeout: null,
+	jumpToElement: function () {
+		var $element = $( this );
+		var index = $( '.read' ).index( $element );
+		Appropedia.index = index;
+		Appropedia.skipNextSentence = true;
+		Appropedia.readNextElement();
+	},
+
+	/**
+	 * Pause reading aloud
+	 */
+	pauseReading: function () {
+		$( this ).hide();
+		$( '#ca-read-aloud' ).show();
+		window.speechSynthesis.pause();
+	},
+
+	/**
+	 * Build the share dialog
+	 */
+	share: function () {
+		// Define the dialog elements
+		var $overlay = $( '<div>' ).attr( 'id', 'appropedia-share-overlay' );
+		var $dialog = $( '<div>' ).attr( 'id', 'appropedia-share-dialog' );
+		var $title = $( '<h2>' ).attr( 'id', 'appropedia-share-title' ).text( 'Share this page' );
+		var $buttons = $( '<div>' ).attr( 'id', 'appropedia-share-buttons' );
+		var $close = $( '<div>' ).attr( 'id', 'appropedia-share-close' ).text( '✕' );
+
+		// Define the buttons
+		var imagesPath = '/w/extensions/Appropedia/images/';
+		var url = encodeURIComponent( window.location.href );
+		var title = $( '#firstHeading' ).text();
+		var $facebook = $( '<a>' ).attr( {
+			id: 'appropedia-facebook-button',
+			target: '_blank',
+			href: 'https://www.facebook.com/sharer.php?u=' + url
+		} ).html( '<img src="' + imagesPath + 'facebook.png" /><div>Facebook</div>' );
+		var $twitter = $( '<a>' ).attr( {
+			id: 'appropedia-twitter-button',
+			target: '_blank',
+			href: 'https://twitter.com/intent/tweet?url=' + url
+		} ).html( '<img src="' + imagesPath + 'twitter.png" /><div>Twitter</div>' );
+		var $reddit = $( '<a>' ).attr( {
+			id: 'appropedia-reddit-button',
+			target: '_blank',
+			href: 'https://www.reddit.com/submit?url=' + url + '&title=' + title,
+		} ).html( '<img src="' + imagesPath + 'reddit.png" /><div>Reddit</div>' );
+		var $email = $( '<a>' ).attr( {
+			id: 'appropedia-email-button',
+			target: '_blank',
+			href: 'mailto:?subject=' + title + '&body=' + url
+		} ).html( '<img src="' + imagesPath + 'email.png" /><div>Email</div>' );
+		var $permalink = $( '<a>' ).attr( {
+			id: 'appropedia-permalink-button',
+			target: '_blank',
+		} ).html( '<img src="' + imagesPath + 'permalink.png" /><div>Permalink</div>' );
+
+		// Bind events
+		$close.on( 'click', function () {
+			$overlay.remove();
+			$dialog.remove();
+		} );
+		$overlay.on( 'click', function () {
+			$overlay.remove();
+			$dialog.remove();
+		} );
+		$permalink.on( 'click', function () {
+			var copied = mw.message( 'appropedia-copied' ).plain();
+			window.navigator.clipboard.writeText( window.location.href ).then( function() {
+				$( 'div', $permalink ).text( copied );
+			} );
+		} );
+
+		// Put everything together and add it to the DOM
+		$buttons.append( $facebook, $twitter, $reddit, $email, $permalink );
+		$dialog.append( $close, $title, $buttons );
+		$( 'body' ).append( $overlay, $dialog );
 	},
 
 	/**

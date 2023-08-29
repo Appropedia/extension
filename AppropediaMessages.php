@@ -23,8 +23,8 @@ class AppropediaMessages {
 			// but the following messages are hidden by making them empty
 			// because there's no easy way to target them via CSS
 			// or some other technical reason
-			case 'privacy': // Part of the footer, see onSkinAddFooterLinks below
-			case 'disclaimers': // Part of the footer, see onSkinAddFooterLinks below
+			case 'privacy': // Part of the footer, see AppropediaMenus::onSkinAddFooterLinks
+			case 'disclaimers': // Part of the footer, see AppropediaMenus::onSkinAddFooterLinks
 			case 'histlegend': // @todo Hide via CSS
 			case 'newarticletext':
 			case 'createacct-username-help': // Special:CreateAccount
@@ -39,7 +39,6 @@ class AppropediaMessages {
 			/**
 			 * Override messages
 			 */
-
 			case 'copyrightwarning':
 				$message = wfMessage( "appropedia-page-edit-warning" )->text();
 				break;

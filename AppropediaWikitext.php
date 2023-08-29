@@ -4,7 +4,7 @@
  * This class fixes the wikitext of some pages
  * according to Appropedia standards for each namespace
  */
-class AppropediaFixes {
+class AppropediaWikitext {
 
     /**
      * This array will contain the fixes actually performed

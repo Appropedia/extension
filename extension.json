@@ -17,9 +17,10 @@
 	},
 	"AutoloadClasses": {
 		"Appropedia": "Appropedia.php",
-		"AppropediaFixes": "AppropediaFixes.php",
+		"AppropediaMenus": "AppropediaMenus.php",
+		"AppropediaSearch": "AppropediaSearch.php",
 		"AppropediaMessages": "AppropediaMessages.php",
-		"AppropediaSearch": "AppropediaSearch.php"
+		"AppropediaWikitext": "AppropediaWikitext.php"
 	},
 	"ExtensionMessagesFiles": {
 		"AppropediaMagic": "Appropedia.magic.php"
@@ -30,6 +31,9 @@
 			"targets": [
 				"desktop",
 				"mobile"
+			],
+			"messages": [
+				"appropedia-copied"
 			]
 		},
 		"ext.Appropedia.styles": {
@@ -47,16 +51,17 @@
 	"Hooks": {
 		"PonchoLogo": "Appropedia::onPonchoLogo",
 		"BeforePageDisplay": "Appropedia::onBeforePageDisplay",
-		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
-		"SkinTemplateNavigation::Universal": "Appropedia::onSkinTemplateNavigationUniversal",
-		"SkinAddFooterLinks": "Appropedia::onSkinAddFooterLinks",
 		"LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
-		"PageSaveComplete": "AppropediaFixes::onPageSaveComplete",
+		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
+		"SkinTemplateNavigation::Universal": "AppropediaMenus::onSkinTemplateNavigationUniversal",
+		"SidebarBeforeOutput": "AppropediaMenus::onSidebarBeforeOutput",
+		"SkinAddFooterLinks": "AppropediaMenus::onSkinAddFooterLinks",
 		"MessagesPreLoad": "AppropediaMessages::onMessagesPreLoad",
 		"SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
 		"SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
 		"SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
-		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle"
+		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle",
+		"PageSaveComplete": "AppropediaWikitext::onPageSaveComplete"
 	},
 	"config": {
 		"AppropediaBotAccount": {

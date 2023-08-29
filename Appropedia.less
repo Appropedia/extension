@@ -127,55 +127,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	display: none;
 }
 
-/**
- * Share dialog
- */
-#appropedia-share-overlay {
-	background: black;
-	opacity: .5;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 9;
-}
-#appropedia-share-dialog {
-	background: @background;
-	border: 1px solid @border;
-	padding: 1em;
-	position: fixed;
-	top: 35%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	text-align: center;
-	z-index: 10;
-	a {
-		color: inherit;
-		cursor: pointer;
-		display: inline-block;
-		margin: 1em;
-		text-decoration: none;
-		width: 60px;
-	}
-	img {
-		width: 50px;
-		height: 50px;
-	}
-	#appropedia-share-close {
-		cursor: pointer;
-		float: right;
-		font-size: 2em;
-		line-height: .9em;
-	}
-	#appropedia-share-title {
-		margin: 1em;
-	}
-	#appropedia-share-buttons {
-		margin: 2em;
-	}
-}
-
 // Add icons to sidebar
 #poncho-navigation-menu {
 	a {

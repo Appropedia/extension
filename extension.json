@@ -31,9 +31,6 @@
 			"targets": [
 				"desktop",
 				"mobile"
-			],
-			"messages": [
-				"appropedia-copied"
 			]
 		},
 		"ext.Appropedia.styles": {

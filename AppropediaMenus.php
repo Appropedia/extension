@@ -35,7 +35,6 @@ class AppropediaMenus {
 		self::addTranslateButton( $skinTemplate, $links );
 		self::addPrintButton( $skinTemplate, $links );
 		self::addReadAloudButton( $skinTemplate, $links );
-		//self::addShareButton( $skinTemplate, $links );
 		self::moveHistoryButton( $skinTemplate, $links );
 		self::addAdminMenu( $skinTemplate, $links );
 	}
@@ -125,33 +124,6 @@ class AppropediaMenus {
 		];
 		$links['views']['read-aloud'] = $readAloud;
 		$links['views']['pause-reading'] = $pauseReading;
-	}
-
-	/**
-	 * Add a button to share the current page
-	 * @todo Move to a separate extension?
-	 */
-	private static function addShareButton( SkinTemplate $skinTemplate, array &$links ) {
-		$skin = $skinTemplate->getSkin();
-		$title = $skin->getTitle();
-		if ( ! $title->isContentPage() ) {
-			return;
-		}
-		if ( ! $title->exists() ) {
-			return;
-		}
-		$context = $skin->getContext();
-		$action = Action::getActionName( $context );
-		if ( $action !== 'view' ) {
-			return;
-		}
-		$link = [
-			'id' => 'ca-share',
-			'href' => '#',
-			'text' => wfMessage( 'appropedia-share' )->plain(),
-			'icon' => 'heart'
-		];
-		$links['views']['share'] = $link;
 	}
 
 	/**

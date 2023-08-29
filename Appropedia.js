@@ -8,7 +8,6 @@ window.Appropedia = {
 		$( '#ca-translate' ).on( 'click', Appropedia.translate );
 		$( '#ca-read-aloud' ).on( 'click', Appropedia.readAloud );
 		$( '#ca-pause-reading' ).on( 'click', Appropedia.pauseReading );
-		$( '#ca-share' ).on( 'click', Appropedia.share ),
 
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
@@ -173,68 +172,6 @@ window.Appropedia = {
 		$( this ).hide();
 		$( '#ca-read-aloud' ).show();
 		window.speechSynthesis.pause();
-	},
-
-	/**
-	 * Build the share dialog
-	 */
-	share: function () {
-		// Define the dialog elements
-		var $overlay = $( '<div>' ).attr( 'id', 'appropedia-share-overlay' );
-		var $dialog = $( '<div>' ).attr( 'id', 'appropedia-share-dialog' );
-		var $title = $( '<h2>' ).attr( 'id', 'appropedia-share-title' ).text( 'Share this page' );
-		var $buttons = $( '<div>' ).attr( 'id', 'appropedia-share-buttons' );
-		var $close = $( '<div>' ).attr( 'id', 'appropedia-share-close' ).text( '✕' );
-
-		// Define the buttons
-		var imagesPath = '/w/extensions/Appropedia/images/';
-		var url = encodeURIComponent( window.location.href );
-		var title = $( '#firstHeading' ).text();
-		var $facebook = $( '<a>' ).attr( {
-			id: 'appropedia-facebook-button',
-			target: '_blank',
-			href: 'https://www.facebook.com/sharer.php?u=' + url
-		} ).html( '<img src="' + imagesPath + 'facebook.png" /><div>Facebook</div>' );
-		var $twitter = $( '<a>' ).attr( {
-			id: 'appropedia-twitter-button',
-			target: '_blank',
-			href: 'https://twitter.com/intent/tweet?url=' + url
-		} ).html( '<img src="' + imagesPath + 'twitter.png" /><div>Twitter</div>' );
-		var $reddit = $( '<a>' ).attr( {
-			id: 'appropedia-reddit-button',
-			target: '_blank',
-			href: 'https://www.reddit.com/submit?url=' + url + '&title=' + title,
-		} ).html( '<img src="' + imagesPath + 'reddit.png" /><div>Reddit</div>' );
-		var $email = $( '<a>' ).attr( {
-			id: 'appropedia-email-button',
-			target: '_blank',
-			href: 'mailto:?subject=' + title + '&body=' + url
-		} ).html( '<img src="' + imagesPath + 'email.png" /><div>Email</div>' );
-		var $permalink = $( '<a>' ).attr( {
-			id: 'appropedia-permalink-button',
-			target: '_blank',
-		} ).html( '<img src="' + imagesPath + 'permalink.png" /><div>Permalink</div>' );
-
-		// Bind events
-		$close.on( 'click', function () {
-			$overlay.remove();
-			$dialog.remove();
-		} );
-		$overlay.on( 'click', function () {
-			$overlay.remove();
-			$dialog.remove();
-		} );
-		$permalink.on( 'click', function () {
-			var copied = mw.message( 'appropedia-copied' ).plain();
-			window.navigator.clipboard.writeText( window.location.href ).then( function() {
-				$( 'div', $permalink ).text( copied );
-			} );
-		} );
-
-		// Put everything together and add it to the DOM
-		$buttons.append( $facebook, $twitter, $reddit, $email, $permalink );
-		$dialog.append( $close, $title, $buttons );
-		$( 'body' ).append( $overlay, $dialog );
 	},
 
 	/**

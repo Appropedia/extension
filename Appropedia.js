@@ -6,8 +6,6 @@ window.Appropedia = {
 	init: function () {
 		$( '#ca-print' ).on( 'click', Appropedia.print ),
 		$( '#ca-translate' ).on( 'click', Appropedia.translate );
-		$( '#ca-read-aloud' ).on( 'click', Appropedia.readAloud );
-		$( '#ca-pause-reading' ).on( 'click', Appropedia.pauseReading );
 
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
@@ -82,96 +80,6 @@ window.Appropedia = {
 				$frames.contents().find( 'body' ).css( 'overflow', 'scroll' );
 			}
 		}, 1000 );
-	},
-
-	/**
-	 * Read the current page aloud
-	 */
-	readAloud: function () {
-
-		// Swap buttons
-		$( this ).hide();
-		$( '#ca-pause-reading' ).show();
-
-		// If speech was paused, just resume
-		if ( window.speechSynthesis.paused ) {
-			window.speechSynthesis.resume();
-			return;
-		}
-
-		// Remove elements we don't want to read
-		var $content = $( '#mw-content-text .mw-parser-output' );
-		var $elements = $content.children( 'h1, h2, h3, h4, h5, h6, p, ul, ol' );
-		$elements.addClass( 'read' ).on( 'click', Appropedia.jumpToElement );
-		Appropedia.readNextElement();
-	},
-
-	index: 0,
-	readNextElement: function () {
-		var $element = $( '.read' ).eq( Appropedia.index );
-		Appropedia.index++;
-		$( '.reading' ).removeClass( 'reading' );
-		$element.addClass( 'reading' ).get(0).scrollIntoView( { behavior: 'auto', block: 'center', inline: 'center' } );
-		var text = $element.text();
-		text = text.replace( / ([A-Z])\./g, ' $1' ); // Remove dots from acronyms to prevent confusion with sentences
-		text = text.replace( /[([].*?[\])]/g, '' ); // Don't read parentheses
-		var sentences = text.split( '. ' ); // Include space to prevent matching things like "99.9%"
-		sentences = sentences.filter( s => s ); // Remove empty sentences
-		Appropedia.sentences = sentences;
-		Appropedia.readNextSentence();
-	},
-
-	sentences: [],
-	readNextSentence: function () {
-		var sentence = Appropedia.sentences.shift();
-		var utterance = new window.SpeechSynthesisUtterance( sentence );
-		utterance.lang = mw.config.get( 'wgPageContentLanguage' );
-		window.speechSynthesis.cancel();
-		window.speechSynthesis.speak( utterance );
-		utterance.onend = Appropedia.onUtteranceEnd;
-	},
-
-	/**
-	 * Note! This will fire not only when the utterance finishes
-	 * but also when the speechSynthesis is cancelled
-	 * notably when jumping to another element
-	 * This is why we need the ugly skipNextSentence hack seen below
-	 */
-	onUtteranceEnd: function () {
-		if ( Appropedia.skipNextSentence ) {
-			Appropedia.skipNextSentence = false;
-			return;
-		}
-		if ( Appropedia.sentences.length ) {
-			Appropedia.nextSentenceTimeout = setTimeout( Appropedia.readNextSentence, 500 );
-			return;
-		}
-		if ( Appropedia.index < $( '.read' ).length ) {
-			Appropedia.nextElementTimeout = setTimeout( Appropedia.readNextElement, 1000 );
-			return;
-		}
-	},
-
-	/**
-	 * Jump to a specific element
-	 */
-	nextElementTimeout: null,
-	nextSentenceTimeout: null,
-	jumpToElement: function () {
-		var $element = $( this );
-		var index = $( '.read' ).index( $element );
-		Appropedia.index = index;
-		Appropedia.skipNextSentence = true;
-		Appropedia.readNextElement();
-	},
-
-	/**
-	 * Pause reading aloud
-	 */
-	pauseReading: function () {
-		$( this ).hide();
-		$( '#ca-read-aloud' ).show();
-		window.speechSynthesis.pause();
 	},
 
 	/**

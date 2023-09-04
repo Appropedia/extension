@@ -20,6 +20,8 @@
 	"appropedia-select-files": "選擇檔案上傳",
 	"appropedia-not-own-work": "如果檔案不是您自己的作品，請改用[[$1|這份上傳表單]]。",
 	"appropedia-download-pdf": "下載 PDF",
+	"appropedia-translate": "翻譯",
+	"appropedia-stop-translating": "停止翻譯",
 	"appropedia-searchprofile-pages": "頁面",
 	"appropedia-searchprofile-files": "檔案",
 	"appropedia-searchprofile-users": "使用者",

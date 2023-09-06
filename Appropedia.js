@@ -18,8 +18,8 @@ window.Appropedia = {
 		// Add reminder
 		Appropedia.addReminder();
 
-		// Load WikiEdit
-		Appropedia.loadWikiEdit();
+		// Load MiniEdit
+		Appropedia.loadMiniEdit();
 
 		// Stop any running voice
 		window.speechSynthesis.cancel();
@@ -97,10 +97,10 @@ window.Appropedia = {
 	},
 
 	/**
-	 * WikiEdit is a tool for quickly editing content without leaving the page
-	 * Documentation at https://www.mediawiki.org/wiki/WikiEdit
+	 * MiniEdit is a tool for quickly editing content without leaving the page
+	 * Documentation at https://www.mediawiki.org/wiki/MiniEdit
 	 */
-	loadWikiEdit: function () {
+	loadMiniEdit: function () {
 		// Only load when viewing
 		var action = mw.config.get( 'wgAction' );
 		if ( action !== 'view' ) {
@@ -122,13 +122,13 @@ window.Appropedia = {
 		}
 
 		// Documentation page to link from the edit summaries
-		mw.config.set( 'wikiedit-page', 'Appropedia:WikiEdit' );
+		mw.config.set( 'miniedit-page', 'Appropedia:MiniEdit' );
 
 		// Change tag to track edits made with the tool
-		mw.config.set( 'wikiedit-tag', 'wikiedit' );
+		mw.config.set( 'miniedit-tag', 'miniedit' );
 
 		// Load the latest code directly from the central version at MediaWiki.org
-		mw.loader.load( '//www.mediawiki.org/wiki/MediaWiki:WikiEdit.js?action=raw&ctype=text/javascript' );
+		mw.loader.load( '//www.mediawiki.org/wiki/MediaWiki:MiniEdit.js?action=raw&ctype=text/javascript' );
 	},
 
 	/**

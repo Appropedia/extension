@@ -32,37 +32,32 @@ class AppropediaMenus {
 	 * Customize the navigation menus
 	 */
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
-		self::addTranslateButton( $skinTemplate, $links );
-		self::addPrintButton( $skinTemplate, $links );
 		self::customizeButtons( $skinTemplate, $links );
+		self::addPrintButton( $skinTemplate, $links );
 		self::addAdminMenu( $skinTemplate, $links );
 	}
 
 	/**
-	 * Add a button to print/download the current page
+	 * Customize the buttons
 	 */
-	private static function addTranslateButton( SkinTemplate $skinTemplate, array &$links ) {
-		$skin = $skinTemplate->getSkin();
-		$title = $skin->getTitle();
-		if ( ! $title->exists() ) {
-			return;
+	private static function customizeButtons( SkinTemplate $skinTemplate, array &$links ) {
+		// Move the History button out of the views
+		if ( array_key_exists( 'history', $links['views'] ) ) {
+			$history = $links['views']['history'];
+			unset( $links['views']['history'] );
+			$links['actions'] = array_merge( [ 'history' => $history ], $links['actions'] );
 		}
-		$context = $skin->getContext();
-		$action = Action::getActionName( $context );
-		if ( $action !== 'view' ) {
-			return;
+
+		// Give icons to the buttons of the Extension:ReadAloud
+		if ( array_key_exists( 'read-aloud', $links['views'] ) ) {
+			$links['views']['read-aloud']['icon'] = 'play';
+			$links['views']['pause-reading']['icon'] = 'pause';
 		}
-		$namespace = $title->getNamespace();
-		if ( ! in_array( $namespace, [ NS_MAIN, NS_PROJECT, NS_HELP ] ) ) {
-			return;
+
+		// Give an icon to the button of the Extension:GoogleTranslate
+		if ( array_key_exists( 'google-translate', $links['views'] ) ) {
+			$links['views']['google-translate']['icon'] = 'language';
 		}
-		$link = [
-			'id' => 'ca-translate',
-			'href' => '#',
-			'text' => wfMessage( 'appropedia-translate' )->plain(),
-			'icon' => 'language'
-		];
-		$links['views']['translate'] = $link;
 	}
 
 	/**
@@ -89,24 +84,6 @@ class AppropediaMenus {
 			'icon' => 'printer'
 		];
 		$links['views']['print'] = $link;
-	}
-
-	/**
-	 * Customize the buttons
-	 */
-	private static function customizeButtons( SkinTemplate $skinTemplate, array &$links ) {
-		// Move the History button out of the views
-		if ( array_key_exists( 'history', $links['views'] ) ) {
-			$history = $links['views']['history'];
-			unset( $links['views']['history'] );
-			$links['actions'] = array_merge( [ 'history' => $history ], $links['actions'] );
-		}
-
-		// Give icons to the buttons of the Extension:ReadAloud
-		if ( array_key_exists( 'read-aloud', $links['views'] ) ) {
-			$links['views']['read-aloud']['icon'] = 'play';
-			$links['views']['pause-reading']['icon'] = 'pause';
-		}
 	}
 
 	/**

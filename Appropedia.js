@@ -5,7 +5,6 @@ window.Appropedia = {
 	 */
 	init: function () {
 		$( '#ca-print' ).on( 'click', Appropedia.print ),
-		$( '#ca-translate' ).on( 'click', Appropedia.translate );
 
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
@@ -15,9 +14,6 @@ window.Appropedia = {
 
 		// Save quiz scores
 		$( '.quiz .score' ).each( Appropedia.saveQuizScore );
-
-		// Check for automatic translations every 5 seconds
-		Appropedia.interval = setInterval( Appropedia.checkForTranslation, 5000 );
 
 		// Add reminder
 		Appropedia.addReminder();
@@ -37,49 +33,6 @@ window.Appropedia = {
 	 */
 	print: function () {
 		window.print();
-	},
-
-	/**
-	 * Translate the current page by loading Google Translate
-	 */
-	translate: function () {
-		var googleTranslateElement = $( '#google-translate-element' );
-		if ( googleTranslateElement.length ) {
-			Appropedia.initGoogleTranslate();
-		} else {
-			googleTranslateElement = $( '<div hidden id="google-translate-element"></div>' );
-			$( 'body' ).after( googleTranslateElement );
-			$.getScript( '//translate.google.com/translate_a/element.js?cb=Appropedia.initGoogleTranslate' );
-		}
-	},
-
-	/**
-	 * Initialize Google Translate by clicking the hidden Google Translate element
-	 */
-	initGoogleTranslate: function () {
-		new google.translate.TranslateElement( {
-			pageLanguage: mw.config.get( 'wgPageContentLanguage' ),
-			layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-		}, 'google-translate-element' );
-
-		// Wait for the element to load and then open the language list
-		// @todo Wait for the relevant element rather than setTimeout
-		setTimeout( function () {
-			$( '.goog-te-gadget-simple' ).trigger( 'click' );
-		}, 1000 );
-
-		// Make the language menu scrollable in small screens
-		// @todo Wait for the relevant element rather than setTimeout
-		// @note Because the number and position of the iframes varies wildly
-		// and there's barely any CSS class or anything to distinguish them
-		// we just apply the changes to all of them
-		setTimeout( function () {
-			var $frames = $( '#goog-gt-tt' ).nextAll( 'iframe' );
-			if ( $frames.length ) {
-				$frames.attr( 'scrollable', true ).css( 'max-width', '100%' );
-				$frames.contents().find( 'body' ).css( 'overflow', 'scroll' );
-			}
-		}, 1000 );
 	},
 
 	/**
@@ -115,7 +68,9 @@ window.Appropedia = {
 		$select.width( width );
 	},
 
-	// Add reminders
+	/**
+	 * Add reminders
+	 */
 	addReminder: function () {
 		var text = mw.cookie.get( 'TemplateReminderText' );
 		if ( !text ) {
@@ -176,140 +131,9 @@ window.Appropedia = {
 		mw.loader.load( '//www.mediawiki.org/wiki/MediaWiki:WikiEdit.js?action=raw&ctype=text/javascript' );
 	},
 
-	checkForTranslation: function () {
-
-		// Only check for translations when viewing content
-		var action = mw.config.get( 'wgAction' );
-		if ( action !== 'view' ) {
-			return;
-		}
-
-		// Only check for translations to main, project and help namespaces
-		var namespace = mw.config.get( 'wgNamespaceNumber' );
-		if ( ! [ 0, 4, 12 ].includes( namespace ) ) {
-			return;
-		}
-
-		// Check for <font> tags because Google Translate inserts MANY such tags
-		var $content = $( '#mw-content-text > .mw-parser-output' ).clone();
-		$content.find( '.mw-editsection' ).remove(); // Remove edit section links
-		var nodes = $content.find( 'font' ).length;
-		if ( nodes < 10 ) {
-			return;
-		}
-
-		// Don't check for translations of translations (check for [[Template:Automatic translation notice]])
-		if ( $( '.automatic-translation' ).length ) {
-			return;
-		}
-
-		// Ignore rare and cryptic 'auto' language
-		var translationLanguage = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' ).trim();
-		if ( translationLanguage === 'auto' ) {
-			return;
-		}
-
-		// Don't check for translations to the same language (including language variants like en-GB)
-		var contentLanguage = mw.config.get( 'wgPageContentLanguage' );
-		if ( contentLanguage === translationLanguage ) {
-			return;
-		}
-
-		// If we reach this point, check if there's a saved translation already
-		if ( Appropedia.nodes === undefined ) {
-			var title = mw.config.get( 'wgPageName' );
-			new mw.Api().get( {
-				'action': 'query',
-				'titles': title + '/' + translationLanguage,
-				'prop': 'pageprops',
-				'formatversion': 2
-			} ).done( function ( data ) {
-				var page = data.query.pages[0];
-				if ( 'pageprops' in page && 'nodes' in page.pageprops ) {
-					Appropedia.nodes = Number( page.pageprops.nodes );
-				} else {
-					Appropedia.nodes = 0;
-				}
-			} );
-			return;
-		}
-
-		// Save the current translation only if it's better than the saved one
-		if ( Appropedia.nodes < nodes ) {
-			clearInterval( Appropedia.interval );
-			Appropedia.saveTranslation();
-		}
-	},
-
-	saveTranslation: function () {
-
-		// Fix old Hebrew language code
-		var translationLanguage = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' );
-		if ( translationLanguage === 'iw' ) {
-			translationLanguage = 'he';
-		}
-
-		// If the user reverts to the original language
-		var contentLanguage = mw.config.get( 'wgPageContentLanguage' );
-		if ( contentLanguage === translationLanguage ) {
-			return;
-		}
-
-		// Get translation
-		var title = $( '#firstHeading' ).text();
-		var $content = $( '#mw-content-text > .mw-parser-output' ).clone();
-		$content.find( '.mw-editsection' ).remove().end(); // Remove edit section links
-
-		// Get translated HTML and minify it (because it's not meant to be edited)
-		var html = $content.html();
-		html = html.replace( /\n\s+|\n/g, '' );
-
-		// Get categories
-		var categories = mw.config.get( 'wgCategories' );
-
-		// Count the nodes
-		var nodes = $content.find( 'font' ).length;
-
-		// Build wikitext
-		var wikitext = '{{Automatic translation notice';
-		wikitext += '\n| title = ' + title;
-		wikitext += '\n| revision = ' + mw.config.get( 'wgCurRevisionId' );
-		wikitext += '\n| nodes = ' + nodes;
-		wikitext += '\n}}';
-		wikitext += '\n\n<html>' + html + '</html>\n';
-		for ( var category of categories ) {
-			wikitext += '\n[[Category:' + category + ']]';
-		}
-
-		// Create or update translation subpage
-		// using a bot account
-		var page = mw.config.get( 'wgPageName' );
-		var lang = $( 'html' ).attr( 'lang' ).replace( /-.+/, '' );
-		var params = {
-			'action': 'edit',
-			'title': page + '/' + lang,
-			'text': wikitext,
-			'summary': 'Automatic translation',
-			'bot': true,
-		};
-
-		// The following login-logout routine is a carefully choreographed dance
-		// because of things like that logging in twice without logging out first
-		// causes an error, while logging out twice causes the real user to log out
-		// and failing to log in as Bot causes edits on behalf of the real user
-		var api = new mw.Api();
-		api.login(
-			'Bot@Translations',
-			'up32smegqeb71s95j3ib51dpv7927fqc'
-		).done( function () {
-			api.postWithEditToken( params ).done( function () {
-				api.postWithToken( 'csrf', { 'action': 'logout' } ).done( Appropedia.saveTranslation );
-			} );
-		} ).fail( function () {
-			api.postWithToken( 'csrf', { 'action': 'logout' } ).done( Appropedia.saveTranslation );
-		} );
-	},
-
+	/**
+	 * Save quiz scores
+	 */
 	saveQuizScore: function () {
 		var quiz = $( this ).closest( '.quiz' );
 

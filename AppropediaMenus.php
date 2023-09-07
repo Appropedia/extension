@@ -34,6 +34,7 @@ class AppropediaMenus {
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
 		self::customizeButtons( $skinTemplate, $links );
 		self::addPrintButton( $skinTemplate, $links );
+		self::addLikeButton( $skinTemplate, $links );
 		self::addAdminMenu( $skinTemplate, $links );
 	}
 
@@ -84,6 +85,32 @@ class AppropediaMenus {
 			'icon' => 'printer'
 		];
 		$links['views']['print'] = $link;
+	}
+
+	/**
+	 * Add a button to like the current page
+	 */
+	private static function addLikeButton( SkinTemplate $skinTemplate, array &$links ) {
+		$skin = $skinTemplate->getSkin();
+		$title = $skin->getTitle();
+		if ( ! $title->exists() ) {
+			return;
+		}
+		$context = $skin->getContext();
+		$action = Action::getActionName( $context );
+		if ( $action !== 'view' ) {
+			return;
+		}
+		if ( ! $title->isContentPage() ) {
+			return;
+		}
+		$link = [
+			'id' => 'ca-like',
+			'href' => '#',
+			'text' => wfMessage( 'appropedia-like' )->plain(),
+			'icon' => 'heart'
+		];
+		$links['views']['like'] = $link;
 	}
 
 	/**

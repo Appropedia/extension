@@ -31,6 +31,7 @@
 	"appropedia-search-page-type-projects": "Text of the search option to search project pages only",
 	"appropedia-search-page-type-devices": "Text of the search option to search device pages only",
 	"appropedia-search-page-type-topics": "Text of the search option to search topic pages only",
+	"appropedia-search-page-type-maps": "Text of the search option to search map pages only",
 	"appropedia-search-page-type-organizations": "Text of the search option to search organization pages only",
 	"appropedia-search-page-type-essays": "Text of the search option to search essays only",
 	"appropedia-search-page-type-papers": "Text of the search option to search papers only",

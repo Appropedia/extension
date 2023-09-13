@@ -132,6 +132,12 @@ window.Appropedia = {
 			return;
 		}
 
+		// Don't load in automatic translations
+		var categories = mw.config.get( 'wgCategories' );
+		if ( categories.includes( 'Automatic translations' ) ) {
+			return;
+		}
+
 		// Documentation page to link from the edit summaries
 		mw.config.set( 'miniedit-page', 'Appropedia:MiniEdit' );
 
@@ -227,4 +233,7 @@ window.Appropedia = {
 	}
 };
 
-$( Appropedia.init );
+mw.loader.using( [
+	'mediawiki.api',
+	'mediawiki.cookie'
+], Appropedia.init );

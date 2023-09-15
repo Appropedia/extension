@@ -106,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	 * @param array &$linkAttribs Link attributes
 	 */
 	public static $thumbCount = 0;
-	public static function onThumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs, array &$linkAttribs ) {
+	public static function onThumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs ) {
 		$class = $attribs['class'] ?? '';
 		if ( strpos( $class, 'thumbimage' ) === false ) {
 			return;

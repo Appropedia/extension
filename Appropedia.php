@@ -99,76 +99,92 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	}
 
 	/**
+	 * Lazy-load all image thumbnails except the first
+	 *
+	 * @param ThumbnailImage $thumbnail
+	 * @param array &$attribs Image attributes
+	 * @param array &$linkAttribs Link attributes
+	 */
+	public static $thumbCount = 0;
+	public static function onThumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs, array &$linkAttribs ) {
+		$class = $attribs['class'] ?? '';
+		if ( strpos( $class, 'thumbimage' ) === false ) {
+			return;
+		}
+		self::$thumbCount++;
+		if ( self::$thumbCount > 1 ) {
+			$attribs['loading'] = 'lazy';
+		}
+	}
+
+	/**
 	 * #arraymap parser function
+	 *
+	 * This method is essentially copied from Extension:PageForms
+	 * but we put it here rather than enabling the extension
+	 * because it's a big extension and this is the only thing we use from it
 	 *
 	 * @param Parser $parser Parser object
 	 */
 	public static function onParserFirstCallInit( Parser $parser ) {
-		$parser->setFunctionHook( 'arraymap', [ self::class, 'onArrayMap' ], Parser::SFH_OBJECT_ARGS );
-	}
-
-	/**
-	 * This method is essentially copied from Extension:PageForms
-	 * but we put it here rather than enabling the extension
-	 * because it's a big extension and this is the only thing we use from it
-	 */
-	public static function onArrayMap( Parser $parser, $frame, $args ) {
-		// Set variables
-		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
-		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
-		$variable = isset( $args[2] ) ? trim( $frame->expand( $args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) ) : 'x';
-		$formula = isset( $args[3] ) ? $args[3] : 'x';
-		$newDelimiter = isset( $args[4] ) ? trim( $frame->expand( $args[4] ) ) : ', ';
-		$conjunction = isset( $args[5] ) ? trim( $frame->expand( $args[5] ) ) : $newDelimiter;
-
-		// Unstrip some
-		$delimiter = $parser->getStripState()->unstripNoWiki( $delimiter );
-
-		// Let '\n' represent newlines, and '\s' represent spaces
-		$delimiter = str_replace( [ '\n', '\s' ], [ "\n", ' ' ], $delimiter );
-		$newDelimiter = str_replace( [ '\n', '\s' ], [ "\n", ' ' ], $newDelimiter );
-		$conjunction = str_replace( [ '\n', '\s' ], [ "\n", ' ' ], $conjunction );
-
-		// Split by delimiter
-		if ( $delimiter == '' ) {
-			$valuesArray = preg_split( '/(.)/u', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
-		} else {
-			$valuesArray = explode( $delimiter, $value );
-		}
-
-		// Add results to the results array only if the old value was
-		// non-null, and the new, mapped value is non-null as well
-		$resultsArray = [];
-		foreach ( $valuesArray as $oldValue ) {
-			$oldValue = trim( $oldValue );
-			if ( $oldValue == '' ) {
-				continue;
-			}
-			$resultValue = $frame->expand( $formula, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES );
-			$resultValue = str_replace( $variable, $oldValue, $resultValue );
-			$resultValue = $parser->preprocessToDom( $resultValue, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0 );
-			$resultValue = trim( $frame->expand( $resultValue ) );
-			if ( $resultValue == '' ) {
-				continue;
-			}
-			$resultsArray[] = $resultValue;
-		}
-
-		// Build the result text
-		$resultText = '';
-		if ( $conjunction != $newDelimiter ) {
-			$conjunction = ' ' . trim( $conjunction ) . ' ';
-		}
-		$numValues = count( $resultsArray );
-		for ( $i = 0; $i < $numValues; $i++ ) {
-			if ( $i == 0 ) {
-				$resultText .= $resultsArray[ $i ];
-			} elseif ( $i == $numValues - 1 ) {
-				$resultText .= $conjunction . $resultsArray[ $i ];
+		$parser->setFunctionHook( 'arraymap', function ( Parser $parser, $frame, $args ) {
+			// Set variables
+			$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
+			$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
+			$variable = isset( $args[2] ) ? trim( $frame->expand( $args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) ) : 'x';
+			$formula = isset( $args[3] ) ? $args[3] : 'x';
+			$newDelimiter = isset( $args[4] ) ? trim( $frame->expand( $args[4] ) ) : ', ';
+			$conjunction = isset( $args[5] ) ? trim( $frame->expand( $args[5] ) ) : $newDelimiter;
+	
+			// Unstrip some
+			$delimiter = $parser->getStripState()->unstripNoWiki( $delimiter );
+	
+			// Let '\n' represent newlines, and '\s' represent spaces
+			$delimiter = str_replace( [ '\n', '\s' ], [ "\n", ' ' ], $delimiter );
+			$newDelimiter = str_replace( [ '\n', '\s' ], [ "\n", ' ' ], $newDelimiter );
+			$conjunction = str_replace( [ '\n', '\s' ], [ "\n", ' ' ], $conjunction );
+	
+			// Split by delimiter
+			if ( $delimiter == '' ) {
+				$valuesArray = preg_split( '/(.)/u', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
 			} else {
-				$resultText .= $newDelimiter . $resultsArray[ $i ];
+				$valuesArray = explode( $delimiter, $value );
 			}
-		}
-		return $resultText;
+	
+			// Add results to the results array only if the old value was
+			// non-null, and the new, mapped value is non-null as well
+			$resultsArray = [];
+			foreach ( $valuesArray as $oldValue ) {
+				$oldValue = trim( $oldValue );
+				if ( $oldValue == '' ) {
+					continue;
+				}
+				$resultValue = $frame->expand( $formula, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES );
+				$resultValue = str_replace( $variable, $oldValue, $resultValue );
+				$resultValue = $parser->preprocessToDom( $resultValue, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0 );
+				$resultValue = trim( $frame->expand( $resultValue ) );
+				if ( $resultValue == '' ) {
+					continue;
+				}
+				$resultsArray[] = $resultValue;
+			}
+	
+			// Build the result text
+			$resultText = '';
+			if ( $conjunction != $newDelimiter ) {
+				$conjunction = ' ' . trim( $conjunction ) . ' ';
+			}
+			$numValues = count( $resultsArray );
+			for ( $i = 0; $i < $numValues; $i++ ) {
+				if ( $i == 0 ) {
+					$resultText .= $resultsArray[ $i ];
+				} elseif ( $i == $numValues - 1 ) {
+					$resultText .= $conjunction . $resultsArray[ $i ];
+				} else {
+					$resultText .= $newDelimiter . $resultsArray[ $i ];
+				}
+			}
+			return $resultText;
+		}, Parser::SFH_OBJECT_ARGS );
 	}
 }

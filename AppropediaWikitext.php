@@ -6,18 +6,18 @@
  */
 class AppropediaWikitext {
 
-    /**
-     * This array will contain the fixes actually performed
-     * in order to generate an informative edit summary
-     */
-    public static $fixes = [];
+	/**
+	 * This array will contain the fixes actually performed
+	 * in order to generate an informative edit summary
+	 */
+	public static $fixes = [];
 
-    /**
-     * This hook fires after each page save
-     * and triggers the fixes that will be performed by a bot account
-     */
+	/**
+	 * This hook fires after each page save
+	 * and triggers the fixes that will be performed by a bot account
+	 */
 	public static function onPageSaveComplete( WikiPage $wikiPage, MediaWiki\User\UserIdentity $user, string $summary, int $flags, MediaWiki\Revision\RevisionRecord $revisionRecord, MediaWiki\Storage\EditResult $editResult ) {
-        global $wgAppropediaBotAccount;
+		global $wgAppropediaBotAccount;
 
 		// Prevent infinite loops
 		if ( $user->getName() === $wgAppropediaBotAccount ) {
@@ -70,9 +70,9 @@ class AppropediaWikitext {
 		$updater->saveRevision( $comment, EDIT_SUPPRESS_RC | EDIT_FORCE_BOT | EDIT_MINOR | EDIT_INTERNAL );
 	}
 
-    /**
-     * Fix the wikitext of a content page
-     */
+	/**
+	 * Fix the wikitext of a content page
+	 */
 	public static function fixContentPage( $wikitext, $title ) {
 		// Append {{Page data}}
 		if ( !preg_match( '/{{[Pp]age[_ ]data/', $wikitext )
@@ -86,9 +86,9 @@ class AppropediaWikitext {
 		return $wikitext;
 	}
 
-    /**
-     * Fix the wikitext of a user page
-     */
+	/**
+	 * Fix the wikitext of a user page
+	 */
 	public static function fixUserPage( $wikitext, $title ) {
 		if ( $title->isSubpage() ) {
 			return;
@@ -102,9 +102,9 @@ class AppropediaWikitext {
 		return $wikitext;
 	}
 
-    /**
-     * Fix the wikitext of a category page
-     */
+	/**
+	 * Fix the wikitext of a category page
+	 */
 	public static function fixCategoryPage( $wikitext, $title ) {
 		// Prepend {{Category data}}
 		if ( !preg_match( '/{{[Cc]ategory[_ ]data/', $wikitext ) ) {
@@ -115,13 +115,13 @@ class AppropediaWikitext {
 	}
 
 	/**
-     * Fix the wikitext of a file page
+	 * Fix the wikitext of a file page
 	 */
 	public static function fixFilePage( $wikitext, $title ) {
-	    // This ugly contraption is here because Extension:UploadWizard has hard-coded
-	    // the structure of the file pages it creates, so we can't modify them via config
-	    // Therefore, we check every single page save and if it has the structure of
-	    // a file page created by Upload Wizard, we transform it to our preferred structure
+		// This ugly contraption is here because Extension:UploadWizard has hard-coded
+		// the structure of the file pages it creates, so we can't modify them via config
+		// Therefore, we check every single page save and if it has the structure of
+		// a file page created by Upload Wizard, we transform it to our preferred structure
 		if ( preg_match( "/=={{int:filedesc}}==\n{{Information\n\|description={{en\|1=(.*)}}\n\|date=(.*)\n\|source=(.*)\n\|author=(.*)\n\|permission=(.*)\n\|other versions=(.*)\n}}\n\n=={{int:license-header}}==\n{{(.*)}}\n*(.*)/s", $wikitext, $matches ) ) {
 
 			// Get data
@@ -182,7 +182,7 @@ class AppropediaWikitext {
 		// Most is done from LocalSettings.php
 		// here we just delink the author
 		if ( preg_match( '/\| author = \[\[([^|]+)\|[^]]+\]\]/', $wikitext ) ) {
-		    $wikitext = preg_replace( '/\| author = \[\[([^|]+)\|[^]]+\]\]/', '| author = $1', $wikitext );
+			$wikitext = preg_replace( '/\| author = \[\[([^|]+)\|[^]]+\]\]/', '| author = $1', $wikitext );
 			self::$fixes[] = 'Delink author';
 		}
 

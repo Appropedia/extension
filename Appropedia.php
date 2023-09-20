@@ -87,7 +87,6 @@ class Appropedia {
 	 *
 	 * @param ThumbnailImage $thumbnail
 	 * @param array &$attribs Image attributes
-	 * @param array &$linkAttribs Link attributes
 	 */
 	public static $thumbCount = 0;
 	public static function onThumbnailBeforeProduceHTML( ThumbnailImage $thumbnail, array &$attribs ) {

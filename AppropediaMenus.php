@@ -49,10 +49,9 @@ class AppropediaMenus {
 			$links['actions'] = array_merge( [ 'history' => $history ], $links['actions'] );
 		}
 
-		// Give icons to the buttons of the Extension:ReadAloud
+		// Give an icon to the button of the Extension:ReadAloud
 		if ( array_key_exists( 'read-aloud', $links['views'] ) ) {
 			$links['views']['read-aloud']['icon'] = 'play';
-			$links['views']['pause-reading']['icon'] = 'pause';
 		}
 
 		// Give an icon to the button of the Extension:GoogleTranslate

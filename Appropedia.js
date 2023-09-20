@@ -22,9 +22,6 @@ window.Appropedia = {
 		// Load MiniEdit
 		Appropedia.loadMiniEdit();
 
-		// Stop any running voice
-		window.speechSynthesis.cancel();
-
 		// Enable popups on more namespaces
 		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
 	},

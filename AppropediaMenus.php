@@ -52,6 +52,7 @@ class AppropediaMenus {
 		// Give an icon to the button of the Extension:ReadAloud
 		if ( array_key_exists( 'read-aloud', $links['views'] ) ) {
 			$links['views']['read-aloud']['icon'] = 'play';
+			$links['views']['pause-reading']['icon'] = 'pause';
 		}
 
 		// Give an icon to the button of the Extension:GoogleTranslate

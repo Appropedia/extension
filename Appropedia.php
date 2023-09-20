@@ -15,23 +15,6 @@ class Appropedia {
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
 		$out->addLink( [ 'rel' => 'apple-touch-icon', 'sizes' => '180x180', 'href' => '/logos/apple-touch-icon.png' ] );
-		self::addGoogleTagManager( $out, $skin );
-	}
-
-	/**
-	 * Add Google Tag Manager
-	 */
-	private static function addGoogleTagManager( OutputPage $out, Skin $skin ) {
-		$user = $skin->getUser();
-		$groups = $user->getGroups();
-		if ( in_array( 'sysop', $groups ) ) {
-			return; // Don't track admins
-		}
-		$out->addInlineScript( "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TL6R9GR');" );
 	}
 
 	/**
@@ -100,6 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 	/**
 	 * Lazy-load all image thumbnails except the first
+	 * excluding also gallery thumbs and raw images
 	 *
 	 * @param ThumbnailImage $thumbnail
 	 * @param array &$attribs Image attributes
@@ -120,7 +104,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	/**
 	 * #arraymap parser function
 	 *
-	 * This method is essentially copied from Extension:PageForms
+	 * This method is copied from Extension:PageForms
 	 * but we put it here rather than enabling the extension
 	 * because it's a big extension and this is the only thing we use from it
 	 *

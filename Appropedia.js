@@ -5,7 +5,6 @@ window.Appropedia = {
 	 */
 	init: function () {
 		$( '#ca-print' ).on( 'click', Appropedia.print ),
-		$( '#ca-like' ).on( 'click', Appropedia.like ),
 
 		// Update the search query when a search filter changes
 		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
@@ -31,16 +30,6 @@ window.Appropedia = {
 	 */
 	print: function () {
 		window.print();
-	},
-
-	/**
-	 * Like the current page
-	 *
-	 * Actually, all we do here is paint the heart icon red
-	 * the click is also detected by Google Tag Manager and sent as an event to Google Analytics
-	 */
-	like: function () {
-		$( this ).find( 'a' ).attr( 'title', 'Thanks!' );
 	},
 
 	/**
@@ -77,7 +66,10 @@ window.Appropedia = {
 	},
 
 	/**
-	 * Add reminders
+	 * Add reminder
+	 *
+	 * This interacts with https://www.appropedia.org/Template:Reminder
+	 * and https://www.appropedia.org/MediaWiki:TemplateReminder.js
 	 */
 	addReminder: function () {
 		var text = mw.cookie.get( 'TemplateReminderText' );

@@ -109,19 +109,9 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	vertical-align: middle;
 }
 
-// Hide Language menu because Appropedia is a single wiki
-#poncho-languages-menu {
-	display: none !important;
-}
-
-// Highlight bell icon when new notifications
-#poncho-bell-item.active .poncho-menu-icon {
-	background-color: @highlight;
-}
-
 // Add icons to sidebar
 #poncho-navigation-menu {
-	a {
+	.poncho-menu-list a {
 		background-repeat: no-repeat;
 		background-size: 1.2em;
 		background-position: 1em center;

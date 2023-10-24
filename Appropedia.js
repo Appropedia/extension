@@ -101,6 +101,12 @@ window.Appropedia = {
 	 * Documentation at https://www.mediawiki.org/wiki/MiniEdit
 	 */
 	loadMiniEdit: function () {
+		// Only load for logged-in users
+		var user = mw.config.get( 'wgUserName' );
+		if ( !user ) {
+			return;
+		}
+
 		// Only load when viewing
 		var action = mw.config.get( 'wgAction' );
 		if ( action !== 'view' ) {

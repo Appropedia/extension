@@ -1,6 +1,6 @@
 # Appropedia extension
 
-Appropedia extension for MediaWiki.
+MediaWiki extension for Appropedia.
 
 This extension contains all PHP, JavaScript and CSS specific to Appropedia. We used to have it scattered in our MediaWiki:Common.js, MediaWiki:Common.css and LocalSettings.php, but we now have it all here for several reasons:
 
@@ -9,7 +9,7 @@ This extension contains all PHP, JavaScript and CSS specific to Appropedia. We u
 * Simplifies contributions by new developers via pull requests
 * Simplifies development by allowing us to make use of code editors
 * Simplifies styling by allowing us to make use of LESS
-* Improves performance by allowing us to make use of [MediaWiki's Resource Loader](https://www.mediawiki.org/wiki/ResourceLoader)
+* Improves performance by allowing us to make use of [MediaWiki's Resource Loader](https://www.mediawiki.org/wiki/ResourceLoader) and avoiding unnecessary web requests to MediaWiki:Common.js and MediaWiki:Common.css
 * Allows us to translate strings via https://translatewiki.net
 * Furthers our commitment to open source code as well as content
 

@@ -374,33 +374,30 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 
 // Extension:TalkBelow
-.talkbelow-section {
+#talkbelow-section {
 	border: 1px solid @border;
 	background: @background;
 	margin-top: 2.5em;
 	padding: 1em;
+	dd {
+		border-left: .5em solid @indent;
+		margin: 0;
+		margin-top: 1em;
+		padding-top: .5em;
+		padding-left: 1em;
+	}
+	dd + dd {
+		margin-top: 0;
+	}
 }
-.talkbelow-heading {
+#talkbelow-heading {
 	margin-top: 0;
+	.mw-editsection {
+		text-transform: lowercase;
+	}
 }
-.talkbelow-heading .mw-editsection {
-	text-transform: lowercase;
-}
-.talkbelow-section dd {
-	border-left: .5em solid @indent;
-	margin: 0;
-	margin-top: 1em;
-	padding-top: .5em;
-	padding-left: 1em;
-}
-.talkbelow-section dd + dd {
-	margin-top: 0;
-}
-.talkbelow-add-topic {
+#talkbelow-add-topic-button {
 	margin-top: 2em;
-}
-#poncho-talk-button {
-	display: none;
 }
 .poncho-dark-mode .talkbelow-section {
 	border-color: @dark-border;

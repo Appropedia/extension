@@ -83,10 +83,14 @@ class Appropedia {
 		$property = DIProperty::newFromUserLabel( 'Part of' );
 		$values = $data->getPropertyValues( $property );
 		if ( $values ) {
-			$value = array_shift( $values );
-			$title = $value->getTitle();
-			$link = Linker::link( $title );
-			$text = $skin->msg( 'appropedia-part-of', $link )->text();
+			$links = [];
+			foreach ( $values as $value ) {
+				$title = $value->getTitle();
+				$link = Linker::link( $title );
+				$links[] = $link;
+			}
+			$text = implode( ', ', $links );
+			$text = $skin->msg( 'appropedia-part-of', $text )->text();
 			$out->addSubtitle( $text );
 		}
 	}

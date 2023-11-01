@@ -5,6 +5,7 @@
 		]
 	},
 	"appropedia-desc": "Custom code for Appropedia.org",
+	"appropedia-part-of": "Part of: $1",
 	"appropedia-policies": "Policies",
 	"appropedia-contact": "Contact",
 	"appropedia-admin-panel": "Admin panel",
@@ -19,8 +20,6 @@
 	"appropedia-select-files": "Select files to upload",
 	"appropedia-not-own-work": "If the file is not your own work, please use [[$1|this upload form]] instead.",
 	"appropedia-download-pdf": "Download PDF",
-	"appropedia-like": "Like",
-	"appropedia-like-thanks": "Thanks!",
 	"appropedia-searchprofile-pages": "Pages",
 	"appropedia-searchprofile-files": "Files",
 	"appropedia-searchprofile-users": "Users",

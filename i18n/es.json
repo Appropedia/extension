@@ -8,6 +8,7 @@
 		]
 	},
 	"appropedia-desc": "Código personalizado para Appropedia.org",
+	"appropedia-part-of": "Parte de: $1",
 	"appropedia-policies": "Normativas",
 	"appropedia-contact": "Contacto",
 	"appropedia-admin-panel": "Panel administrativo",
@@ -22,8 +23,6 @@
 	"appropedia-select-files": "Selecciona archivos para subir",
 	"appropedia-not-own-work": "Si el archivo no es de tu autoría, por favor utiliza [[$1|este otro formulario]].",
 	"appropedia-download-pdf": "Descargar PDF",
-	"appropedia-like": "Me gusta",
-	"appropedia-like-thanks": "¡Gracias!",
 	"appropedia-searchprofile-pages": "Páginas",
 	"appropedia-searchprofile-files": "Archivos",
 	"appropedia-searchprofile-users": "Usuarios",

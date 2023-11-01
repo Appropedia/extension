@@ -6,6 +6,7 @@
 		]
 	},
 	"appropedia-desc": "{{desc|name=Appropedia|url=https://github.com/Appropedia/extension}}",
+	"appropedia-part-of": "Page subtitle indicating that the current page is part of a larger set",
 	"appropedia-policies": "Text of the Policies link in the footer",
 	"appropedia-contact": "Text of the Contact link in the footer",
 	"appropedia-admin-panel": "Text of the Admin panel link in the sidebar",
@@ -20,8 +21,6 @@
 	"appropedia-select-files": "Text of the button to select files to upload",
 	"appropedia-not-own-work": "Message when uploading a file through the simplified upload form of the visual editor",
 	"appropedia-download-pdf": "Text of the button to print or download the current page as PDF",
-	"appropedia-like": "Text of the button to like the current page",
-	"appropedia-like-thanks": "Thank you message when a user likes a page",
 	"appropedia-searchprofile-pages": "Text of the search tab for content pages",
 	"appropedia-searchprofile-files": "Text of the search tab for file pages",
 	"appropedia-searchprofile-users": "Text of the search tab for user pages",

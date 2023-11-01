@@ -1,5 +1,9 @@
 <?php
 
+use SMW\DIProperty;
+use SMW\DIWikiPage;
+use SMW\StoreFactory;
+
 /**
  * This class contains all code not covered by more specific classes
  */
@@ -65,6 +69,24 @@ class Appropedia {
 			// Make the composite logo
 			$logoAttrs = [ 'id' => 'appropedia-logo-wrapper' ];
 			$logo = Html::rawElement( 'div', $logoAttrs, $appropediaLogo . $subwikiLogo );
+		}
+	}
+
+	/**
+	 * Add a subtitle indicating that the current page is part of a larger set
+ 	 */
+	public static function onSkinSubPageSubtitle( &$subpages, $skin, $out ) {
+		$store = StoreFactory::getStore();
+		$title = $skin->getTitle();
+		$subject = DIWikiPage::newFromText( $title->getDBkey(), $title->getNamespace() );
+		$data = $store->getSemanticData( $subject );
+		$property = DIProperty::newFromUserLabel( 'Part of' );
+		$values = $data->getPropertyValues( $property );
+		if ( $values ) {
+			$value = array_shift( $values );
+			$title = $value->getTitle();
+			$link = Linker::link( $title );
+			$out->addSubtitle( $link );
 		}
 	}
 

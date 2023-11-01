@@ -15,8 +15,10 @@ window.Appropedia = {
 		// Save quiz scores
 		$( '.quiz .score' ).each( Appropedia.saveQuizScore );
 
-		// Add reminder
-		Appropedia.addReminder();
+		// Manage reminders
+		Appropedia.checkReminder();
+		$( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
+		$( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
 
 		// Load MiniEdit
 		Appropedia.loadMiniEdit();
@@ -66,19 +68,56 @@ window.Appropedia = {
 	},
 
 	/**
-	 * Add reminder
-	 *
-	 * This interacts with https://www.appropedia.org/Template:Reminder
-	 * and https://www.appropedia.org/MediaWiki:TemplateReminder.js
+	 * This interacts with {{Set reminder}}
 	 */
-	addReminder: function () {
-		var text = mw.cookie.get( 'TemplateReminderText' );
+	setReminder: function () {
+		var $template = $( this ).closest( '.template-set-reminder' );
+		var text = $template.data( 'text' );
+		var image = $template.data( 'image' );
+		var category = $template.data( 'category' );
+		var categoryIgnore = $template.data( 'category-ignore' );
+		mw.cookie.set( 'ReminderText', text );
+		mw.cookie.set( 'ReminderImage', image );
+		mw.cookie.set( 'ReminderCategory', category );
+		mw.cookie.set( 'ReminderCategoryIgnore', categoryIgnore );
+		$template.children().toggle();
+		Appropedia.showReminder();
+	},
+
+	/**
+	 * This interacts with {{Set reminder}}
+	 */
+	unsetReminder: function () {
+		var text = mw.cookie.get( 'ReminderText' );
+		var $template = $( '.template-set-reminder[data-text="' + text + '"]' );
+		if ( $template.length ) {
+			$template.children().toggle();
+		}
+		mw.cookie.set( 'ReminderText', null );
+		mw.cookie.set( 'ReminderImage', null );
+		mw.cookie.set( 'ReminderCategory', null );
+		mw.cookie.set( 'ReminderCategoryIgnore', null );
+	},
+	
+	/**
+	 * Check if a reminder needs to be shown
+	 */
+	checkReminder: function () {
+		var text = mw.cookie.get( 'ReminderText' );
 		if ( !text ) {
 			return;
 		}
-		var category = mw.cookie.get( 'TemplateReminderCategory' );
+		var $template = $( '.template-set-reminder[data-text="' + text + '"]' );
+		if ( $template.length ) {
+			$template.children().toggle();
+		}
+		var category = mw.cookie.get( 'ReminderCategory' );
 		var categories = mw.config.get( 'wgCategories' );
 		if ( category && categories && !categories.includes( category ) ) {
+			return;
+		}
+		var categoryIgnore = mw.cookie.get( 'ReminderCategoryIgnore' );
+		if ( categoryIgnore && categories.includes( categoryIgnore ) ) {
 			return;
 		}
 		var action = mw.config.get( 'wgAction' );
@@ -93,7 +132,28 @@ window.Appropedia = {
 		if ( mainpage ) {
 			return;
 		}
-		mw.loader.load( '/MediaWiki:TemplateReminder.js?action=raw&ctype=text/javascript' );
+		Appropedia.showReminder();
+	},
+
+	/**
+	 * Show the reminder
+	 */
+	showReminder: function () {
+		var text = mw.cookie.get( 'ReminderText' );
+		var image = mw.cookie.get( 'ReminderImage', null, 'Antu appointment-reminder.svg' );
+		var wikitext = '[[File:{{PAGENAME:' + image + '}}|right|38px|link=]]' + text;
+		wikitext += '<div class="mw-ui-button">Unset reminder</div>';
+		new mw.Api().get( {
+			'formatversion': 2,
+			'action': 'parse',
+			'text': wikitext,
+			'title': mw.config.get( 'wgPageName' )
+		} ).done( function ( data ) {
+			var html = data.parse.text;
+			var $html = $( html );
+			mw.notify( $html, { tag: 'reminder' } );
+			$html.find( '.mw-ui-button' ).click( Appropedia.unsetReminder );
+		} );
 	},
 
 	/**

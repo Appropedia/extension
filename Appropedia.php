@@ -86,7 +86,8 @@ class Appropedia {
 			$value = array_shift( $values );
 			$title = $value->getTitle();
 			$link = Linker::link( $title );
-			$out->addSubtitle( $link );
+			$text = $skin->msg( 'appropedia-part-of', $link )->text();
+			$out->addSubtitle( $text );
 		}
 	}
 

@@ -78,7 +78,7 @@ class Appropedia {
 	public static function onSkinSubPageSubtitle( &$subpages, $skin, $out ) {
 		$store = StoreFactory::getStore();
 		$title = $skin->getTitle();
-		$subject = DIWikiPage::newFromText( $title->getDBkey(), $title->getNamespace() );
+		$subject = DIWikiPage::newFromTitle( $title );
 		$data = $store->getSemanticData( $subject );
 		$property = DIProperty::newFromUserLabel( 'Part of' );
 		$values = $data->getPropertyValues( $property );

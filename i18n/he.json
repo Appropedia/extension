@@ -5,6 +5,7 @@
 		]
 	},
 	"appropedia-desc": "קוד מותאם של Appropedia.org",
+	"appropedia-part-of": "חלק מתוך: $1",
 	"appropedia-policies": "מדיניות",
 	"appropedia-contact": "יצירת קשר",
 	"appropedia-admin-panel": "חלונית ניהול",
@@ -19,8 +20,6 @@
 	"appropedia-select-files": "בחירת קבצים להעלאה",
 	"appropedia-not-own-work": "אם הקובץ אינו פרי עבודתך, נא להשתמש [[$1|בטופס ההעלאה הזה]] ולא בדף הנוכחי.",
 	"appropedia-download-pdf": "הורדת PDF",
-	"appropedia-like": "אהבתי",
-	"appropedia-like-thanks": "תודה!",
 	"appropedia-searchprofile-pages": "דפים",
 	"appropedia-searchprofile-files": "קבצים",
 	"appropedia-searchprofile-users": "משתמשים",

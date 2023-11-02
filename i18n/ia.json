@@ -5,6 +5,7 @@
 		]
 	},
 	"appropedia-desc": "Codice personalisate pro Appropedia.org",
+	"appropedia-part-of": "Parte de: $1",
 	"appropedia-policies": "Politicas",
 	"appropedia-contact": "Contacto",
 	"appropedia-admin-panel": "Pannello de administration",
@@ -19,8 +20,6 @@
 	"appropedia-select-files": "Selige files a incargar",
 	"appropedia-not-own-work": "Si le file non es tu proprie obra, per favor usa [[$1|iste formulario de incargamento]] in vice.",
 	"appropedia-download-pdf": "Discargar PDF",
-	"appropedia-like": "Appreciar",
-	"appropedia-like-thanks": "Gratias!",
 	"appropedia-searchprofile-pages": "Paginas",
 	"appropedia-searchprofile-files": "Files",
 	"appropedia-searchprofile-users": "Usatores",

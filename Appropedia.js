@@ -151,7 +151,7 @@ window.Appropedia = {
 		} ).done( function ( data ) {
 			var html = data.parse.text;
 			var $html = $( html );
-			mw.notify( $html, { tag: 'reminder' } );
+			mw.notify( $html, { tag: 'reminder', autoHide: false } );
 			$html.find( '.mw-ui-button' ).click( Appropedia.unsetReminder );
 		} );
 	},

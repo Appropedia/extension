@@ -73,29 +73,6 @@ class Appropedia {
 	}
 
 	/**
-	 * Add a subtitle indicating that the current page is part of a larger set
- 	 */
-	public static function onSkinSubPageSubtitle( &$subpages, $skin, $out ) {
-		$store = StoreFactory::getStore();
-		$title = $skin->getTitle();
-		$subject = DIWikiPage::newFromTitle( $title );
-		$data = $store->getSemanticData( $subject );
-		$property = DIProperty::newFromUserLabel( 'Part of' );
-		$values = $data->getPropertyValues( $property );
-		if ( $values ) {
-			$links = [];
-			foreach ( $values as $value ) {
-				$title = $value->getTitle();
-				$link = Linker::link( $title );
-				$links[] = $link;
-			}
-			$text = implode( ', ', $links );
-			$text = $skin->msg( 'appropedia-part-of', $text )->text();
-			$out->addSubtitle( $text );
-		}
-	}
-
-	/**
 	 * Make "external" links like [https://www.appropedia.org/Water Water] behave as internal links
 	 */
 	public static function onLinkerMakeExternalLink( &$url, &$text, &$link, &$attribs, $linktype ) {

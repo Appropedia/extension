@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kizule",
 			"Milicevic01"
 		]
 	},
@@ -18,14 +19,27 @@
 	"appropedia-searchprofile-users": "Корисници",
 	"appropedia-searchprofile-talks": "Разговори",
 	"appropedia-searchprofile-other": "Друго",
+	"appropedia-search-page-type-any": "Било који тип",
 	"appropedia-search-page-type-projects": "Пројекти",
 	"appropedia-search-page-type-devices": "Уређаји",
 	"appropedia-search-page-type-topics": "Теме",
 	"appropedia-search-page-type-maps": "Мапе",
+	"appropedia-search-page-type-organizations": "Организације",
 	"appropedia-search-page-type-guides": "Водичи",
+	"appropedia-search-page-type-essays": "Есеји",
+	"appropedia-search-page-type-papers": "Папири",
 	"appropedia-search-page-type-books": "Књиге",
+	"appropedia-search-page-type-literature-reviews": "Прегледи литература",
 	"appropedia-search-page-language-any": "Било који језик",
+	"appropedia-search-file-type-any": "Било који тип",
+	"appropedia-search-file-type-images": "Слике",
 	"appropedia-search-file-type-drawings": "Цртежи",
+	"appropedia-search-file-type-documents": "Документи",
+	"appropedia-search-file-type-code": "Кôд",
+	"appropedia-search-file-type-videos": "Видеи",
+	"appropedia-search-file-type-audios": "Звучни снимци",
+	"appropedia-search-file-format-any": "Било који формат",
 	"appropedia-search-file-license-any": "Било која лиценца",
+	"appropedia-search-file-license-public-domain": "Јавно власништво",
 	"appropedia-search-user-location-any": "Било која локација"
 }

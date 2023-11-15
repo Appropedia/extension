@@ -4,21 +4,24 @@ window.Appropedia = {
 	 * Initialization script
 	 */
 	init: function () {
-		$( '#ca-print' ).on( 'click', Appropedia.print ),
+		var $context = $( '#mw-content-text' );
 
 		// Update the search query when a search filter changes
-		$( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
+		$context.find( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
 
 		// Fix the width of the search filters
-		$( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
+		$context.find( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
 
 		// Save quiz scores
-		$( '.quiz .score' ).each( Appropedia.saveQuizScore );
+		$context.find( '.quiz .score' ).each( Appropedia.saveQuizScore );
 
 		// Manage reminders
 		Appropedia.checkReminder();
-		$( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
-		$( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
+		$context.find( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
+		$context.find( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
+
+		// Print
+		$( '#ca-print' ).on( 'click', Appropedia.print ),
 
 		// Load MiniEdit
 		Appropedia.loadMiniEdit();
@@ -44,8 +47,8 @@ window.Appropedia = {
 		var params = new URLSearchParams( window.location.search );
 		var search = params.get( 'search' ) || '';
 		$options.each( function () {
-			var option = $( this ).val();
-			search = search.replace( option, '' );
+			var value = $( this ).val();
+			search = search.replace( value, '' );
 		} );
 		search = search + ' ' + value;
 		search = search.replace( /  +/g, ' ' ).trim();
@@ -144,10 +147,10 @@ window.Appropedia = {
 		var wikitext = '[[File:{{PAGENAME:' + image + '}}|right|38px|link=]]' + text;
 		wikitext += '<div class="mw-ui-button">Unset reminder</div>';
 		new mw.Api().get( {
-			'formatversion': 2,
-			'action': 'parse',
-			'text': wikitext,
-			'title': mw.config.get( 'wgPageName' )
+			formatversion: 2,
+			action: 'parse',
+			text: wikitext,
+			title: mw.config.get( 'wgPageName' )
 		} ).done( function ( data ) {
 			var html = data.parse.text;
 			var $html = $( html );
@@ -207,13 +210,15 @@ window.Appropedia = {
 	 * Save quiz scores
 	 */
 	saveQuizScore: function () {
-		var quiz = $( this ).closest( '.quiz' );
+		var $quiz = $( this ).closest( '.quiz' );
 
 		// Get the score
-		var score = quiz.find( '.score' ).text();
-		var total = quiz.find( '.total' ).text();
-		if ( !score ) {
-			return; // Don't submit empty quizzes
+		var score = $quiz.find( '.score' ).text();
+		var total = $quiz.find( '.total' ).text();
+
+		// Don't submit empty quizzes
+		if ( !score || !total ) {
+			return;
 		}
 
 		// Only submit in the main namespace
@@ -221,69 +226,42 @@ window.Appropedia = {
 			return;
 		}
 
-		// Set the page and section where to post
+		// Figure out the talk page where to post
 		var page = mw.config.get( 'wgPageName' );
 		var title = new mw.Title( page );
 		var talk = title.getTalkPage().getPrefixedText();
-		var section = 'Quiz scores';
 
-		// Build the wikitext
-		var wikitext = '{{Quiz score';
-		wikitext += '\n| score = ' + score;
-		wikitext += '\n| total = ' + total;
-		wikitext += '\n}}';
-
-		// Append the wikitext to the talk page
+		// Figure out if the section already exists and its number
 		var api = new mw.Api();
-		return api.get( {
-			'action': 'parse',
-			'page': talk,
-			'prop': 'text',
-			'formatversion': 2
-		} ).always( function ( data ) {
+		api.get( {
+			action: 'parse',
+			page: talk,
+			prop: 'text',
+			formatversion: 2
+		} ).fail( console.log ).always( function ( data ) {
 
-			// Figure out if the section already exists and its number
-			var sectionNumber, sectionTitle;
-			if ( section ) {
-				sectionNumber = 'new';
-				sectionTitle = section;
-				if ( data !== 'missingtitle' ) {
-					var html = $.parseHTML( data.parse.text );
-					var header = $( ':header:contains(' + sectionTitle + ')', html );
-					if ( header.length ) {
-						sectionNumber = 1 + header.prevAll( ':header' ).length;
-						sectionTitle = null;
-						wikitext = '\n\n' + wikitext;
-					}
+			var section = 'new';
+			if ( data !== 'missingtitle' ) {
+				var html = $.parseHTML( data.parse.text );
+				var $header = $( '#Quiz_scores', html );
+				if ( $header.length ) {
+					section = $header.prevAll( ':header' ).length + 1;
 				}
-			} else if ( data !== 'missingtitle' ) {
-				wikitext = '\n\n' + wikitext;
 			}
 			var params = {
-				'action': 'edit',
-				'title': talk,
-				'section': sectionNumber,
-				'summary': 'Save quiz score',
-				'bot': true,
+				action: 'edit',
+				title: talk,
+				section: section,
+				summary: 'Save quiz score'
 			};
-			if ( sectionNumber === 'new' ) {
-				params.sectiontitle = sectionTitle;
+			var wikitext = '* ' + score + '/' + total;
+			if ( section === 'new' ) {
+				params.sectiontitle = 'Quiz scores';
 				params.text = wikitext;
 			} else {
-				params.appendtext = wikitext;
+				params.appendtext = '\n' + wikitext;
 			}
-			if ( mw.config.get( 'wgUserName' ) ) {
-				return api.postWithEditToken( params );
-			} else {
-
-				// If the user is not logged in, we post with a bot account
-				return api.login(
-					'Bot@Quizzes',
-					'ogs8314dohsujap2pf249pgpv0av5q8a'
-				).then( function () {
-					return api.postWithEditToken( params );
-				} );
-			}
+			api.postWithEditToken( params ).fail( console.log );
 		} );
 	}
 };

@@ -248,13 +248,13 @@ window.Appropedia = {
 					section = $header.prevAll( ':header' ).length + 1;
 				}
 			}
+			var wikitext = score + '/' + total;
 			var params = {
 				action: 'edit',
 				title: talk,
 				section: section,
-				summary: 'Save quiz score'
+				summary: 'Save quiz score ' + wikitext
 			};
-			var wikitext = score + '/' + total;
 			if ( section === 'new' ) {
 				params.sectiontitle = 'Quiz scores';
 				params.text = wikitext;

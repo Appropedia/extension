@@ -238,7 +238,7 @@ window.Appropedia = {
 			page: talk,
 			prop: 'text',
 			formatversion: 2
-		} ).fail( console.log ).always( function ( data ) {
+		} ).always( function ( data ) {
 
 			var section = 'new';
 			if ( data !== 'missingtitle' ) {

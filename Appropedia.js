@@ -254,7 +254,7 @@ window.Appropedia = {
 				section: section,
 				summary: 'Save quiz score'
 			};
-			var wikitext = '* ' + score + '/' + total;
+			var wikitext = score + '/' + total;
 			if ( section === 'new' ) {
 				params.sectiontitle = 'Quiz scores';
 				params.text = wikitext;

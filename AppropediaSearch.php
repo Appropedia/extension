@@ -181,7 +181,6 @@ class AppropediaSearch {
 		if ( $profile === 'files' ) {
 
 			// File type
-			$filetype = strtolower( $filetype );
 			$form .= '<select id="search-filter-file-type" style="width: 55px;">';
 			$form .= '<option value="">' . wfMessage( 'appropedia-search-file-type-any' )->text() . '</option>';
 			$options = [

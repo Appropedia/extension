@@ -43,6 +43,10 @@ class AppropediaMessages {
 			/**
 			 * Override messages
 			 */
+			case 'pagetitle':
+				$message = wfMessage( 'appropedia-page-title' )->text();
+				break;
+
 			case 'copyrightwarning':
 				$message = wfMessage( 'appropedia-page-edit-warning' )->text();
 				break;
@@ -101,7 +105,7 @@ class AppropediaMessages {
 
 			/**
 			 * Override extension and skin messages
-			 * These require setting the language explictly
+			 * For some reason these require setting the language explictly
 			 */
 			case 'mwe-upwiz-add-file-0-free':
 				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();

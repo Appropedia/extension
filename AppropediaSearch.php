@@ -95,7 +95,7 @@ class AppropediaSearch {
 	}
 
 	/**
-	 * Cusomize the search profile form
+	 * Customize the search profile form
 	 *
 	 * This new markup interacts with Appropedia.js
 	 */

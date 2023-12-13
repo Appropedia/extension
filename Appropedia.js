@@ -13,7 +13,7 @@ window.Appropedia = {
 		$context.find( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
 
 		// Save quiz scores
-		$context.find( '.quiz .score' ).each( Appropedia.saveQuizScore );
+		//$context.find( '.quiz .score' ).each( Appropedia.saveQuizScore );
 
 		// Manage reminders
 		Appropedia.checkReminder();

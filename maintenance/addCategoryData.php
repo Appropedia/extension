@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This maintenance script adds {{Page data}} to all content pages that don't have it already
+ * This maintenance script adds {{Category data}} to all category pages that don't have it already
  */
 
 $IP = getenv( 'MW_INSTALL_PATH' );

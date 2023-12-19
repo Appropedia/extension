@@ -36,9 +36,14 @@ class AppropediaWikitext {
 			return;
 		}
 
-		// Do general fixes
+		// Don't fix redirects
 		$content = $wikiPage->getContent();
 		$wikitext = ContentHandler::getContentText( $content );
+		if ( preg_match( "/^#(\S+ ?\[\[.+\]\])/", $wikitext ) ) {
+			return;
+		}
+
+		// Do general fixes
 		$namespace = $wikiPage->getNamespace();
 		switch ( $namespace ) {
 			case 0:

@@ -2,7 +2,7 @@
 
 MediaWiki extension for Appropedia.
 
-This extension contains all PHP, JavaScript and CSS specific to Appropedia. We used to have it scattered in our MediaWiki:Common.js, MediaWiki:Common.css and LocalSettings.php, but we now have it all here for several reasons:
+This extension contains all PHP, JavaScript, CSS and Lua code specific to Appropedia. We used to have it scattered in our MediaWiki:Common.js, MediaWiki:Common.css and LocalSettings.php, but we now have it all here for several reasons:
 
 * Simplifies testing and maintenance
 * Simplifies documentation and discovery of new features and changes

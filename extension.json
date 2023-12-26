@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "5.3",
+	"version": "6.0",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -20,7 +20,8 @@
 		"AppropediaMenus": "AppropediaMenus.php",
 		"AppropediaSearch": "AppropediaSearch.php",
 		"AppropediaMessages": "AppropediaMessages.php",
-		"AppropediaWikitext": "AppropediaWikitext.php"
+		"AppropediaWikitext": "AppropediaWikitext.php",
+		"AppropediaLua": "AppropediaLua.php"
 	},
 	"ExtensionMessagesFiles": {
 		"AppropediaMagic": "Appropedia.magic.php"
@@ -59,7 +60,8 @@
 		"SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",
 		"SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
 		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle",
-		"PageSaveComplete": "AppropediaWikitext::onPageSaveComplete"
+		"PageSaveComplete": "AppropediaWikitext::onPageSaveComplete",
+		"ScribuntoExternalLibraries": "AppropediaLua::onScribuntoExternalLibraries"
 	},
 	"config": {
 		"AppropediaBotAccount": {

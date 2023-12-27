@@ -18,6 +18,11 @@ function appropedia.setupInterface( options )
 	package.loaded['mw.ext.appropedia'] = appropedia
 end
 
+function appropedia.emailDomain( name )
+	if not name then error( 'missing user name' ) end
+	return php.emailDomain( name )
+end
+
 function appropedia.pageCategories( page )
 	if not page then error( 'missing page' ) end
 	return php.pageCategories( page )

@@ -10,8 +10,25 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 
 	public function register() {
 		$this->getEngine()->registerInterface( __DIR__ . '/AppropediaLua.lua', [
+			'emailDomain' => [ $this, 'emailDomain' ],
 			'pageCategories' => [ $this, 'pageCategories' ]
 		] );
+	}
+
+	/**
+	 * Get the domain of the email of a user
+	 *
+	 * @param string $name User name
+	 * @return string Email domain
+	 */
+	public function emailDomain( $name ) {
+		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromName( $name );
+		$email = $user->getEmail();
+		$domain = '';
+		if ( $email ) {
+			$domain = substr( $email, strpos( $email, '@' ) + 1 );
+		}
+		return [ $domain ];
 	}
 
 	/**

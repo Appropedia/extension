@@ -11,7 +11,9 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$this->getEngine()->registerInterface( __DIR__ . '/AppropediaLua.lua', [
 			'emailDomain' => [ $this, 'emailDomain' ],
-			'pageCategories' => [ $this, 'pageCategories' ]
+			'pageCategories' => [ $this, 'pageCategories' ],
+			'pageLinksCount' => [ $this, 'pageLinksCount' ],
+			'fileLinksCount' => [ $this, 'fileLinksCount' ],
 		] );
 	}
 
@@ -58,10 +60,44 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * Convert an array to a viable Lua table
+	 * Get the number of links to the given page
+	 *
+	 * @param string $page Page name
+	 * @return array Lua table
+	 */
+	public function pageLinksCount( $page ) {
+		$title = Title::newFromText( $page );
+		$db = wfGetDB( DB_REPLICA );
+		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$queryBuilder = $dbr->newSelectQueryBuilder();
+		$count = $queryBuilder->select( 'COUNT(*)' )->from( 'pagelinks' )->where( [ 'pl_title' => $page ] )->fetchField();
+		$count = intval( $count );
+		return [ $count ];
+	}
+
+	/**
+	 * Get the number of uses of the given file
+	 *
+	 * @param string $file File name
+	 * @return array Lua table
+	 */
+	public function fileLinksCount( $file ) {
+		$title = Title::newFromText( $file, NS_FILE );
+		$db = wfGetDB( DB_REPLICA );
+		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
+		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$queryBuilder = $dbr->newSelectQueryBuilder();
+		$count = $queryBuilder->select( 'COUNT(*)' )->from( 'imagelinks' )->where( [ 'il_to' => $file ] )->fetchField();
+		$count = intval( $count );
+		return [ $count ];
+	}
+
+	/**
+	 * Helper method to convert an array to a viable Lua table
 	 *
 	 * The resulting table has its numerical indices start with 1
-	 * If $array is not an array, it is simply returned.
+	 * If $array is not an array, it is simply returned
 	 *
 	 * @param mixed $array
 	 * @return mixed Lua object

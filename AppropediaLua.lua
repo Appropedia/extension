@@ -24,8 +24,18 @@ function appropedia.emailDomain( name )
 end
 
 function appropedia.pageCategories( page )
-	if not page then error( 'missing page' ) end
+	if not page then error( 'missing page name' ) end
 	return php.pageCategories( page )
+end
+
+function appropedia.pageLinksCount( page )
+	if not page then error( 'missing page name' ) end
+	return php.pageLinksCount( page )
+end
+
+function appropedia.fileLinksCount( file )
+	if not file then error( 'missing file name' ) end
+	return php.fileLinksCount( file )
 end
 
 return appropedia

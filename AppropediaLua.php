@@ -2,6 +2,9 @@
 
 use MediaWiki\MediaWikiServices;
 
+/**
+ * This class queries the database for the Appropedia Lua library
+ */
 class AppropediaLua extends Scribunto_LuaLibraryBase {
 
 	public static function onScribuntoExternalLibraries( string $engine, array &$extraLibraries ) {
@@ -12,8 +15,7 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 		$this->getEngine()->registerInterface( __DIR__ . '/AppropediaLua.lua', [
 			'emailDomain' => [ $this, 'emailDomain' ],
 			'pageCategories' => [ $this, 'pageCategories' ],
-			'pageLinksCount' => [ $this, 'pageLinksCount' ],
-			'fileLinksCount' => [ $this, 'fileLinksCount' ],
+			'fileUses' => [ $this, 'fileUses' ],
 		] );
 	}
 
@@ -42,7 +44,6 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	public function pageCategories( $page ) {
 		$title = Title::newFromText( $page );
 		$id = $title->getArticleID();
-		$db = wfGetDB( DB_REPLICA );
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
 		$results = $dbr->newSelectQueryBuilder()
@@ -60,31 +61,13 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * Get the number of links to the given page
-	 *
-	 * @param string $page Page name
-	 * @return array Lua table
-	 */
-	public function pageLinksCount( $page ) {
-		$title = Title::newFromText( $page );
-		$db = wfGetDB( DB_REPLICA );
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
-		$queryBuilder = $dbr->newSelectQueryBuilder();
-		$count = $queryBuilder->select( 'COUNT(*)' )->from( 'pagelinks' )->where( [ 'pl_title' => $page ] )->fetchField();
-		$count = intval( $count );
-		return [ $count ];
-	}
-
-	/**
 	 * Get the number of uses of the given file
 	 *
 	 * @param string $file File name
 	 * @return array Lua table
 	 */
-	public function fileLinksCount( $file ) {
+	public function fileUses( $file ) {
 		$title = Title::newFromText( $file, NS_FILE );
-		$db = wfGetDB( DB_REPLICA );
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
 		$queryBuilder = $dbr->newSelectQueryBuilder();

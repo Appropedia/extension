@@ -1,3 +1,5 @@
+-- The Appropedia Lua library gets data for the Appropedia Lua module
+-- See https://www.appropedia.org/Module:Appropedia
 local appropedia = {}
 local php
 
@@ -28,14 +30,9 @@ function appropedia.pageCategories( page )
 	return php.pageCategories( page )
 end
 
-function appropedia.pageLinksCount( page )
-	if not page then error( 'missing page name' ) end
-	return php.pageLinksCount( page )
-end
-
-function appropedia.fileLinksCount( file )
+function appropedia.fileUses( file )
 	if not file then error( 'missing file name' ) end
-	return php.fileLinksCount( file )
+	return php.fileUses( file )
 end
 
 return appropedia

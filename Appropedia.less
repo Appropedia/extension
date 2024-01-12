@@ -85,7 +85,7 @@ blockquote {
 	font-size: small;
 }
 .paragraph-edit-form-input {
-	border: 1px solid #aaa;
+	border: 1px solid @border;
 	margin-bottom: .2em;
 	overflow: hidden;
 	padding: .2em;
@@ -165,7 +165,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	position: relative;
 }
 .main-page-gallery .gallerybox img {
-	border-radius: 10px;
+	border-radius: 2px;
 }
 .main-page-gallery .gallerytext {
 	color: white;
@@ -286,8 +286,9 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		padding: 0 !important;
 	}
 	.mw-search-result {
-		border: 1px solid #aaa;
-		border-radius: 10px;
+		background: @background;
+		border: 1px solid @border;
+		border-radius: 2px;
 		margin: 1em 0;
 		overflow: hidden;
 		padding: 1em !important;
@@ -305,10 +306,10 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		width: 130px !important;
 	}
 	.mw-search-result td:first-child img {
-		border-radius: 10px;
+		border-radius: 2px;
 	}
 	.mw-search-result-thumb {
-		border-radius: 10px;
+		border-radius: 2px;
 		margin: 0 0 0 1em;
 	}
 	.mw-search-result-data {

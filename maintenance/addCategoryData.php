@@ -21,7 +21,7 @@ class AddCategoryData extends Maintenance {
 		foreach ( $result as $row ) {
 			$id = $row->page_id;
 			$Title = Title::newFromID( $id );
-			if ( ! $Title->exists() ) {
+			if ( !$Title->exists() ) {
 				continue;
 			}
 			$Page = WikiPage::factory( $Title );

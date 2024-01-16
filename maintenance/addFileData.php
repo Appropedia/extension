@@ -21,14 +21,14 @@ class AddCategoryData extends Maintenance {
 		foreach ( $result as $row ) {
 			$id = $row->page_id;
 			$Title = Title::newFromID( $id );
-			if ( ! $Title->exists() ) {
+			if ( !$Title->exists() ) {
 				continue;
 			}
 			$Page = WikiPage::factory( $Title );
 			$Revision = $Page->getRevisionRecord();
-      if ( ! $Revision ) {
-        continue;
-      }
+			if ( !$Revision ) {
+				continue;
+			}
 			$Content = $Revision->getContent( 'main' );
 			$text = ContentHandler::getContentText( $Content );
 
@@ -50,11 +50,12 @@ class AddCategoryData extends Maintenance {
 			}
 
 			// Save the page
+			$comment = CommentStoreComment::newUnsavedComment( 'Add [[Template:File data]]' );
 			$Content = ContentHandler::makeContent( $text, $Title );
 			$User = User::newSystemUser( User::MAINTENANCE_SCRIPT_USER, [ 'steal' => true ] );
 			$Updater = $Page->newPageUpdater( $User );
 			$Updater->setContent( 'main', $Content );
-			$Updater->saveRevision( CommentStoreComment::newUnsavedComment( 'Add [[Template:File data]]' ), EDIT_SUPPRESS_RC );
+			$Updater->saveRevision( $comment, EDIT_SUPPRESS_RC );
 			//break;
 		}
 	}

@@ -58,6 +58,8 @@ class AppropediaWikitext {
 			case 14:
 				$fixed = self::fixCategoryPage( $wikitext, $title );
 				break;
+			default:
+				return;
 		}
 
 		// Check if anything changed

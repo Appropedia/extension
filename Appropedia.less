@@ -24,6 +24,11 @@
 	width: auto;
 }
 
+// Columns
+.columns {
+	columns: 2;
+}
+
 // Tables
 table pre {
 	border: none !important;
@@ -164,9 +169,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	margin-bottom: 5px !important;
 	position: relative;
 }
-.main-page-gallery .gallerybox img {
-	border-radius: 2px;
-}
 .main-page-gallery .gallerytext {
 	color: white;
 	font-size: medium !important;
@@ -267,7 +269,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		background-position: 100%;
 		background-repeat: no-repeat;
 		border: 1px solid @border;
-		border-radius: 20px;
+		border-radius: 1em;
 		box-sizing: content-box;
 		color: inherit;
 		font: inherit;
@@ -283,15 +285,13 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	}
 	.mw-search-results {
 		overflow: hidden;
-		padding: 0 !important;
 	}
 	.mw-search-result {
 		background: @background;
 		border: 1px solid @border;
-		border-radius: 2px;
 		margin: 1em 0;
 		overflow: hidden;
-		padding: 1em !important;
+		padding: 1em;
 	}
 	.mw-search-result .searchresult {
 		overflow: hidden;
@@ -303,13 +303,9 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		border-collapse: collapse;
 	}
 	.mw-search-result td:first-child {
-		width: 130px !important;
-	}
-	.mw-search-result td:first-child img {
-		border-radius: 2px;
+		margin-left: 1em;
 	}
 	.mw-search-result-thumb {
-		border-radius: 2px;
 		margin: 0 0 0 1em;
 	}
 	.mw-search-result-data {

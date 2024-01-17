@@ -4,21 +4,21 @@ window.Appropedia = {
 	 * Initialization script
 	 */
 	init: function () {
-		var $context = $( '#mw-content-text' );
+		var $content = $( '#mw-content-text' );
 
 		// Update the search query when a search filter changes
-		$context.find( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
+		$content.find( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
 
 		// Fix the width of the search filters
-		$context.find( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
-
-		// Save quiz scores
-		//$context.find( '.quiz .score' ).each( Appropedia.saveQuizScore );
+		$content.find( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
 
 		// Manage reminders
 		Appropedia.checkReminder();
-		$context.find( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
-		$context.find( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
+		$content.find( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
+		$content.find( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
+
+		// Save quiz scores
+		//$content.find( '.quiz .score' ).each( Appropedia.saveQuizScore );
 
 		// Print
 		$( '#ca-print' ).on( 'click', Appropedia.print ),

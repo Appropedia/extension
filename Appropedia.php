@@ -90,7 +90,7 @@ class Appropedia {
 	static function onOutputPageBodyAttributes( OutputPage $out, Skin $skin, &$bodyAttrs ) {
 		$title = $skin->getTitle();
 		if ( !$title->exists() ) {
-			$bodyAttrs['class'] = 'new-page';
+			$bodyAttrs['class'] .= ' new-page';
 		}
 	}
 

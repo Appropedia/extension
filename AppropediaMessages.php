@@ -42,9 +42,10 @@ class AppropediaMessages {
 
 			/**
 			 * Override messages
+			 * @hack The first time we call wfMessage we need to specify the language or we get errors like T302754
 			 */
 			case 'pagetitle':
-				$message = wfMessage( 'appropedia-page-title' )->text();
+				$message = wfMessage( 'appropedia-page-title' )->inLanguage( $code )->text();
 				break;
 
 			case 'copyrightwarning':
@@ -108,16 +109,16 @@ class AppropediaMessages {
 			 * For some reason these require setting the language explictly
 			 */
 			case 'mwe-upwiz-add-file-0-free':
-				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
+				$message = wfMessage( 'appropedia-select-files' )->text();
 				break;
 
 			case 'upload-form-label-not-own-work-message-generic-local':
 				$page = 'Special:UploadWizard';
-				$message = wfMessage( 'appropedia-not-own-work', $page )->inLanguage( $code )->text();
+				$message = wfMessage( 'appropedia-not-own-work', $page )->text();
 				break;
 
 			case 'poncho-print':
-				$message = wfMessage( 'appropedia-download-pdf' )->inLanguage( $code )->text();
+				$message = wfMessage( 'appropedia-download-pdf' )->text();
 				break;
 		}
 	}

@@ -85,6 +85,16 @@ class Appropedia {
 	}
 
 	/**
+	 * Add custom classes to the body
+	 */
+	static function onOutputPageBodyAttributes( OutputPage $out, Skin $skin, &$bodyAttrs ) {
+		$title = $skin->getTitle();
+		if ( !$title->exists() ) {
+			$bodyAttrs['class'] = 'new-page';
+		}
+	}
+
+	/**
 	 * Lazy-load all image thumbnails except the first
 	 * excluding also gallery thumbs and raw images
 	 *

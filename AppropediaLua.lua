@@ -20,18 +20,19 @@ function appropedia.setupInterface( options )
 	package.loaded['mw.ext.appropedia'] = appropedia
 end
 
-function appropedia.emailDomain( name )
-	if not name then error( 'missing user name' ) end
-	return php.emailDomain( name )
+function appropedia.emailDomain( user )
+	return php.emailDomain( user )
+end
+
+function appropedia.pageExists( page )
+	return php.pageExists( page )
 end
 
 function appropedia.pageCategories( page )
-	if not page then error( 'missing page name' ) end
 	return php.pageCategories( page )
 end
 
 function appropedia.fileUses( file )
-	if not file then error( 'missing file name' ) end
 	return php.fileUses( file )
 end
 

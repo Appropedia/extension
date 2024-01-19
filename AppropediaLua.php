@@ -14,6 +14,7 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$this->getEngine()->registerInterface( __DIR__ . '/AppropediaLua.lua', [
 			'emailDomain' => [ $this, 'emailDomain' ],
+			'pageExists' => [ $this, 'pageExists' ],
 			'pageCategories' => [ $this, 'pageCategories' ],
 			'fileUses' => [ $this, 'fileUses' ],
 		] );
@@ -33,6 +34,24 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 			$domain = substr( $email, strpos( $email, '@' ) + 1 );
 		}
 		return [ $domain ];
+	}
+
+	/**
+	 * Check if the given page exists
+	 *
+	 * @param string $page Page name
+	 * @return array Lua table
+	 */
+	public function pageExists( $page ) {
+		$title = Title::newFromText( $page );
+		if ( $title->exists() ) {
+			return [ true ];
+		}
+		$remote = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
+		if ( $remote ) {
+			return [ true ];
+		}
+		return [ false ];
 	}
 
 	/**

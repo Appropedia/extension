@@ -44,6 +44,9 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	 */
 	public function pageExists( $page ) {
 		$title = Title::newFromText( $page );
+		if ( !$title ) {
+			return [ false ];
+		}
 		if ( $title->exists() ) {
 			return [ true ];
 		}

@@ -47,11 +47,7 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 		if ( !$title ) {
 			return [ false ];
 		}
-		if ( $title->exists() ) {
-			return [ true ];
-		}
-		$remote = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $title );
-		if ( $remote ) {
+		if ( $title->isKnown() ) {
 			return [ true ];
 		}
 		return [ false ];

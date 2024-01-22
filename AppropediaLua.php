@@ -27,11 +27,13 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	 * @return string Email domain
 	 */
 	public function emailDomain( $name ) {
-		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromName( $name );
-		$email = $user->getEmail();
 		$domain = '';
-		if ( $email ) {
-			$domain = substr( $email, strpos( $email, '@' ) + 1 );
+		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromName( $name );
+		if ( $user ) {
+			$email = $user->getEmail();
+			if ( $email ) {
+				$domain = substr( $email, strpos( $email, '@' ) + 1 );
+			}
 		}
 		return [ $domain ];
 	}

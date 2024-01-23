@@ -8,8 +8,8 @@
  * whereas here it changes all languages at once
  * and also sends the messages for translation to translatewiki.net
  *
- * @note When Appropedia updates to MediaWiki 1.41+
- * some of this code should migrate to the MessageCacheFetchOverrides hook
+ * @note When upgrading to MediaWiki 1.41+ some of this code should migrate to the MessageCacheFetchOverrides hook
+ * @note When calling wfMessage, we specify the language code to prevent errors like T302754
  */
 class AppropediaMessages {
 
@@ -42,18 +42,17 @@ class AppropediaMessages {
 
 			/**
 			 * Override messages
-			 * @hack The first time we call wfMessage we need to specify the language or we get errors like T302754
 			 */
 			case 'pagetitle':
 				$message = wfMessage( 'appropedia-page-title' )->inLanguage( $code )->text();
 				break;
 
 			case 'copyrightwarning':
-				$message = wfMessage( 'appropedia-page-edit-warning' )->text();
+				$message = wfMessage( 'appropedia-page-edit-warning' )->inLanguage( $code )->text();
 				break;
 
 			case 'anoneditwarning':
-				$message = wfMessage( 'appropedia-anon-edit-warning' )->text();
+				$message = wfMessage( 'appropedia-anon-edit-warning' )->inLanguage( $code )->text();
 				break;
 
 			case 'editnotice-2':
@@ -68,17 +67,17 @@ class AppropediaMessages {
 					break;
 				}
 				$link = $title->getTalkPage()->getFullURL( [ 'action' => 'edit', 'section' => 'new' ] );
-				$message = wfMessage( 'appropedia-user-edit-warning', $link )->text();
+				$message = wfMessage( 'appropedia-user-edit-warning', $link )->inLanguage( $code )->text();
 				break;
 
 			case 'editnotice-8':
 				$page = 'Appropedia:UI'; // @todo Should probably be defined elsewhere
-				$message = wfMessage( 'appropedia-interface-edit-warning', $page )->text();
+				$message = wfMessage( 'appropedia-interface-edit-warning', $page )->inLanguage( $code )->text();
 				break;
 
 			case 'editnotice-10':
 				$page = 'Appropedia:Templates'; // @todo Should probably be defined elsewhere
-				$message = wfMessage( 'appropedia-template-edit-warning', $page )->text();
+				$message = wfMessage( 'appropedia-template-edit-warning', $page )->inLanguage( $code )->text();
 				break;
 
 			case 'categorytree-member-num':
@@ -92,33 +91,32 @@ class AppropediaMessages {
 				$action = in_array( $namespace, [ 0, 2, 4, 12 ] ) ? 'veaction' : 'action';
 				$preload = $namespace === 2 && !$title->isSubpage() ? 'Preload:User' : null;
 				$link = $title->getFullURL( [ $action => 'edit', 'preload' => $preload ] );
-				$text = wfMessage( 'appropedia-create-page' )->text();
+				$text = wfMessage( 'appropedia-create-page' )->inLanguage( $code )->text();
 				$message = '[' . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 
 			case 'welcomecreation-msg':
-				$message = wfMessage( 'appropedia-account-created' )->text();
+				$message = wfMessage( 'appropedia-account-created' )->inLanguage( $code )->text();
 				$context = RequestContext::getMain();
 				$link = $context->getUser()->getUserPage()->getFullURL( [ 'veaction' => 'edit', 'preload' => 'Preload:User' ] );
-				$text = wfMessage( 'appropedia-create-user-page' )->text();
+				$text = wfMessage( 'appropedia-create-user-page' )->inLanguage( $code )->text();
 				$message .= "\n\n[" . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 
 			/**
 			 * Override extension and skin messages
-			 * For some reason these require setting the language explictly
 			 */
 			case 'mwe-upwiz-add-file-0-free':
-				$message = wfMessage( 'appropedia-select-files' )->text();
+				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
 				break;
 
 			case 'upload-form-label-not-own-work-message-generic-local':
 				$page = 'Special:UploadWizard';
-				$message = wfMessage( 'appropedia-not-own-work', $page )->text();
+				$message = wfMessage( 'appropedia-not-own-work', $page )->inLanguage( $code )->text();
 				break;
 
 			case 'poncho-print':
-				$message = wfMessage( 'appropedia-download-pdf' )->text();
+				$message = wfMessage( 'appropedia-download-pdf' )->inLanguage( $code )->text();
 				break;
 		}
 	}

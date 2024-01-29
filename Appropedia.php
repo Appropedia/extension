@@ -18,6 +18,21 @@ class Appropedia {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
+
+		// Use the 'Title tag' property to set the <title> tag
+		$title = $skin->getTitle();
+		if ( $title->isContentPage() ) {
+			$property = DIProperty::newFromUserLabel( 'Title tag' );
+			$subject = DIWikiPage::newFromText( $title );
+			$store = StoreFactory::getStore();
+			$data = $store->getSemanticData( $subject );
+			$values = $data->getPropertyValues( $property );
+			if ( $values ) {
+				$value = array_shift( $values );
+				$title = wfMessage( 'appropedia-page-title', $value )->text();
+				$out->setHTMLTitle( $title );
+			}
+		}
 	}
 
 	/**

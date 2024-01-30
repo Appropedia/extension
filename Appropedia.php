@@ -18,21 +18,42 @@ class Appropedia {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
+		self::setTitleTag( $out, $skin );
+	}
 
-		// Use the 'Title tag' property to set the <title> tag
+	/**
+	 * Use the 'Title tag' property to set the <title> tag
+	 */
+	public static function setTitleTag( OutputPage $out, Skin $skin ) {
 		$title = $skin->getTitle();
-		if ( $title->isContentPage() ) {
-			$property = DIProperty::newFromUserLabel( 'Title tag' );
-			$subject = DIWikiPage::newFromText( $title );
-			$store = StoreFactory::getStore();
-			$data = $store->getSemanticData( $subject );
-			$values = $data->getPropertyValues( $property );
-			if ( $values ) {
-				$value = array_shift( $values );
-				$title = wfMessage( 'appropedia-page-title', $value )->text();
-				$out->setHTMLTitle( $title );
-			}
+		if ( !$title->isContentPage() ) {
+			return;
 		}
+		$property = DIProperty::newFromUserLabel( 'Title tag' );
+		$subject = DIWikiPage::newFromText( $title );
+		$store = StoreFactory::getStore();
+		$data = $store->getSemanticData( $subject );
+		$values = $data->getPropertyValues( $property );
+		if ( !$values ) {
+			return;
+		}
+		$value = array_shift( $values );
+		$titleTag = $value->getDIType() === SMWDataItem::TYPE_BLOB ? $value->getString() : $value->getTitle()->getFullText();
+		$fullTitle = $title->getFullText();
+		if ( $titleTag === $fullTitle ) {
+			if ( strlen( $fullTitle ) > 65 ) {
+				$out->setHTMLTitle( $fullTitle );
+			}
+			return;
+		}
+		$displayTitle = $out->getPageTitle();
+		if ( $titleTag === $displayTitle ) {
+			if ( strlen( $displayTitle ) > 65 ) {
+				$out->setHTMLTitle( $displayTitle );
+			}
+			return;
+		}
+		$out->setHTMLTitle( $titleTag );
 	}
 
 	/**

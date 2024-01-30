@@ -22,7 +22,10 @@ class Appropedia {
 	}
 
 	/**
-	 * Use the 'Title tag' property to set the <title> tag
+	 * Refine the <title> tag for SEO purposes
+	 *
+	 * Use the 'Title tag' semantic property to set the <title> tag
+	 * and remove "Appropedia, the sustainability wiki" if the <title> tag is too long
 	 */
 	public static function setTitleTag( OutputPage $out, Skin $skin ) {
 		$title = $skin->getTitle();
@@ -39,17 +42,18 @@ class Appropedia {
 		}
 		$value = array_shift( $values );
 		$titleTag = $value->getDIType() === SMWDataItem::TYPE_BLOB ? $value->getString() : $value->getTitle()->getFullText();
+		$htmlTitle = $out->getHTMLTitle();
 		$fullTitle = $title->getFullText();
 		if ( $titleTag === $fullTitle ) {
-			if ( strlen( $fullTitle ) > 65 ) {
-				$out->setHTMLTitle( $fullTitle );
+			if ( strlen( $htmlTitle ) > 65 ) {
+				$out->setHTMLTitle( $fullTitle ); // Remove "Appropedia, the sustainability wiki"
 			}
 			return;
 		}
 		$displayTitle = $out->getPageTitle();
 		if ( $titleTag === $displayTitle ) {
-			if ( strlen( $displayTitle ) > 65 ) {
-				$out->setHTMLTitle( $displayTitle );
+			if ( strlen( $htmlTitle ) > 65 ) {
+				$out->setHTMLTitle( $displayTitle ); // Remove "Appropedia, the sustainability wiki"
 			}
 			return;
 		}

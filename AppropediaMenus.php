@@ -17,12 +17,9 @@ class AppropediaMenus {
 	}
 
 	/**
-	 * Customize the sidebar
+	 * Remove global tools from the toolbox because this menu should refer only to the current page
 	 */
 	public static function onSidebarBeforeOutput( Skin $skin, &$sidebar ) {
-		unset( $sidebar['TOOLBOX']['print'] );
-
-		// Remove global tools because this menu should refer only to the current page
 		unset( $sidebar['TOOLBOX']['upload'] );
 		unset( $sidebar['TOOLBOX']['specialpages'] );
 	}
@@ -33,6 +30,7 @@ class AppropediaMenus {
 	public static function onSkinTemplateNavigationUniversal( SkinTemplate $skinTemplate, array &$links ) {
 		self::customizeButtons( $skinTemplate, $links );
 		self::addPrintButton( $skinTemplate, $links );
+		self::addEmailButton( $skinTemplate, $links );
 		self::addAdminMenu( $skinTemplate, $links );
 	}
 
@@ -44,7 +42,7 @@ class AppropediaMenus {
 		if ( array_key_exists( 'history', $links['views'] ) ) {
 			$history = $links['views']['history'];
 			unset( $links['views']['history'] );
-			$links['actions'] = array_merge( [ 'history' => $history ], $links['actions'] );
+			$links['actions'] = [ 'history' => $history ] + $links['actions'];
 		}
 
 		// Give an icon to the button of the Extension:ReadAloud
@@ -65,24 +63,36 @@ class AppropediaMenus {
 	private static function addPrintButton( SkinTemplate $skinTemplate, array &$links ) {
 		$skin = $skinTemplate->getSkin();
 		$title = $skin->getTitle();
-		if ( ! $title->exists() ) {
+		if ( !$title->exists() ) {
 			return;
 		}
-		$context = $skin->getContext();
-		$action = Action::getActionName( $context );
-		if ( $action !== 'view' ) {
+		if ( !$title->isContentPage() ) {
 			return;
 		}
-		if ( ! $title->isContentPage() ) {
+		$sidebar = $skin->buildSidebar();
+		$toolbox = $sidebar['TOOLBOX'];
+		if ( !array_key_exists( 'print', $toolbox ) ) {
 			return;
 		}
-		$link = [
-			'id' => 'ca-print',
-			'href' => '#',
-			'text' => wfMessage( 'appropedia-download-pdf' )->plain(),
-			'icon' => 'printer'
-		];
-		$links['views']['print'] = $link;
+		$print = $toolbox['print'];
+		$print['text'] = wfMessage( 'appropedia-download-pdf' )->plain();
+		$print['icon'] = 'printer';
+		$links['views']['print'] = $print;
+	}
+
+	/**
+	 * Add a button to email the current user
+	 */
+	private static function addEmailButton( SkinTemplate $skinTemplate, array &$links ) {
+		$skin = $skinTemplate->getSkin();
+		$sidebar = $skin->buildSidebar();
+		$toolbox = $sidebar['TOOLBOX'];
+		if ( !array_key_exists( 'emailuser', $toolbox ) ) {
+			return;
+		}
+		$email = $toolbox['emailuser'];
+		$email['icon'] = 'message';
+		$links['views']['email'] = $email;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "7.1",
+	"version": "7.2",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -17,9 +17,9 @@
 	},
 	"AutoloadClasses": {
 		"Appropedia": "Appropedia.php",
-		"AppropediaMenus": "AppropediaMenus.php",
-		"AppropediaSearch": "AppropediaSearch.php",
 		"AppropediaMessages": "AppropediaMessages.php",
+		"AppropediaNavigation": "AppropediaNavigation.php",
+		"AppropediaSearch": "AppropediaSearch.php",
 		"AppropediaWikitext": "AppropediaWikitext.php",
 		"AppropediaLua": "AppropediaLua.php"
 	},
@@ -53,9 +53,9 @@
 		"OutputPageBodyAttributes": "Appropedia::onOutputPageBodyAttributes",
 		"ThumbnailBeforeProduceHTML": "Appropedia::onThumbnailBeforeProduceHTML",
 		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
-		"SkinTemplateNavigation::Universal": "AppropediaMenus::onSkinTemplateNavigationUniversal",
-		"SidebarBeforeOutput": "AppropediaMenus::onSidebarBeforeOutput",
-		"SkinAddFooterLinks": "AppropediaMenus::onSkinAddFooterLinks",
+		"SkinTemplateNavigation::Universal": "AppropediaNavigation::onSkinTemplateNavigationUniversal",
+		"SidebarBeforeOutput": "AppropediaNavigation::onSidebarBeforeOutput",
+		"SkinAddFooterLinks": "AppropediaNavigation::onSkinAddFooterLinks",
 		"MessagesPreLoad": "AppropediaMessages::onMessagesPreLoad",
 		"SpecialSearchProfiles": "AppropediaSearch::onSpecialSearchProfiles",
 		"SpecialPageBeforeExecute": "AppropediaSearch::onSpecialPageBeforeExecute",

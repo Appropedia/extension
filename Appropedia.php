@@ -18,46 +18,42 @@ class Appropedia {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
-		self::setTitleTag( $out, $skin );
+		self::setTitleTags( $out, $skin );
 	}
 
 	/**
-	 * Refine the <title> tag for SEO purposes
-	 *
-	 * Use the 'Title tag' semantic property to set the <title> tag
-	 * and remove "Appropedia, the sustainability wiki" if the <title> tag is too long
+	 * Set or refine the title meta tags for SEO purposes
 	 */
-	public static function setTitleTag( OutputPage $out, Skin $skin ) {
+	public static function setTitleTags( OutputPage $out, Skin $skin ) {
+		// If the 'Title tag' semantic property is set, just use it and be done
 		$title = $skin->getTitle();
-		if ( !$title->isContentPage() ) {
-			return;
+		if ( $title->isContentPage() ) {
+			$property = DIProperty::newFromUserLabel( 'Title tag' );
+			$subject = DIWikiPage::newFromText( $title );
+			$store = StoreFactory::getStore();
+			$data = $store->getSemanticData( $subject );
+			$values = $data->getPropertyValues( $property );
+			if ( $values ) {
+				$value = array_shift( $values );
+				$titleTag = $value->getString();
+				$out->setHTMLTitle( $titleTag );
+				$out->addMeta( 'title', $titleTag );
+				$out->addMeta( 'og:title', $titleTag );
+				return;
+			}
 		}
-		$property = DIProperty::newFromUserLabel( 'Title tag' );
-		$subject = DIWikiPage::newFromText( $title );
-		$store = StoreFactory::getStore();
-		$data = $store->getSemanticData( $subject );
-		$values = $data->getPropertyValues( $property );
-		if ( !$values ) {
-			return;
-		}
-		$value = array_shift( $values );
-		$titleTag = $value->getDIType() === SMWDataItem::TYPE_BLOB ? $value->getString() : $value->getTitle()->getFullText();
+
+		// Set the <meta name="title"> and <meta name="og:title"> tags
+		$pageTitle = $out->getPageTitle();
+		$pageTitle = strip_tags( $pageTitle );
+		$out->addMeta( 'title', $pageTitle );
+		$out->addMeta( 'og:title', $pageTitle );
+
+		// If the default <title> tag is too long, remove "Appropedia, the sustainability wiki"
 		$htmlTitle = $out->getHTMLTitle();
-		$fullTitle = $title->getFullText();
-		if ( $titleTag === $fullTitle ) {
-			if ( strlen( $htmlTitle ) > 65 ) {
-				$out->setHTMLTitle( $fullTitle ); // Remove "Appropedia, the sustainability wiki"
-			}
-			return;
+		if ( strlen( $htmlTitle ) > 65 ) {
+			$out->setHTMLTitle( $pageTitle );
 		}
-		$displayTitle = $out->getPageTitle();
-		if ( $titleTag === $displayTitle ) {
-			if ( strlen( $htmlTitle ) > 65 ) {
-				$out->setHTMLTitle( $displayTitle ); // Remove "Appropedia, the sustainability wiki"
-			}
-			return;
-		}
-		$out->setHTMLTitle( $titleTag );
 	}
 
 	/**

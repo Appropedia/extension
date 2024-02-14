@@ -29,62 +29,80 @@ class AppropediaCategories {
 
 		// Per-namespace rules
 		$namespace = $title->getNamespace();
-		if ( $namespace === NS_MAIN ) {
+		switch ( $namespace ) {
 
-			// No lead section
-			// @todo
+			case NS_MAIN:
+				// @todo No lead section
 
-			// No main image
-			$pageImage = $output->getPageProperty( 'page_image_free' );
-			if ( !$pageImage ) {
-				$output->addCategory( 'Pages_with_no_main_image' );
-			}
-	
-			// Too long
-			$size = $content->getSize();
-			if ( $size > 100000 ) {
-				$output->addCategory( 'Pages_too_long' );
-			}
-	
-			// Too short
-			if ( $size < 1000 ) {
-				$output->addCategory( 'Stubs' );
-			}
-	
-			// Nested templates
-			if ( preg_match( '/{{[^}]+{{/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_nested_templates' );
-			}
+				// No main image
+				$pageImage = $output->getPageProperty( 'page_image_free' );
+				if ( !$pageImage ) {
+					$output->addCategory( 'Pages_with_no_main_image' );
+				}
 
-			// Sections nested too deep
-			if ( preg_match( '/\n=====+[^=]+=====+\n/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_sections_nested_too_deep' );
-			}
+				// Too long
+				$size = $content->getSize();
+				if ( $size > 100000 ) {
+					$output->addCategory( 'Pages_too_long' );
+				}
 
-			// Lists nested too deep
-			if ( preg_match( '/\n[*#][*#][*#]/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_lists_nested_too_deep' );
-			}
+				// Too short
+				if ( $size < 1000 ) {
+					$output->addCategory( 'Stubs' );
+				}
 
-			// Parser functions
-			if ( preg_match( '/{{#/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_parser_functions' );
-			}
+				// Nested templates
+				if ( preg_match( '/{{[^}]+{{/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_nested_templates' );
+				}
 
-			// Magic words
-			if ( preg_match( '/__[A-Z]+?__/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_magic_words' );
-			}
+				// Sections nested too deep
+				if ( preg_match( '/\n=====+[^=]+=====+\n/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_sections_nested_too_deep' );
+				}
 
-			// <references> without <ref>
-			if ( preg_match( '/<references/', $wikitext ) && !preg_match( '/<ref[> ]/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_references_tag_but_no_references' );
-			}
+				// Lists nested too deep
+				if ( preg_match( '/\n[*#][*#][*#]/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_lists_nested_too_deep' );
+				}
 
-			// <ref> without <references>
-			if ( preg_match( '/<ref[> ]/', $wikitext ) && !preg_match( '/<references/', $wikitext ) ) {
-				$output->addCategory( 'Pages_with_references_but_no_references_tag' );
-			}
+				// Parser functions
+				if ( preg_match( '/{{#/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_parser_functions' );
+				}
+
+				// Magic words
+				if ( preg_match( '/__[A-Z]+?__/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_magic_words' );
+				}
+
+				// <references> without <ref>
+				if ( preg_match( '/<references/', $wikitext ) && !preg_match( '/<ref[> ]/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_references_tag_but_no_references' );
+				}
+
+				// <ref> without <references>
+				if ( preg_match( '/<ref[> ]/', $wikitext ) && !preg_match( '/<references/', $wikitext ) ) {
+					$output->addCategory( 'Pages_with_references_but_no_references_tag' );
+				}
+
+				break;
+
+			case NS_CATEGORY:
+
+				// Too much text
+				$size = $content->getSize();
+				if ( $size > 1000 ) {
+					$output->addCategory( 'Categories_with_too_much_text' );
+				}
+
+				// Self-contained categories
+				$categories = $output->getCategoryNames();
+				if ( in_array( $titleText, $categories ) ) {
+					$output->addCategory( 'Categories_that_contain_themselves' );
+				}
+
+				break;
 		}
 	}
 }

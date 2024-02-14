@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "7.3",
+	"version": "8.0",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -17,6 +17,7 @@
 	},
 	"AutoloadClasses": {
 		"Appropedia": "Appropedia.php",
+		"AppropediaCategories": "AppropediaCategories.php",
 		"AppropediaMessages": "AppropediaMessages.php",
 		"AppropediaNavigation": "AppropediaNavigation.php",
 		"AppropediaSearch": "AppropediaSearch.php",
@@ -62,7 +63,8 @@
 		"SpecialSearchProfileForm": "AppropediaSearch::onSpecialSearchProfileForm",
 		"ShowSearchHitTitle": "AppropediaSearch::onShowSearchHitTitle",
 		"PageSaveComplete": "AppropediaWikitext::onPageSaveComplete",
-		"ScribuntoExternalLibraries": "AppropediaLua::onScribuntoExternalLibraries"
+		"ScribuntoExternalLibraries": "AppropediaLua::onScribuntoExternalLibraries",
+		"ContentAlterParserOutput": "AppropediaCategories::onContentAlterParserOutput"
 	},
 	"config": {
 		"AppropediaBotAccount": {

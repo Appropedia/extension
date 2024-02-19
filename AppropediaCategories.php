@@ -15,15 +15,20 @@ class AppropediaCategories {
 			$output->addCategory( 'Pages_with_commas_in_the_title' );
 		}
 
-		// Multiple <h1> titles
+		// No real content
 		$wikitext = $content->getText();
-		if ( preg_match( '/\n=[^=]+=\n/', $wikitext ) ) {
+		if ( !trim( $wikitext ) ) {
+			$output->addCategory( 'Empty_pages' );
+		}
+
+		// Multiple <h1> titles
+		if ( preg_match( '/^=[^=]+=$/m', $wikitext ) ) {
 			$output->addCategory( 'Pages_with_more_than_one_title' );
 		}
 
 		// Orphan pages
 		$parent = $title->getBaseTitle();
-		if ( !$parent->exists() ) {
+		if ( !$parent->equals( $title ) && !$parent->exists() ) {
 			$output->addCategory( 'Pages_with_no_parent' );
 		}
 

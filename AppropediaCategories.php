@@ -40,7 +40,12 @@ class AppropediaCategories {
 		// Get the lead text
 		$match = preg_match( '/(.*?)^=/ms', $wikitext, $matches );
 		$lead = $match ? $matches[1] : $wikitext;
-		$lead = preg_replace( '/{{.*}}/s', '', $lead ); // Remove templates
+		while ( preg_match( '/{{.*?}}/s', $lead ) ) {
+			$lead = preg_replace( '/{{.*?}}/s', '', $lead ); // Remove templates
+		}
+		while ( preg_match( '/\[\[File:.*?\]\]/s', $lead ) ) {
+			$lead = preg_replace( '/\[\[File:.*?\]\]/s', '', $lead ); // Remove files
+		}
 		$lead = trim( $lead );
 
 		// Per-namespace rules

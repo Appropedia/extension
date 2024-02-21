@@ -19,18 +19,23 @@ class AppropediaWikitext {
 	public static function onPageSaveComplete( WikiPage $wikiPage, MediaWiki\User\UserIdentity $user, string $summary, int $flags, MediaWiki\Revision\RevisionRecord $revisionRecord, MediaWiki\Storage\EditResult $editResult ) {
 		global $wgAppropediaBotAccount;
 
+		// The main page is always an exception
+		$title = $wikiPage->getTitle();
+		if ( $title->isMainPage() ) {
+			return;
+		}
+
 		// Prevent infinite loops
 		if ( $user->getName() === $wgAppropediaBotAccount ) {
 			return;
 		}
 
-		// If a user tries to revert an edit done by this script, don't insist
+		// If a user reverts an edit done by this script, don't insist
 		if ( $editResult->isRevert() ) {
 			return;
 		}
 
 		// Only for wikitext
-		$title = $wikiPage->getTitle();
 		$contentModel = $title->getContentModel();
 		if ( $contentModel !== CONTENT_MODEL_WIKITEXT ) {
 			return;

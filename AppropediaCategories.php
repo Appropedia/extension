@@ -9,6 +9,11 @@ class AppropediaCategories {
 
 	public static function onContentAlterParserOutput( Content $content, Title $title, ParserOutput &$output ) {
 
+		// The main page is always an exception
+		if ( $title->isMainPage() ) {
+			return;
+		}
+
 		// Commas in the title
 		$titleText = $title->getText();
 		if ( str_contains( $titleText, ',' ) ) {
@@ -32,12 +37,22 @@ class AppropediaCategories {
 			$output->addCategory( 'Pages_with_no_parent' );
 		}
 
+		// Get the lead text
+		$match = preg_match( '/(.*)^=/ms', $wikitext, $matches );
+		$lead = $match ? $matches[1] : $wikitext;
+		$lead = preg_replace( '/{{.*}}/s', '', $lead ); // Remove templates
+		$lead = trim( $lead );
+
 		// Per-namespace rules
 		$namespace = $title->getNamespace();
 		switch ( $namespace ) {
 
 			case NS_MAIN:
-				// @todo No lead section
+
+				// No lead text
+				if ( !$lead ) {
+					$output->addCategory( 'Pages_with_no_lead_text' );
+				}
 
 				// No main image
 				$pageImage = $output->getPageProperty( 'page_image_free' );
@@ -108,6 +123,14 @@ class AppropediaCategories {
 				}
 
 				break;
+		}
+
+		if ( $title->isTalkPage() ) {
+
+			// Talk pages with lead text
+			if ( $lead ) {
+				$output->addCategory( 'Talk_pages_with_lead_text' );
+			}
 		}
 	}
 }

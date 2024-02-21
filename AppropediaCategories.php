@@ -38,7 +38,7 @@ class AppropediaCategories {
 		}
 
 		// Get the lead text
-		$match = preg_match( '/(.*)^=/ms', $wikitext, $matches );
+		$match = preg_match( '/(.*?)^=/ms', $wikitext, $matches );
 		$lead = $match ? $matches[1] : $wikitext;
 		$lead = preg_replace( '/{{.*}}/s', '', $lead ); // Remove templates
 		$lead = trim( $lead );

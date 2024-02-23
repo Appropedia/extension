@@ -9,6 +9,11 @@ class AppropediaCategories {
 
 	public static function onContentAlterParserOutput( Content $content, Title $title, ParserOutput &$output ) {
 
+		// Ignore redirects
+		if ( $title->isRedirect() ) {
+			return;
+		}
+
 		// The main page is always an exception
 		if ( $title->isMainPage() ) {
 			return;

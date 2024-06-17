@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Dbsnp",
 			"Gomoko",
 			"Verdy p"
 		]
 	},
 	"appropedia-desc": "Code personnalisé pour Appropedia.org",
+	"appropedia-page-title": "$1 - Appropedia, le wiki du développement durable",
 	"appropedia-policies": "Politiques",
 	"appropedia-contact": "Contact",
 	"appropedia-admin-panel": "Panneau d’administration",

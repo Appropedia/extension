@@ -7,6 +7,7 @@
 		]
 	},
 	"appropedia-desc": "Appropedia.org 的自定義代碼",
+	"appropedia-page-title": "$1 - Appropedia，一個永續發展的 wiki",
 	"appropedia-policies": "方針",
 	"appropedia-contact": "聯絡",
 	"appropedia-admin-panel": "管理面板",
@@ -30,6 +31,7 @@
 	"appropedia-search-page-type-projects": "專案",
 	"appropedia-search-page-type-devices": "裝置",
 	"appropedia-search-page-type-topics": "主題",
+	"appropedia-search-page-type-maps": "地圖",
 	"appropedia-search-page-type-organizations": "組織",
 	"appropedia-search-page-type-guides": "指南",
 	"appropedia-search-page-type-essays": "隨筆",

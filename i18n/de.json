@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Justman10000"
+			"Justman10000",
+			"TomatoCake"
 		]
 	},
 	"appropedia-desc": "Benutzerdefinierter Code für Appropedia.org",
@@ -23,5 +24,33 @@
 	"appropedia-searchprofile-files": "Dateien",
 	"appropedia-searchprofile-users": "Benutzer",
 	"appropedia-searchprofile-talks": "Diskussion",
-	"appropedia-searchprofile-other": "Anderes"
+	"appropedia-searchprofile-other": "Anderes",
+	"appropedia-search-page-type-any": "Alle Typen",
+	"appropedia-search-page-type-projects": "Projekte",
+	"appropedia-search-page-type-devices": "Geräte",
+	"appropedia-search-page-type-topics": "Themen",
+	"appropedia-search-page-type-maps": "Karten",
+	"appropedia-search-page-type-organizations": "Organisationen",
+	"appropedia-search-page-type-guides": "Anleitungen",
+	"appropedia-search-page-type-essays": "Aufsätze",
+	"appropedia-search-page-type-papers": "Publikationen",
+	"appropedia-search-page-type-books": "Bücher",
+	"appropedia-search-page-sdg-01": "SDG01 Keine Armut",
+	"appropedia-search-page-sdg-02": "SDG02 Kein Hungern",
+	"appropedia-search-page-sdg-07": "SDG07 Erschwingliche und saubere Energie",
+	"appropedia-search-page-sdg-09": "SDG09 Industrie, Innovation und Infrastruktur",
+	"appropedia-search-page-sdg-14": "SDG14 Leben unter Wasser",
+	"appropedia-search-page-sdg-15": "SDG15 Leben an Land",
+	"appropedia-search-page-language-any": "Alle Sprachen",
+	"appropedia-search-file-type-any": "Alle Typen",
+	"appropedia-search-file-type-images": "Bilder",
+	"appropedia-search-file-type-drawings": "Zeichnungen",
+	"appropedia-search-file-type-documents": "Dokumente",
+	"appropedia-search-file-type-code": "Code",
+	"appropedia-search-file-type-videos": "Videos",
+	"appropedia-search-file-type-audios": "Audiodateien",
+	"appropedia-search-file-format-any": "Alle Formate",
+	"appropedia-search-file-license-any": "Alle Lizenzen",
+	"appropedia-search-file-license-public-domain": "Gemeinfrei",
+	"appropedia-search-user-location-any": "Alle Standorte"
 }

@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac",
+			"Yurina Tatiana"
+		]
+	},
+	"appropedia-create-page": "Создать эту страницу",
+	"appropedia-select-files": "Выберите файлы для загрузки",
+	"appropedia-searchprofile-pages": "Страницы",
+	"appropedia-searchprofile-files": "Файлы",
+	"appropedia-searchprofile-users": "Пользователи",
+	"appropedia-searchprofile-talks": "Обсуждения",
+	"appropedia-searchprofile-other": "Другое",
+	"appropedia-search-page-type-any": "Любой тип",
+	"appropedia-search-page-type-projects": "Проекты",
+	"appropedia-search-page-type-devices": "Устройства",
+	"appropedia-search-page-type-topics": "Темы",
+	"appropedia-search-page-type-maps": "Карты",
+	"appropedia-search-page-type-organizations": "Организации",
+	"appropedia-search-page-type-books": "Книги",
+	"appropedia-search-file-type-any": "Любой тип",
+	"appropedia-search-file-type-images": "Изображения",
+	"appropedia-search-file-type-documents": "Документы",
+	"appropedia-search-file-type-code": "Код",
+	"appropedia-search-file-type-videos": "Видео",
+	"appropedia-search-file-type-audios": "Аудио",
+	"appropedia-search-file-format-any": "Любой формат",
+	"appropedia-search-file-license-any": "Любая лицензия",
+	"appropedia-search-file-license-public-domain": "Общественное достояние"
+}

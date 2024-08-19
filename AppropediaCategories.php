@@ -137,6 +137,12 @@ class AppropediaCategories {
 
 		if ( $title->isTalkPage() ) {
 
+			// Talk pages with no subject page
+			$subject = $title->getSubjectPage();
+			if ( !$subject->exists() ) {
+				$output->addCategory( 'Talk_pages_with_no_subject_page' );
+			}
+
 			// Talk pages with lead text
 			if ( $lead ) {
 				$output->addCategory( 'Talk_pages_with_lead_text' );

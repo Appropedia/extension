@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * This class customizes the various navigation menus
  */
@@ -46,7 +48,7 @@ class AppropediaNavigation {
 
 		// Add a link to the admin panel to the user menu of admins
 		$user = $skinTemplate->getUser();
-		$groups = $user->getGroups();
+		$groups = MediaWikiServices::getInstance()->getUserGroupManager()->getUserGroups( $user );
 		if ( in_array( 'sysop', $groups ) ) {
 			$link = [
 				'href' => '/Appropedia:Admin_panel',
@@ -77,8 +79,8 @@ class AppropediaNavigation {
 	 */
 	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
 		if ( $key === 'places' ) {
-			$footerlinks['policies'] = $skin->footerLink( 'appropedia-policies', 'policiespage' );
-			$footerlinks['contact'] = $skin->footerLink( 'appropedia-contact', 'contactpage' );
+			$footerlinks['policies'] = Html::rawElement( 'a', [ 'href' => '/Appropedia:Policies' ], $skin->msg( 'appropedia-policies' )->text() );
+			$footerlinks['contact'] = Html::rawElement( 'a', [ 'href' => '/Appropedia:Contact' ], $skin->msg( 'appropedia-contact' )->text() );
 		};
 	}
 }

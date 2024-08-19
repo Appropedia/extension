@@ -203,7 +203,7 @@ window.Appropedia = {
 		mw.config.set( 'miniedit-tag', 'miniedit' );
 
 		// Load the latest code directly from the central version at MediaWiki.org
-		mw.loader.load( '//www.mediawiki.org/wiki/MediaWiki:MiniEdit.js?action=raw&ctype=text/javascript' );
+		mw.loader.load( '//www.mediawiki.org/w/load.php?modules=ext.gadget.Global-MiniEdit&only=scripts' );
 	},
 
 	/**

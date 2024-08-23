@@ -6,6 +6,7 @@
 		]
 	},
 	"appropedia-desc": "Aangepaste code voor Appropedia.org",
+	"appropedia-page-title": "$1 – Appropedia, de duurzaamheidswiki",
 	"appropedia-policies": "Beleid",
 	"appropedia-contact": "Contact",
 	"appropedia-admin-panel": "Beheerpaneel",
@@ -29,6 +30,7 @@
 	"appropedia-search-page-type-projects": "Projecten",
 	"appropedia-search-page-type-devices": "Apparaten",
 	"appropedia-search-page-type-topics": "Onderwerpen",
+	"appropedia-search-page-type-maps": "Kaarten",
 	"appropedia-search-page-type-organizations": "Organisaties",
 	"appropedia-search-page-type-guides": "Gidsen",
 	"appropedia-search-page-type-essays": "Essays",

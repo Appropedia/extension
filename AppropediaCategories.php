@@ -42,6 +42,12 @@ class AppropediaCategories {
 			$output->addCategory( 'Pages_with_no_parent' );
 		}
 
+		// Most rules don't apply to automatic translations
+		$categories = $output->getCategoryNames();
+		if ( in_array( 'Automatic_translations', $categories ) ) {
+			return;
+		}
+
 		// Get the lead text
 		$match = preg_match( '/(.*?)^=/ms', $wikitext, $matches );
 		$lead = $match ? $matches[1] : $wikitext;
@@ -127,8 +133,7 @@ class AppropediaCategories {
 				}
 
 				// Self-contained categories
-				$categories = $output->getCategoryNames();
-				if ( in_array( $titleText, $categories ) ) {
+				if ( in_array( str_replace( ' ', '_', $titleText ), $categories ) ) {
 					$output->addCategory( 'Categories_that_contain_themselves' );
 				}
 

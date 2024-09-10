@@ -110,18 +110,18 @@ class AppropediaSearch {
 
 			// Page type
 			$form .= '<select id="search-filter-page-type" style="width: 55px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-page-type-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-type-any' )->text() . '</option>';
 			$options = [
-				wfMessage( 'appropedia-search-page-type-projects' )->text() => 'Projects',
-				wfMessage( 'appropedia-search-page-type-guides' )->text() => 'How tos',
-				wfMessage( 'appropedia-search-page-type-topics' )->text() => 'Topics',
-				wfMessage( 'appropedia-search-page-type-maps' )->text() => 'Maps',
-				wfMessage( 'appropedia-search-page-type-organizations' )->text() => 'Organizations',
-				wfMessage( 'appropedia-search-page-type-devices' )->text() => 'Devices',
-				wfMessage( 'appropedia-search-page-type-essays' )->text() => 'Essays',
-				wfMessage( 'appropedia-search-page-type-papers' )->text() => 'Papers',
-				wfMessage( 'appropedia-search-page-type-books' )->text() => 'Books',
-				wfMessage( 'appropedia-search-page-type-literature-reviews' )->text() => 'Literature reviews'
+				$special->msg( 'appropedia-search-page-type-projects' )->text() => 'Projects',
+				$special->msg( 'appropedia-search-page-type-guides' )->text() => 'How tos',
+				$special->msg( 'appropedia-search-page-type-topics' )->text() => 'Topics',
+				$special->msg( 'appropedia-search-page-type-maps' )->text() => 'Maps',
+				$special->msg( 'appropedia-search-page-type-organizations' )->text() => 'Organizations',
+				$special->msg( 'appropedia-search-page-type-devices' )->text() => 'Devices',
+				$special->msg( 'appropedia-search-page-type-essays' )->text() => 'Essays',
+				$special->msg( 'appropedia-search-page-type-papers' )->text() => 'Papers',
+				$special->msg( 'appropedia-search-page-type-books' )->text() => 'Books',
+				$special->msg( 'appropedia-search-page-type-literature-reviews' )->text() => 'Literature reviews'
 			];
 			foreach ( $options as $text => $value ) {
 				$value = 'incategory:' . str_replace( ' ', '_', $value );
@@ -131,25 +131,25 @@ class AppropediaSearch {
 
 			// Sustainable Development Goal
 			$form .= '<select id="search-filter-page-sdg" style="width: 58px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-page-sdg-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-sdg-any' )->text() . '</option>';
 			$options = [
-				wfMessage( 'appropedia-search-page-sdg-01' )->text() => 'SDG01 No poverty',
-				wfMessage( 'appropedia-search-page-sdg-02' )->text() => 'SDG02 Zero hunger',
-				wfMessage( 'appropedia-search-page-sdg-03' )->text() => 'SDG03 Good health and well-being',
-				wfMessage( 'appropedia-search-page-sdg-04' )->text() => 'SDG04 Quality education',
-				wfMessage( 'appropedia-search-page-sdg-05' )->text() => 'SDG05 Gender equality',
-				wfMessage( 'appropedia-search-page-sdg-06' )->text() => 'SDG06 Clean water and sanitation',
-				wfMessage( 'appropedia-search-page-sdg-07' )->text() => 'SDG07 Affordable and clean energy',
-				wfMessage( 'appropedia-search-page-sdg-08' )->text() => 'SDG08 Decent work and economic growth',
-				wfMessage( 'appropedia-search-page-sdg-09' )->text() => 'SDG09 Industry innovation and infrastructure',
-				wfMessage( 'appropedia-search-page-sdg-10' )->text() => 'SDG10 Reduced inequalities',
-				wfMessage( 'appropedia-search-page-sdg-11' )->text() => 'SDG11 Sustainable cities and communities',
-				wfMessage( 'appropedia-search-page-sdg-12' )->text() => 'SDG12 Responsible consumption and production',
-				wfMessage( 'appropedia-search-page-sdg-13' )->text() => 'SDG13 Climate action',
-				wfMessage( 'appropedia-search-page-sdg-14' )->text() => 'SDG14 Life below water',
-				wfMessage( 'appropedia-search-page-sdg-15' )->text() => 'SDG15 Life on land',
-				wfMessage( 'appropedia-search-page-sdg-16' )->text() => 'SDG16 Peace justice and strong institutions',
-				wfMessage( 'appropedia-search-page-sdg-17' )->text() => 'SDG17 Partnerships for the goals',
+				$special->msg( 'appropedia-search-page-sdg-01' )->text() => 'SDG01 No poverty',
+				$special->msg( 'appropedia-search-page-sdg-02' )->text() => 'SDG02 Zero hunger',
+				$special->msg( 'appropedia-search-page-sdg-03' )->text() => 'SDG03 Good health and well-being',
+				$special->msg( 'appropedia-search-page-sdg-04' )->text() => 'SDG04 Quality education',
+				$special->msg( 'appropedia-search-page-sdg-05' )->text() => 'SDG05 Gender equality',
+				$special->msg( 'appropedia-search-page-sdg-06' )->text() => 'SDG06 Clean water and sanitation',
+				$special->msg( 'appropedia-search-page-sdg-07' )->text() => 'SDG07 Affordable and clean energy',
+				$special->msg( 'appropedia-search-page-sdg-08' )->text() => 'SDG08 Decent work and economic growth',
+				$special->msg( 'appropedia-search-page-sdg-09' )->text() => 'SDG09 Industry innovation and infrastructure',
+				$special->msg( 'appropedia-search-page-sdg-10' )->text() => 'SDG10 Reduced inequalities',
+				$special->msg( 'appropedia-search-page-sdg-11' )->text() => 'SDG11 Sustainable cities and communities',
+				$special->msg( 'appropedia-search-page-sdg-12' )->text() => 'SDG12 Responsible consumption and production',
+				$special->msg( 'appropedia-search-page-sdg-13' )->text() => 'SDG13 Climate action',
+				$special->msg( 'appropedia-search-page-sdg-14' )->text() => 'SDG14 Life below water',
+				$special->msg( 'appropedia-search-page-sdg-15' )->text() => 'SDG15 Life on land',
+				$special->msg( 'appropedia-search-page-sdg-16' )->text() => 'SDG16 Peace justice and strong institutions',
+				$special->msg( 'appropedia-search-page-sdg-17' )->text() => 'SDG17 Partnerships for the goals',
 			];
 			foreach ( $options as $text => $value ) {
 				$value = 'incategory:' . str_replace( ' ', '_', $value );
@@ -162,11 +162,9 @@ class AppropediaSearch {
 			$lb = $services->getDBLoadBalancer();
 			$dbr = $lb->getConnection( DB_REPLICA );
 			$query = $dbr->newSelectQueryBuilder()
-				->select( [ 'pp_value AS language', 'COUNT(*) AS count' ] )
+				->select( 'DISTINCT pp_value AS language' )
 				->from( 'page_props' )
-				->where( [ 'pp_propname' => 'pagelanguage' ] )
-				->groupBy( 'pp_value' )
-				->orderBy( 'count DESC' );
+				->where( [ 'pp_propname' => 'pagelanguage' ] );
 			$results = $query->fetchResultSet();
 			$userLanguage = $special->getContext()->getLanguage()->getCode();
 			$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
@@ -176,11 +174,22 @@ class AppropediaSearch {
 				$text = ucfirst( $languageNameUtils->getLanguageName( $value, $userLanguage ) );
 				$options[ $text ] = $value;
 			}
+			ksort( $options );
 			$form .= '<select id="search-filter-page-language" style="width: 87px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-page-language-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-language-any' )->text() . '</option>';
 			foreach ( $options as $text => $value ) {
 				$value = 'inlanguage:'. $value;
 				$form .= '<option' . ( in_array( $value, $terms ) ? ' selected' : '' ) . ' value="' . $value . '">' . $text . '</option>';
+			}
+			$form .= '</select>';
+
+			// Year
+			$form .= '<select id="search-filter-page-year" style="width: 56px;">';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-year-any' )->text() . '</option>';
+			$options = [ 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006 ];
+			foreach ( $options as $year ) {
+				$value = 'incategory:' . $year;
+				$form .= '<option' . ( in_array( $value, $terms ) ? ' selected' : '' ) . ' value="' . $value . '">' . $year . '</option>';
 			}
 			$form .= '</select>';
 		}
@@ -190,14 +199,14 @@ class AppropediaSearch {
 
 			// File type
 			$form .= '<select id="search-filter-file-type" style="width: 55px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-file-type-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-file-type-any' )->text() . '</option>';
 			$options = [
-				wfMessage( 'appropedia-search-file-type-images' )->text() => 'bitmap',
-				wfMessage( 'appropedia-search-file-type-drawings' )->text() => 'drawing',
-				wfMessage( 'appropedia-search-file-type-documents' )->text() => 'office',
-				wfMessage( 'appropedia-search-file-type-code' )->text() => 'text',
-				wfMessage( 'appropedia-search-file-type-videos' )->text() => 'video',
-				wfMessage( 'appropedia-search-file-type-audios' )->text() => 'audio',
+				$special->msg( 'appropedia-search-file-type-images' )->text() => 'bitmap',
+				$special->msg( 'appropedia-search-file-type-drawings' )->text() => 'drawing',
+				$special->msg( 'appropedia-search-file-type-documents' )->text() => 'office',
+				$special->msg( 'appropedia-search-file-type-code' )->text() => 'text',
+				$special->msg( 'appropedia-search-file-type-videos' )->text() => 'video',
+				$special->msg( 'appropedia-search-file-type-audios' )->text() => 'audio',
 			];
 			foreach ( $options as $text => $value ) {
 				$value = 'filetype:' . $value;
@@ -208,7 +217,7 @@ class AppropediaSearch {
 			// File MIME
 			$filemime = $request->getText( 'filemime' );
 			$form .= '<select id="search-filter-file-mime" style="width: 69px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-file-format-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-file-format-any' )->text() . '</option>';
 			$options = [
 				'JPG' => 'image/jpeg',
 				'PNG' => 'image/png',
@@ -224,7 +233,7 @@ class AppropediaSearch {
 
 			// File license
 			$form .= '<select id="search-filter-file-license" style="width: 72px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-file-license-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-file-license-any' )->text() . '</option>';
 			$options = [
 				'CC-BY-SA-4.0' => 'CC-BY-SA-4.0 files',
 				'CC-BY-SA-3.0' => 'CC-BY-SA-3.0 files',
@@ -233,7 +242,7 @@ class AppropediaSearch {
 				'GFDL' => 'GFDL files',
 				'GPL' => 'GPL files',
 				'LGPL' => 'LGPL files',
-				wfMessage( 'appropedia-search-file-license-public-domain' )->text() => 'Public domain files',
+				$special->msg( 'appropedia-search-file-license-public-domain' )->text() => 'Public domain files',
 			];
 			foreach ( $options as $text => $value ) {
 				$value = 'incategory:' . str_replace( ' ', '_', $value );
@@ -247,7 +256,7 @@ class AppropediaSearch {
 			// User location
 			$location = $request->getText( 'location' );
 			$form .= '<select id="search-filter-user-location" style="width: 77px;">';
-			$form .= '<option value="">' . wfMessage( 'appropedia-search-user-location-any' )->text() . '</option>';
+			$form .= '<option value="">' . $special->msg( 'appropedia-search-user-location-any' )->text() . '</option>';
 			$options = [ 'Argentina', 'Australia', 'Bangladesh', 'Belgium', 'Bolivia', 'Cambodia', 'Canada', 'China', 'Colombia', 'Costa Rica',
 				'Denmark', 'Ecuador', 'El Salvador', 'Ethiopia', 'England', 'France', 'Germany', 'Guatemala', 'Haiti', 'India', 'Indonesia', 'Italy',
 				'Japan', 'Jordan', 'Kenya', 'Korea', 'Mexico', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Nigeria', 'Panama', 'Philippines',

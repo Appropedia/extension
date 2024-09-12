@@ -3,6 +3,7 @@
 		"authors": [
 			"Dbsnp",
 			"Gomoko",
+			"Terio legale",
 			"Verdy p"
 		]
 	},
@@ -57,6 +58,7 @@
 	"appropedia-search-page-sdg-16": "ODD 16 – Paix, justice et institutions efficaces",
 	"appropedia-search-page-sdg-17": "ODD 17 – Partenariats pour la réalisation des objectifs",
 	"appropedia-search-page-language-any": "Toute langue",
+	"appropedia-search-page-year-any": "N'importe quelle année",
 	"appropedia-search-file-type-any": "Tout type",
 	"appropedia-search-file-type-images": "Images",
 	"appropedia-search-file-type-drawings": "Dessins",

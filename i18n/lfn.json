@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"Elefentiste"
+		]
+	},
+	"appropedia-create-page": "Crea esta paje",
+	"appropedia-select-files": "Eleje fixes per carga",
+	"appropedia-download-pdf": "Descarga PDF",
+	"appropedia-searchprofile-pages": "Pajes",
+	"appropedia-searchprofile-files": "Fixes",
+	"appropedia-searchprofile-users": "Usores",
+	"appropedia-searchprofile-talks": "Discutes",
+	"appropedia-searchprofile-other": "Otra",
+	"appropedia-search-page-type-any": "Cualce tipo",
+	"appropedia-search-page-type-projects": "Projetas",
+	"appropedia-search-page-type-devices": "Aparatos",
+	"appropedia-search-page-type-topics": "Temas",
+	"appropedia-search-page-type-maps": "Mapas",
+	"appropedia-search-page-type-organizations": "Organizas",
+	"appropedia-search-page-type-essays": "Esajos",
+	"appropedia-search-page-type-books": "Libros",
+	"appropedia-search-page-sdg-any": "Cualce SDG",
+	"appropedia-search-page-sdg-01": "SDG01 No povria",
+	"appropedia-search-page-sdg-02": "SDG02 Zero famia",
+	"appropedia-search-page-sdg-03": "SDG03 Bon sania e cualia de vive",
+	"appropedia-search-page-sdg-04": "SDG04 Educa de cualia alta",
+	"appropedia-search-page-sdg-06": "SDG06 Acua pur e ijenia",
+	"appropedia-search-page-language-any": "Cualce lingua",
+	"appropedia-search-page-year-any": "Cualce anio",
+	"appropedia-search-file-type-any": "Cualce tipo",
+	"appropedia-search-file-type-images": "Imajes",
+	"appropedia-search-file-type-drawings": "Desinias",
+	"appropedia-search-file-type-documents": "Documentos",
+	"appropedia-search-file-type-videos": "Videos",
+	"appropedia-search-file-type-audios": "Audios",
+	"appropedia-search-file-format-any": "Cualce formato",
+	"appropedia-search-file-license-any": "Cualce lisensa",
+	"appropedia-search-user-location-any": "Cualce loca"
+}

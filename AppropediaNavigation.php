@@ -59,14 +59,9 @@ class AppropediaNavigation {
 	}
 
 	/**
-	 * Customize the sidebar toolbox
+	 * Remove global tools from the toolbox because it should only refer to the current page
 	 */
 	public static function onSidebarBeforeOutput( Skin $skin, &$sidebar ) {
-		// Remove tools that we moved to the views
-		unset( $sidebar['TOOLBOX']['print'] );
-		unset( $sidebar['TOOLBOX']['emailuser'] );
-
-		// Remove global tools because this menu should refer only to the current page
 		unset( $sidebar['TOOLBOX']['upload'] );
 		unset( $sidebar['TOOLBOX']['specialpages'] );
 	}

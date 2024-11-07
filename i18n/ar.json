@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Alshamiri1",
-			"Asma"
+			"Asma",
+			"Meno25"
 		]
 	},
 	"appropedia-desc": "كود مخصص لـ Appropedia.org",
@@ -12,13 +13,13 @@
 	"appropedia-page-edit-warning": "'' 'تحذير!' '' تم إصدار جميع المساهمات في {{SITENAME}} بموجب ترخيص $2 ما لم يُذكر خلاف ذلك (راجع $1 للحصول على التفاصيل). إذا كنت لا تريد تحرير كتاباتك بلا رحمة وإعادة توزيعها حسب الرغبة ، فلا ترسلها هنا! أنت تقر أيضًا أنك كتبت هذا بنفسك ، أو نسخته من مصدر يخضع ضمن الملكية العامة أو مصدر مجاني مماثل. \"\" لا ترسل مواد محمية بحقوق الطبع والنشر دون إذن! \"",
 	"appropedia-anon-edit-warning": "'' 'تحذير!' '' لم تسجل الدخول. '' '[ $1 تسجيل الدخول]' '' أو '' '[ $2 أنشئ حسابًا]' '' لإسناد تعديلاتك إلى اسم المستخدم الخاص بك بدلاً من عنوان IP الخاص بك ، إلى جانب الفوائد الأخرى.",
 	"appropedia-user-edit-warning": "'' 'تحذير!' 'أنت على وشك تحرير صفحة مستخدم آخر! هل تحاول [ $1 ترك رسالة بدلاً من ذلك]؟",
-	"appropedia-interface-edit-warning": "هل تعرف [[ $1 | إرشادات واجهة مستخدم Appropedia]]؟",
-	"appropedia-template-edit-warning": "هل تعرف [[ $1 | إرشادات نموذج Appropedia]]؟",
+	"appropedia-interface-edit-warning": "هل تعرف [[$1|إرشادات واجهة مستخدم Appropedia]]؟",
+	"appropedia-template-edit-warning": "هل تعرف [[$1|إرشادات نموذج Appropedia]]؟",
 	"appropedia-account-created": "لقد تم إنشاء حسابك!",
 	"appropedia-create-user-page": "قم بإنشاء صفحة المستخدم الخاصة بك",
 	"appropedia-create-page": "إنشاء هذه الصفحة",
 	"appropedia-select-files": "حدد الملفات المراد تحميلها",
-	"appropedia-not-own-work": "إذا لم يكن الملف من عملك ، يرجى استخدام [[ $1 | نموذج التحميل هذا]] بدلاً من ذلك.",
+	"appropedia-not-own-work": "إذا لم يكن الملف من عملك ، يرجى استخدام [[$1|نموذج التحميل هذا]] بدلاً من ذلك.",
 	"appropedia-download-pdf": "تنزيل بصيغة PDF",
 	"appropedia-searchprofile-pages": "الصفحات",
 	"appropedia-searchprofile-files": "ملفات",

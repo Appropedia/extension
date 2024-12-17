@@ -66,7 +66,7 @@ class AppropediaCategories {
 			case NS_MAIN:
 
 				// No lead text
-				if ( !$lead ) {
+				if ( !$lead && !$title->isSubpage() ) {
 					$output->addCategory( 'Pages_with_no_lead_text' );
 				}
 

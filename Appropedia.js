@@ -17,9 +17,6 @@ window.Appropedia = {
 		$content.find( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
 		$content.find( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
 
-		// Save quiz scores
-		//$content.find( '.quiz .score' ).each( Appropedia.saveQuizScore );
-
 		// Print
 		$( '#ca-print' ).on( 'click', Appropedia.print ),
 
@@ -204,65 +201,6 @@ window.Appropedia = {
 
 		// Load the latest code directly from the central version at MediaWiki.org
 		mw.loader.load( '//www.mediawiki.org/w/load.php?modules=ext.gadget.Global-MiniEdit&only=scripts' );
-	},
-
-	/**
-	 * Save quiz scores
-	 */
-	saveQuizScore: function () {
-		var $quiz = $( this ).closest( '.quiz' );
-
-		// Get the score
-		var score = $quiz.find( '.score' ).text();
-		var total = $quiz.find( '.total' ).text();
-
-		// Don't submit empty quizzes
-		if ( !score || !total ) {
-			return;
-		}
-
-		// Only submit in the main namespace
-		if ( mw.config.get( 'wgCanonicalNamespace' ) ) {
-			return;
-		}
-
-		// Figure out the talk page where to post
-		var page = mw.config.get( 'wgPageName' );
-		var title = new mw.Title( page );
-		var talk = title.getTalkPage().getPrefixedText();
-
-		// Figure out if the section already exists and its number
-		var api = new mw.Api();
-		api.get( {
-			action: 'parse',
-			page: talk,
-			prop: 'text',
-			formatversion: 2
-		} ).always( function ( data ) {
-
-			var section = 'new';
-			if ( data !== 'missingtitle' ) {
-				var html = $.parseHTML( data.parse.text );
-				var $header = $( '#Quiz_scores', html );
-				if ( $header.length ) {
-					section = $header.prevAll( ':header' ).length + 1;
-				}
-			}
-			var wikitext = score + '/' + total;
-			var params = {
-				action: 'edit',
-				title: talk,
-				section: section,
-				summary: 'Save quiz score ' + wikitext
-			};
-			if ( section === 'new' ) {
-				params.sectiontitle = 'Quiz scores';
-				params.text = wikitext;
-			} else {
-				params.appendtext = '\n' + wikitext;
-			}
-			api.postWithEditToken( params ).fail( console.log );
-		} );
 	}
 };
 

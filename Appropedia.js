@@ -1,50 +1,50 @@
-window.Appropedia = {
+const Appropedia = {
 
 	/**
 	 * Initialization script
 	 */
 	init: function () {
-		var $content = $( '#mw-content-text' );
+		const $content = $( '#mw-content-text' );
 
-		// Update the search query when a search filter changes
+		// Special:Search
+		$content.find( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
 		$content.find( '.mw-search-profile-form select' ).on( 'change', Appropedia.updateSearchQuery );
 
-		// Fix the width of the search filters
-		$content.find( '.mw-search-profile-form select' ).each( Appropedia.updateSearchFilterWidth );
-
-		// Manage reminders
+		// Reminders
+		// @todo Move to gadgets
 		Appropedia.checkReminder();
 		$content.find( '.template-set-reminder-set-button' ).click( Appropedia.setReminder );
 		$content.find( '.template-set-reminder-unset-button' ).click( Appropedia.unsetReminder );
-
-		// Print
-		$( '#ca-print' ).on( 'click', Appropedia.print ),
-
-		// Load MiniEdit
-		Appropedia.loadMiniEdit();
 
 		// Enable popups on more namespaces
 		mw.config.set( 'wgContentNamespaces', [ 0, 2, 4, 12 ] );
 	},
 
 	/**
-	 * Print or download the current page
+	 * In Special:Search, update the filter search width
 	 */
-	print: function () {
-		window.print();
+	updateSearchFilterWidth: function () {
+		const $select = $( this );
+		const text = $select.find( 'option:selected' ).text();
+		const $dummy = $( '<div></div>' ).text( text );
+		$dummy.css( { position: 'absolute', visibility: 'hidden' } );
+		$( 'body' ).append( $dummy );
+		const width = $dummy.width();
+		$dummy.remove();
+		$select.width( width );
 	},
 
 	/**
 	 * In Special:Search, update the search query when a filter changes
 	 */
 	updateSearchQuery: function () {
-		var $select = $( this );
-		var value = $select.val();
-		var $options = $select.find( 'option' );
-		var params = new URLSearchParams( window.location.search );
-		var search = params.get( 'search' ) || '';
+		const $select = $( this );
+		const value = $select.val();
+		const $options = $select.find( 'option' );
+		const params = new URLSearchParams( window.location.search );
+		let search = params.get( 'search' ) || '';
 		$options.each( function () {
-			var value = $( this ).val();
+			const value = $( this ).val();
 			search = search.replace( value, '' );
 		} );
 		search = search + ' ' + value;
@@ -54,28 +54,14 @@ window.Appropedia = {
 	},
 
 	/**
-	 * In Special:Search, update the filter search width
-	 */
-	updateSearchFilterWidth: function () {
-		var $select = $( this );
-		var text = $select.find( 'option:selected' ).text();
-		var $dummy = $( '<div></div>' ).text( text );
-		$dummy.css( { 'position': 'absolute', 'visibility': 'hidden' } );
-		$( 'body' ).append( $dummy );
-		var width = $dummy.width();
-		$dummy.remove();
-		$select.width( width );
-	},
-
-	/**
 	 * This interacts with {{Set reminder}}
 	 */
 	setReminder: function () {
-		var $template = $( this ).closest( '.template-set-reminder' );
-		var text = $template.data( 'text' );
-		var image = $template.data( 'image' );
-		var category = $template.data( 'category' );
-		var categoryIgnore = $template.data( 'category-ignore' );
+		const $template = $( this ).closest( '.template-set-reminder' );
+		const text = $template.data( 'text' );
+		const image = $template.data( 'image' );
+		const category = $template.data( 'category' );
+		const categoryIgnore = $template.data( 'category-ignore' );
 		mw.cookie.set( 'ReminderText', text );
 		mw.cookie.set( 'ReminderImage', image );
 		mw.cookie.set( 'ReminderCategory', category );
@@ -88,8 +74,8 @@ window.Appropedia = {
 	 * This interacts with {{Set reminder}}
 	 */
 	unsetReminder: function () {
-		var text = mw.cookie.get( 'ReminderText' );
-		var $template = $( '.template-set-reminder[data-text="' + text + '"]' );
+		const text = mw.cookie.get( 'ReminderText' );
+		const $template = $( '.template-set-reminder[data-text="' + text + '"]' );
 		if ( $template.length ) {
 			$template.children().toggle();
 		}
@@ -103,32 +89,32 @@ window.Appropedia = {
 	 * Check if a reminder needs to be shown
 	 */
 	checkReminder: function () {
-		var text = mw.cookie.get( 'ReminderText' );
+		const text = mw.cookie.get( 'ReminderText' );
 		if ( !text ) {
 			return;
 		}
-		var $template = $( '.template-set-reminder[data-text="' + text + '"]' );
+		const $template = $( '.template-set-reminder[data-text="' + text + '"]' );
 		if ( $template.length ) {
 			$template.children().toggle();
 		}
-		var category = mw.cookie.get( 'ReminderCategory' );
-		var categories = mw.config.get( 'wgCategories' );
+		const category = mw.cookie.get( 'ReminderCategory' );
+		const categories = mw.config.get( 'wgCategories' );
 		if ( category && categories && !categories.includes( category ) ) {
 			return;
 		}
-		var categoryIgnore = mw.cookie.get( 'ReminderCategoryIgnore' );
+		const categoryIgnore = mw.cookie.get( 'ReminderCategoryIgnore' );
 		if ( categoryIgnore && categories.includes( categoryIgnore ) ) {
 			return;
 		}
-		var action = mw.config.get( 'wgAction' );
+		const action = mw.config.get( 'wgAction' );
 		if ( action !== 'view' ) {
 			return;
 		}
-		var contentmodel = mw.config.get( 'wgPageContentModel' );
+		const contentmodel = mw.config.get( 'wgPageContentModel' );
 		if ( contentmodel !== 'wikitext' ) {
 			return;
 		}
-		var mainpage = mw.config.get( 'wgIsMainPage' );
+		const mainpage = mw.config.get( 'wgIsMainPage' );
 		if ( mainpage ) {
 			return;
 		}
@@ -139,9 +125,9 @@ window.Appropedia = {
 	 * Show the reminder
 	 */
 	showReminder: function () {
-		var text = mw.cookie.get( 'ReminderText' );
-		var image = mw.cookie.get( 'ReminderImage', null, 'Antu appointment-reminder.svg' );
-		var wikitext = '[[File:{{PAGENAME:' + image + '}}|right|38px|link=]]' + text;
+		const text = mw.cookie.get( 'ReminderText' );
+		const image = mw.cookie.get( 'ReminderImage', null, 'Antu appointment-reminder.svg' );
+		let wikitext = '[[File:{{PAGENAME:' + image + '}}|right|38px|link=]]' + text;
 		wikitext += '<div class="mw-ui-button">Unset reminder</div>';
 		new mw.Api().get( {
 			formatversion: 2,
@@ -149,58 +135,11 @@ window.Appropedia = {
 			text: wikitext,
 			title: mw.config.get( 'wgPageName' )
 		} ).done( function ( data ) {
-			var html = data.parse.text;
-			var $html = $( html );
+			const html = data.parse.text;
+			const $html = $( html );
 			mw.notify( $html, { tag: 'reminder', autoHide: false } );
 			$html.find( '.mw-ui-button' ).click( Appropedia.unsetReminder );
 		} );
-	},
-
-	/**
-	 * MiniEdit is a tool for quickly editing content without leaving the page
-	 * Documentation at https://www.mediawiki.org/wiki/MiniEdit
-	 */
-	loadMiniEdit: function () {
-		// Only load for logged-in users
-		var user = mw.config.get( 'wgUserName' );
-		if ( !user ) {
-			return;
-		}
-
-		// Only load when viewing
-		var action = mw.config.get( 'wgAction' );
-		if ( action !== 'view' ) {
-			return;
-		}
-
-		// Only load in useful namespaces
-		var namespaces = [ 0, 2, 4, 12, 14 ]; // See https://www.mediawiki.org/wiki/Manual:Namespace_constants
-		var namespace = mw.config.get( 'wgNamespaceNumber' );
-		var talk = namespace % 2 === 1; // Talk pages always have odd namespaces
-		if ( !namespaces.includes( namespace ) && !talk ) {
-			return;
-		}
-
-		// Only load in wikitext pages
-		var model = mw.config.get( 'wgPageContentModel' );
-		if ( model !== 'wikitext' ) {
-			return;
-		}
-
-		// Don't load in automatic translations
-		var categories = mw.config.get( 'wgCategories' );
-		if ( categories.includes( 'Automatic translations' ) ) {
-			return;
-		}
-
-		// Documentation page to link from the edit summaries
-		mw.config.set( 'miniedit-page', 'Appropedia:MiniEdit' );
-
-		// Change tag to track edits made with the tool
-		mw.config.set( 'miniedit-tag', 'miniedit' );
-
-		// Load the latest code directly from the central version at MediaWiki.org
-		mw.loader.load( '//www.mediawiki.org/w/load.php?modules=ext.gadget.Global-MiniEdit&only=scripts' );
 	}
 };
 

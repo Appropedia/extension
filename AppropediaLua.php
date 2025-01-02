@@ -64,8 +64,9 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	public function pageCategories( $page ) {
 		$title = Title::newFromText( $page );
 		$id = $title->getArticleID();
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$services = MediaWikiServices::getInstance();
+		$provider = $services->getConnectionProvider();
+		$dbr = $provider->getReplicaDatabase();
 		$results = $dbr->newSelectQueryBuilder()
 			->select( 'cl_to' )
 			->from( 'categorylinks' )
@@ -88,8 +89,9 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	 */
 	public function fileUses( $file ) {
 		$title = Title::newFromText( $file, NS_FILE );
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$services = MediaWikiServices::getInstance();
+		$provider = $services->getConnectionProvider();
+		$dbr = $provider->getReplicaDatabase();
 		$queryBuilder = $dbr->newSelectQueryBuilder();
 		$count = $queryBuilder->select( 'COUNT(*)' )->from( 'imagelinks' )->where( [ 'il_to' => $file ] )->fetchField();
 		$count = intval( $count );

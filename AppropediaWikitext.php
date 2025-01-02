@@ -43,7 +43,7 @@ class AppropediaWikitext {
 
 		// Don't fix redirects
 		$content = $wikiPage->getContent();
-		$wikitext = ContentHandler::getContentText( $content );
+		$wikitext = $content->getText();
 		if ( preg_match( "/^#(\S+ ?\[\[.+\]\])/", $wikitext ) ) {
 			return;
 		}

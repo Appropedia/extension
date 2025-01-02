@@ -1,18 +1,4 @@
-// Color palette
-@text: #202122;
-@background: #f8f9fa;
-@border: #a2a9b1;
-@highlight: #f7931d;
-@indent: #5abbb6;
-
-// Dark mode palette
-@dark-background: #303134;
-@dark-border: #3c4043;
-
-// Break points
-@small: 600px;
-@medium: 1016px;
-@large: 1500px;
+@import 'mediawiki.skin.variables.less';
 
 // Grids
 .grid {
@@ -37,10 +23,11 @@ table pre {
 }
 
 // Blockquotes
-blockquote {
-	background: url( '/w/images/2/2e/Quotemark.png' ) no-repeat;
+#mw-content-text blockquote {
+	background: url( 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAVCAMAAACAAGUXAAAASFBMVEUAAACiqLKhqbGfr6+jqbGiqbGfqq+iqbGjqbOiqrKiqbGhqbGjqbGhqLGiqbGfp6+jp6+iqbGiqLChqbGhqbGiqrKjqrGiqrFQ+8ERAAAAGHRSTlMAcM8Qf98w/1Bg7/CgkNAgQMDggF8/b7C29kFCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAsUlEQVR4nFWRWRaEIAwEcVCbRRFx4f43HaNAQn9RrxIMUamS4adE9Djpep4nwLCyjtEC3rJaHqxqBcLWqaC5a9GdWuo5irInBtjbSBO8UNohNTwAMQahkXWqawv8FGAV7sFDTiVdhzvgzusc72+A9OJ1XwQeJW4mREMjHJyWDoh0Z80qrwEyvaeG1pFFo9p6Fxn9+xPaJd/cAgN/nBbToS6lQ9lawbJkm31aIu8tp0D4B7ZoCrrJBC4wAAAAAElFTkSuQmCC' ) no-repeat;
+	border-left: none;
 	margin: 1em 0;
-	padding-left: 40px;
+	padding-left: 3em;
 }
 
 // Galleries
@@ -50,7 +37,7 @@ blockquote {
 #mw-content-text .gallerybox .thumb {
 	margin: 2.5px;
 }
-@media ( max-width: @small ) {
+@media ( max-width: @max-width-breakpoint-mobile ) {
 	#mw-content-text .gallery {
 		padding-left: 0 !important;
 	}
@@ -66,7 +53,7 @@ blockquote {
 // Replies
 .ns-talk dd,
 .ns-4 dd {
-	border-left: .5em solid @indent;
+	border-left: .5em solid @border-color-content-added;
 	margin: 0;
 	margin-top: 1em;
 	padding-top: .5em;
@@ -84,76 +71,23 @@ blockquote {
 	display: none;
 }
 
-// Paragraph edit feature
-.paragraph-edit-button {
-	display: none;
-	font-size: small;
-}
-.paragraph-edit-form-input {
-	border: 1px solid @border;
-	margin-bottom: .2em;
-	overflow: hidden;
-	padding: .2em;
-}
-.paragraph-edit-form-submit {
-	margin-right: .2em !important;
-}
-
 // Hide TemplateData button from non-documentation pages
 // Example: https://www.appropedia.org/w/index.php?title=Template:Header&action=edit
 body:not( [class*=_doc] ) .tdg-editscreen-main {
 	display: none;
 }
 
-// Appropedia + subwiki logos
-#appropedia-logo {
-	vertical-align: middle;
-}
-#subwiki-logo {
-	margin-left: 1em;
-	vertical-align: middle;
-}
-
-// Add icons to sidebar
-#poncho-navigation-menu {
-	.poncho-menu-list a {
-		background-repeat: no-repeat;
-		background-size: 1.2em;
-		background-position: 1em center;
-		padding-left: 3em;
-	}
-	#n-mainpage-description a {
-		background-image: url( 'images/home.svg' );
-	}
-	#n-newpage a {
-		background-image: url( 'images/new.svg' );
-	}
-	#n-upload a {
-		background-image: url( 'images/upload.svg' );
-	}
-	#n-help a {
-		background-image: url( 'images/help.svg' );
-	}
-	#n-portal a {
-		background-image: url( 'images/portal.svg' );
-	}
-	#n-recentchanges a {
-		background-image: url( 'images/recentchanges.svg' );
-	}
-}
-
 // Main page
+.page-Main_Page .vector-page-titlebar,
+.page-Main_Page .vector-page-toolbar {
+	display: none;
+}
 .main-page-intro {
-	background: @background;
-	border: 1px solid @border;
+	background: @background-color-neutral-subtle;
+	border: 1px solid @border-color-subtle;
 	margin: 1em 0;
 	padding: .5em;
 	text-align: center;
-}
-.poncho-dark-mode .main-page-intro {
-	background-color: @dark-background;
-	border-color: @dark-border;
-	color: #bdc1c6;
 }
 .main-page-title {
 	font-size: 1.5em;
@@ -185,35 +119,10 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 .main-page-gallery .gallerytext p {
 	margin: 0;
 }
-.main-page-stat {
-	box-sizing: border-box;
-	display: inline-block;
-	padding: 1.4em;
-	text-align: center;
-}
-.main-page-stat-number {
-	font-size: 4em;
-}
-.page-Welcome_to_Appropedia {
-	#poncho-content-actions {
-		display: none;
-	}
-}
-@media ( max-width: @small ) {
-	.main-page-stat {
-		margin: 1.5em 0;
-		width: 49%;
-	}
-	.main-page-stat-number {
-		font-size: 2em;
-	}
-}
 
 // Appropedia:New page
-.page-Appropedia_New_page {
-	#poncho-content-actions {
-		display: none;
-	}
+.page-Appropedia_New_page .vector-page-toolbar {
+	display: none;
 }
 
 // Hide message when creating a new page
@@ -228,14 +137,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 .template-header-content a {
 	pointer-events: all;
-}
-
-// Special:ListFiles
-.mw-special-Listfiles .mw-datatable th:nth-child(6),
-.mw-special-Listfiles .mw-datatable th:nth-child(7),
-.mw-special-Listfiles .mw-datatable td:nth-child(6),
-.mw-special-Listfiles .mw-datatable td:nth-child(7) {
-	display: none;
 }
 
 // Special:Search
@@ -257,28 +158,24 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		padding: 0;
 	}
 	.mw-search-profile-tabs .current {
-		border-bottom: 5px solid @indent;
+		border-bottom: 5px solid @border-color-content-added;
 	}
 	.mw-search-profile-form {
 		padding: 1em 0;
 	}
 	.mw-search-profile-form select {
 		appearance: none;
-		background-color: @background;
+		background-color: @background-color-neutral-subtle;
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
 		background-position: 100%;
 		background-repeat: no-repeat;
-		border: 1px solid @border;
+		border: 1px solid @border-color-subtle;
 		border-radius: 1em;
 		box-sizing: content-box;
 		color: inherit;
 		font: inherit;
 		margin-right: 1em;
 		padding: .3em 2.3em .3em .7em;
-	}
-	&.poncho-dark-mode .mw-search-profile-form select {
-		background-color: @dark-background;
-		border-color: @dark-border;
 	}
 	.searchresults {
 		margin-top: 1em;
@@ -287,8 +184,8 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		overflow: hidden;
 	}
 	.mw-search-result {
-		background: @background;
-		border: 1px solid @border;
+		background: @background-color-neutral-subtle;
+		border: 1px solid @border-color-subtle;
 		margin: 1em 0;
 		overflow: hidden;
 		padding: 1em;
@@ -323,7 +220,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		}
 	}
 }
-@media ( max-width: @small ) {
+@media ( max-width: @max-width-breakpoint-mobile ) {
 	.mw-special-Search .mw-search-exists {
 		float: none;
 		width: 100%;
@@ -363,42 +260,8 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 
 // Special:CreateAccount
-#userloginForm .mw-ui-vform {
-	width: 302px;
-}
 .mw-createacct-benefits-container {
 	display: none;
-}
-
-// Extension:TalkBelow
-#talkbelow-section {
-	border: 1px solid @border;
-	background: @background;
-	margin-top: 2.5em;
-	padding: 1em;
-	dd {
-		border-left: .5em solid @indent;
-		margin: 0;
-		margin-top: 1em;
-		padding-top: .5em;
-		padding-left: 1em;
-	}
-	dd + dd {
-		margin-top: 0;
-	}
-}
-#talkbelow-heading {
-	margin-top: 0;
-	.mw-editsection {
-		text-transform: lowercase;
-	}
-}
-#talkbelow-add-topic-button {
-	margin-top: 2em;
-}
-.poncho-dark-mode .talkbelow-section {
-	border-color: @dark-border;
-	background-color: @dark-background;
 }
 
 // Extension:Wikivideos
@@ -406,8 +269,8 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	margin: 1em 0;
 }
 .wikivideo {
-	background: @background;
-	border: 1px solid @border;
+	background: @background-color-neutral-subtle;
+	border: 1px solid @border-color-subtle;
 	box-sizing: border-box;
 	display: block;
 	overflow: hidden;
@@ -416,9 +279,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 .wikivideo-chapters {
 	margin-top: 1em !important;
-}
-.wikivideo-chapters a {
-	color: #3300ff !important;
 }
 
 // Extension:VisualEditor
@@ -439,10 +299,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 
 // Extension:Quiz
 .quiz {
-	border: 0.5em solid rgba(1, 127, 111, 0.5); 
-	border-color: rgba(1, 127, 111, 0.5); 
-	box-shadow: 0px 3px 6px -1px rgba(1, 127, 111, 0.5); 
-	-webkit-box-shadow:  0px 3px 6px -1px rgba(1, 127, 111, 0.5);
+	border: .5em solid @border-color-content-added;
 	overflow: hidden;
 	padding-left: .8em;
 }
@@ -453,30 +310,20 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	display: table-row;
 }
 .quiz input[type="submit"] {
-	background: @background;
-	border: 1px solid @border;
+	background: @background-color-interactive;
+	border: 1px solid @border-color-interactive;
 	border-radius: 2px;
+	cursor: pointer;
 	padding: 0.5em;
 }
 
-// Extension:DiscussionTools
-.dt-init-replylink-reply {
-	color: #00e;
-}
-.dt-ui-replyWidget-footer p:first-child {
-	margin: .6em 0;
-}
-.dt-ui-replyWidget-footer p:last-child {
-	display: none;
-}
-
 // Hide or show some stuff in mobile contexts
-@media ( max-width: @small ) {
+@media ( max-width: @max-width-breakpoint-mobile ) {
 	.nomobile {
 		display: none;
 	}
 }
-@media ( min-width: @small ) {
+@media ( min-width: @max-width-breakpoint-mobile ) {
 	.mobileonly {
 		display: none;
 	}

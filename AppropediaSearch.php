@@ -16,7 +16,9 @@ class AppropediaSearch {
 
 		// Show the display title rather than the title
 		// See https://phabricator.wikimedia.org/T65975
-		$dbr = wfGetDB( DB_REPLICA );
+		$services = MediaWikiServices::getInstance();
+		$provider = $services->getConnectionProvider();
+		$dbr = $provider->getReplicaDatabase();
 		$displayTitle = $dbr->selectField( 'page_props', 'pp_value', [ 'pp_propname' => 'displaytitle', 'pp_page' => $title->getArticleId() ] );
 		if ( $displayTitle ) {
 			$titleSnippet = $displayTitle;

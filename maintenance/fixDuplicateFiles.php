@@ -17,7 +17,9 @@ class AddCategoryData extends Maintenance {
 	public function execute() {
 
 		// Get files with duplicates
-		$dbr = wfGetDB( DB_REPLICA );
+		$services = MediaWikiServices::getInstance();
+		$lb = $services->getDBLoadBalancer();
+		$dbr = $lb->getConnection( DB_REPLICA );
 		$result = $dbr->select( 'image', [ 'namespace' => NS_FILE, 'title' => 'MIN(img_name)', 'value' => 'count(*)', 'hash' => 'img_sha1' ], [], __METHOD__, [ 'GROUP BY' => 'img_sha1', 'HAVING' => 'count(*) > 1' ] );
 		foreach ( $result as $row ) {
 			$title = $row->title;

@@ -8,7 +8,6 @@
  * whereas here it changes all languages at once
  * and also sends the messages for translation to translatewiki.net
  *
- * @note When upgrading to MediaWiki 1.41+ some of this code should migrate to the MessageCacheFetchOverrides hook
  * @note When calling wfMessage, we specify the language code to prevent errors like T302754
  */
 class AppropediaMessages {
@@ -24,26 +23,21 @@ class AppropediaMessages {
 		switch ( $key ) {
 
 			// Unwanted stuff is generally hidden via CSS
-			// but the following messages are hidden by making them empty
+			// but we hide these messages by making them empty
 			// because there's no easy way to target them via CSS
 			// or some other technical reason
-			case 'privacy': // Part of the footer, see AppropediaNavigation::onSkinAddFooterLinks
-			case 'disclaimers': // Part of the footer, see AppropediaNavigation::onSkinAddFooterLinks
-			case 'lastmodifiedat': // Part of the footer, see AppropediaNavigation::onSkinAddFooterLinks
-			case 'histlegend': // @todo Hide via CSS
-			case 'newarticletext':
+			case 'newarticletext': // Useless and confusing message when creating a new page
 			case 'createacct-username-help': // Special:CreateAccount
 			case 'createacct-useuniquepass': // Special:CreateAccount
 			case 'prefs-help-realname': // Special:CreateAccount and Special:Preferences
-			case 'hcaptcha-createaccount': // Extension:ConfirmEdit
-			case 'hcaptcha-edit': // Extension:ConfirmEdit
-			case 'upload-form-label-not-own-work-local-generic-local': // Upload dialog of Extension:VisualEditor
+			case 'privacy': // Footer, see AppropediaNavigation::onSkinAddFooterLinks
+			case 'disclaimers': // Footer, see AppropediaNavigation::onSkinAddFooterLinks
+			case 'lastmodifiedat': // Footer, see AppropediaNavigation::onSkinAddFooterLinks
+			case 'upload-form-label-not-own-work-local-generic-local': // Upload dialog in Extension:VisualEditor
 				$message = '';
 				break;
 
-			/**
-			 * Override messages
-			 */
+			// Override messages
 			case 'pagetitle':
 				$message = wfMessage( 'appropedia-page-title' )->inLanguage( $code )->text();
 				break;
@@ -104,20 +98,15 @@ class AppropediaMessages {
 				$message .= "\n\n[" . $link . '<span class="mw-ui-button mw-ui-progressive">' . $text . '</span>]';
 				break;
 
-			/**
-			 * Override extension and skin messages
-			 */
+			// Special:UploadWizard
 			case 'mwe-upwiz-add-file-0-free':
 				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
 				break;
 
+			// Upload dialog in Extension:VisualEditor
 			case 'upload-form-label-not-own-work-message-generic-local':
 				$page = 'Special:UploadWizard';
 				$message = wfMessage( 'appropedia-not-own-work', $page )->inLanguage( $code )->text();
-				break;
-
-			case 'poncho-print':
-				$message = wfMessage( 'appropedia-download-pdf' )->inLanguage( $code )->text();
 				break;
 		}
 	}

@@ -23,9 +23,10 @@ class FixDeadLinks extends Maintenance {
 	public function execute() {
 
 		$page = $this->getArg();
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbm = $lb->getConnectionRef( DB_MASTER );
-		$res = $dbm->select( 'externallinks', [ 'el_from', 'el_to' ], "el_from = $page" );
+		$services = MediaWikiServices::getInstance();
+		$lb = $services->getDBLoadBalancer();
+		$dbw = $lb->getConnection( DB_PRIMARY );
+		$res = $dbw->select( 'externallinks', [ 'el_from', 'el_to' ], "el_from = $page" );
 
 		$offset = $this->getOption( 'offset', 0 );
 		foreach ( $res as $k => $row ) {

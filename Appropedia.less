@@ -1,22 +1,38 @@
 @import 'mediawiki.skin.variables.less';
 
+// Hide button to opt-out of Vector 2022
+.vector-main-menu-action-opt-out {
+	display: none;
+}
+
 // Grids
-.grid {
+#mw-content-text .grid {
 	display: grid;
 	grid-auto-rows: minmax(100px, auto);
 	grid-gap: 10px;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	margin: 1em 0;
 	width: auto;
 }
 
 // Columns
-.columns {
+#mw-content-text .columns {
 	columns: 2;
 }
 
+// Thumbnails
+#mw-content-text figure[typeof="mw:File/Thumb"]:not(.mw-halign-left):not(.mw-halign-none) {
+	margin: 0 0 1em 1em;
+}
+#mw-content-text figure[typeof="mw:File/Thumb"].mw-halign-left {
+	margin: 0 1em 1em 0;
+}
+#mw-content-text figure[typeof="mw:File/Thumb"].mw-halign-none {
+	margin: 1em 0;
+}
+
 // Tables
-table pre {
+#mw-content-text table pre {
 	border: none !important;
 	padding: 0 !important;
 	white-space: pre;
@@ -28,26 +44,6 @@ table pre {
 	border-left: none;
 	margin: 1em 0;
 	padding-left: 3em;
-}
-
-// Galleries
-#mw-content-text .gallerybox {
-	margin-bottom: 1em;
-}
-#mw-content-text .gallerybox .thumb {
-	margin: 2.5px;
-}
-@media ( max-width: @max-width-breakpoint-mobile ) {
-	#mw-content-text .gallery {
-		padding-left: 0 !important;
-	}
-	#mw-content-text .gallerybox {
-		width: 49% !important;
-	}
-	#mw-content-text .gallerybox div,
-	#mw-content-text .gallerybox img {
-		width: 100% !important;
-	}
 }
 
 // Replies
@@ -68,12 +64,6 @@ table pre {
 #mw-pages p,
 #mw-subcategories p,
 #mw-subcategories h3 {
-	display: none;
-}
-
-// Hide TemplateData button from non-documentation pages
-// Example: https://www.appropedia.org/w/index.php?title=Template:Header&action=edit
-body:not( [class*=_doc] ) .tdg-editscreen-main {
 	display: none;
 }
 
@@ -119,14 +109,26 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 .main-page-gallery .gallerytext p {
 	margin: 0;
 }
+@media ( max-width: @max-width-breakpoint-mobile ) {
+	.main-page-gallery .gallerybox {
+		width: 49% !important;
+	}
+	.main-page-gallery .gallerybox div,
+	.main-page-gallery .gallerybox img {
+		width: 100% !important;
+		height: auto !important;
+	}
+}
 
 // Appropedia:New page
+// Hide edit buttons because noobs click them when trying to create a new page
 .page-Appropedia_New_page .vector-page-toolbar {
 	display: none;
 }
 
-// Hide message when creating a new page
-.mw-newarticletext {
+// Hide TemplateData button from non-documentation pages
+// Example: https://www.appropedia.org/w/index.php?title=Template:Header&action=edit
+body:not( [class*=_doc] ) .tdg-editscreen-main {
 	display: none;
 }
 
@@ -220,7 +222,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		}
 	}
 }
-@media ( max-width: @max-width-breakpoint-mobile ) {
+@media (max-width: @max-width-breakpoint-mobile) {
 	.mw-special-Search .mw-search-exists {
 		float: none;
 		width: 100%;
@@ -233,6 +235,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 
 // Special:UploadWizard
 .mw-special-UploadWizard .firstHeading,
+.mw-special-UploadWizard #contentSub,
 #upload-wizard .detailsForm .oo-ui-layout:nth-child(5),
 .mwe-upwiz-singleLanguageInputWidget-language,
 .mwe-upwiz-multipleLanguageInputWidget-addItem,
@@ -284,12 +287,12 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 // Extension:VisualEditor
 .ve-ui-linkContextItem-label,
 .ve-ce-branchNode-blockSlug,
+.ve-ui-toolbar-group-help,
 .oo-ui-tool-name-heading1,
 .oo-ui-tool-name-heading5,
 .oo-ui-tool-name-heading6,
-.oo-ui-tool-name-help,
 .oo-ui-toolbar-popups .oo-ui-popupWidget-head {
-	display: none !important;
+	display: none;
 }
 
 // Extension:WikiEditor

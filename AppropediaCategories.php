@@ -19,6 +19,11 @@ class AppropediaCategories {
 			return;
 		}
 
+		// Multiple <h1> titles
+		if ( preg_match( '/^=[^=]+=$/m', $wikitext ) ) {
+			$output->addCategory( 'Pages_with_more_than_one_title' );
+		}
+
 		// Commas in the title
 		$titleText = $title->getText();
 		if ( str_contains( $titleText, ',' ) ) {
@@ -29,11 +34,6 @@ class AppropediaCategories {
 		$wikitext = $content->getText();
 		if ( !trim( $wikitext ) ) {
 			$output->addCategory( 'Empty_pages' );
-		}
-
-		// Multiple <h1> titles
-		if ( preg_match( '/^=[^=]+=$/m', $wikitext ) ) {
-			$output->addCategory( 'Pages_with_more_than_one_title' );
 		}
 
 		// Orphan pages

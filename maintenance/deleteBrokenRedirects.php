@@ -22,8 +22,9 @@ class DeleteBrokenRedirects extends Maintenance {
 	
 	public function execute() {
 		// Get all the redirects
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$services = MediaWikiServices::getInstance();
+		$lb = $services->getDBLoadBalancer();
+		$dbr = $lb->getConnection( DB_REPLICA );
 		$results = $dbr->newSelectQueryBuilder()
 			->select( [ 'rd_from', 'rd_namespace', 'rd_title' ] )
 			->from( 'redirect' )
@@ -45,7 +46,8 @@ class DeleteBrokenRedirects extends Maintenance {
 			$url = $title->getFullUrl();
 			$this->output( $url );
 			if ( $delete ) {
-				$page = WikiPage::factory( $title );
+				$factory = $services->getWikiPageFactory();
+				$page = $factory->newFromTitle( $title );
 				$page->doDeleteArticleReal( 'Broken redirect', $user );
 				$this->output( ' .. deleted!' );
 			}

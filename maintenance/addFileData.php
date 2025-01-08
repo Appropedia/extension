@@ -16,7 +16,9 @@ class AddCategoryData extends Maintenance {
 
 	public function execute() {
 
-		$dbr = wfGetDB( DB_REPLICA );
+		$services = MediaWikiServices::getInstance();
+		$lb = $services->getDBLoadBalancer();
+		$dbr = $lb->getConnection( DB_REPLICA );
 		$result = $dbr->select( 'page', 'page_id', [ 'page_namespace' => 6, 'page_is_redirect' => 0 ] );
 		foreach ( $result as $row ) {
 			$id = $row->page_id;

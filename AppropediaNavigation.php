@@ -15,7 +15,8 @@ class AppropediaNavigation {
 		if ( in_array( 'sysop', $groups ) ) {
 			$link = [
 				'href' => '/Appropedia:Admin_panel',
-				'text' => wfMessage( 'appropedia-admin-panel' )->text()
+				'text' => wfMessage( 'appropedia-admin-panel' )->text(),
+				'icon' => 'unStar'
 			];
 			array_splice( $links['user-menu'], 2, 0, [ $link ] );
 		}

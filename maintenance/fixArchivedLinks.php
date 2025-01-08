@@ -23,9 +23,10 @@ class FixArchivedLinks extends Maintenance {
 
 	public function execute() {
 
-		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbm = $lb->getConnectionRef( DB_MASTER );
-		$res = $dbm->select( 'externallinks', [ 'el_from', 'el_to' ] );
+		$services = MediaWikiServices::getInstance();
+		$lb = $services->getDBLoadBalancer();
+		$dbw = $lb->getConnection( DB_PRIMARY );
+		$res = $dbw->select( 'externallinks', [ 'el_from', 'el_to' ] );
 
 		$offset = $this->getOption( 'offset', 0 );
 		$year = $this->getOption( 'year', '' );

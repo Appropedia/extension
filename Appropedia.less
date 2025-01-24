@@ -10,7 +10,7 @@
 	display: grid;
 	grid-auto-rows: minmax(100px, auto);
 	grid-gap: 10px;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 	margin: 1em 0;
 	width: auto;
 }
@@ -128,17 +128,9 @@
 
 // Hide TemplateData button from non-documentation pages
 // Example: https://www.appropedia.org/w/index.php?title=Template:Header&action=edit
+body:not( [class*=_doc] ) .tdg-editscreen-placeholder,
 body:not( [class*=_doc] ) .tdg-editscreen-main {
 	display: none;
-}
-
-// Template:Header
-// This can't be in Template:Header/styles.css because CSS sanitizer forbids it
-.template-header-content {
-	pointer-events: none;
-}
-.template-header-content a {
-	pointer-events: all;
 }
 
 // Special:Search
@@ -223,10 +215,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	}
 }
 @media (max-width: @max-width-breakpoint-mobile) {
-	.mw-special-Search .mw-search-exists {
-		float: none;
-		width: 100%;
-	}
 	.mw-special-Search .mw-search-profile-form {
 		overflow-x: scroll;
 		white-space: nowrap;
@@ -234,7 +222,8 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 
 // Special:UploadWizard
-.mw-special-UploadWizard .firstHeading,
+.mw-special-UploadWizard .vector-page-titlebar,
+.mw-special-UploadWizard .vector-page-toolbar,
 .mw-special-UploadWizard #contentSub,
 #upload-wizard .detailsForm .oo-ui-layout:nth-child(5),
 .mwe-upwiz-singleLanguageInputWidget-language,
@@ -258,8 +247,10 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 }
 
 // Special:Upload
-#mw-license-preview {
-	display: none !important;
+#mw-upload-form .mw-htmlform-field-Licenses,
+#mw-upload-form .mw-license-preview,
+#mw-upload-form .mw-upload-editlicenses {
+	display: none;
 }
 
 // Special:CreateAccount

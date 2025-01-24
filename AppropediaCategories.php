@@ -20,6 +20,7 @@ class AppropediaCategories {
 		}
 
 		// Multiple <h1> titles
+		$wikitext = $content->getText();
 		if ( preg_match( '/^=[^=]+=$/m', $wikitext ) ) {
 			$output->addCategory( 'Pages_with_more_than_one_title' );
 		}
@@ -31,7 +32,6 @@ class AppropediaCategories {
 		}
 
 		// No real content
-		$wikitext = $content->getText();
 		if ( !trim( $wikitext ) ) {
 			$output->addCategory( 'Empty_pages' );
 		}
@@ -52,10 +52,10 @@ class AppropediaCategories {
 		$match = preg_match( '/(.*?)^=/ms', $wikitext, $matches );
 		$lead = $match ? $matches[1] : $wikitext;
 		while ( preg_match( '/{{.*?}}/s', $lead ) ) {
-			$lead = preg_replace( '/{{.*?}}/s', '', $lead ); // Remove templates
+			$lead = preg_replace( '/{{.*?}}/s', '', $lead ); // Remove templates (fails with nested templates)
 		}
 		while ( preg_match( '/\[\[File:.*?\]\]/s', $lead ) ) {
-			$lead = preg_replace( '/\[\[File:.*?\]\]/s', '', $lead ); // Remove files
+			$lead = preg_replace( '/\[\[File:.*?\]\]/s', '', $lead ); // Remove files (fails with nested links)
 		}
 		$lead = trim( $lead );
 

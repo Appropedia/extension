@@ -18,7 +18,29 @@ class Appropedia {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
+		self::setDescriptionTag( $out, $skin );
 		self::setTitleTags( $out, $skin );
+		self::setOpenGraphTags( $out, $skin );
+	}
+
+	/**
+	 * Set the description meta tag for SEO purposes
+	 */
+	public static function setDescriptionTag( OutputPage $out, Skin $skin ) {
+		// If the 'Title tag' semantic property is set, just use it and be done
+		$title = $skin->getTitle();
+		if ( $title->isContentPage() ) {
+			$property = DIProperty::newFromUserLabel( 'Description' );
+			$subject = DIWikiPage::newFromText( $title );
+			$store = StoreFactory::getStore();
+			$data = $store->getSemanticData( $subject );
+			$values = $data->getPropertyValues( $property );
+			if ( $values ) {
+				$value = array_shift( $values );
+				$description = $value->getString();
+				$out->addMeta( 'description', $description );
+			}
+		}
 	}
 
 	/**
@@ -53,6 +75,18 @@ class Appropedia {
 		$htmlTitle = $out->getHTMLTitle();
 		if ( strlen( $htmlTitle ) > 65 ) {
 			$out->setHTMLTitle( $pageTitle );
+		}
+	}
+
+	/**
+	 * Set the Open Graph tags for SEO purposes
+	 * See https://ogp.me/
+	 */
+	public static function setOpenGraphTags( OutputPage $out, Skin $skin ) {
+		$out->addMeta( 'og:site_name', 'Appropedia, the sustainability wiki' );
+		$title = $skin->getTitle();
+		if ( $title->isContentPage() ) {
+			$out->addMeta( 'og:type', 'article' );
 		}
 	}
 

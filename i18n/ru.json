@@ -5,6 +5,8 @@
 			"Yurina Tatiana"
 		]
 	},
+	"appropedia-user-edit-warning": "'''Внимание!''' Вы собираетесь править страницу другого пользователя! Возможно, вы хотите [$1 оставить сообщение вместо этого]?",
+	"appropedia-account-created": "Ваша учётная запись создана!",
 	"appropedia-create-page": "Создать эту страницу",
 	"appropedia-select-files": "Выберите файлы для загрузки",
 	"appropedia-searchprofile-pages": "Страницы",

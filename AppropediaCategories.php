@@ -31,11 +31,6 @@ class AppropediaCategories {
 			$output->addCategory( 'Pages_with_commas_in_the_title' );
 		}
 
-		// No real content
-		if ( !trim( $wikitext ) ) {
-			$output->addCategory( 'Empty_pages' );
-		}
-
 		// Orphan pages
 		$parent = $title->getBaseTitle();
 		if ( !$parent->equals( $title ) && !$parent->exists() ) {
@@ -74,6 +69,11 @@ class AppropediaCategories {
 				$pageImage = $output->getPageProperty( 'page_image_free' );
 				if ( !$pageImage ) {
 					$output->addCategory( 'Pages_with_no_main_image' );
+				}
+
+				// No real content
+				if ( !trim( $wikitext ) ) {
+					$output->addCategory( 'Empty_pages' );
 				}
 
 				// Too long

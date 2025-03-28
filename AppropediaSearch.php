@@ -111,7 +111,7 @@ class AppropediaSearch {
 		if ( $profile === 'pages' ) {
 
 			// Page type
-			$form .= '<select id="search-filter-page-type" style="width: 55px;">';
+			$form .= '<select id="search-filter-page-type" style="width: 62px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-type-any' )->text() . '</option>';
 			$options = [
 				$special->msg( 'appropedia-search-page-type-projects' )->text() => 'Projects',
@@ -132,7 +132,7 @@ class AppropediaSearch {
 			$form .= '</select>';
 
 			// Sustainable Development Goal
-			$form .= '<select id="search-filter-page-sdg" style="width: 58px;">';
+			$form .= '<select id="search-filter-page-sdg" style="width: 67px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-sdg-any' )->text() . '</option>';
 			$options = [
 				$special->msg( 'appropedia-search-page-sdg-01' )->text() => 'SDG01 No poverty',
@@ -177,7 +177,7 @@ class AppropediaSearch {
 				$options[ $text ] = $value;
 			}
 			ksort( $options );
-			$form .= '<select id="search-filter-page-language" style="width: 87px;">';
+			$form .= '<select id="search-filter-page-language" style="width: 99px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-language-any' )->text() . '</option>';
 			foreach ( $options as $text => $value ) {
 				$value = 'inlanguage:'. $value;
@@ -186,7 +186,7 @@ class AppropediaSearch {
 			$form .= '</select>';
 
 			// Year
-			$form .= '<select id="search-filter-page-year" style="width: 56px;">';
+			$form .= '<select id="search-filter-page-year" style="width: 63px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-year-any' )->text() . '</option>';
 			$options = [ 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006 ];
 			foreach ( $options as $year ) {
@@ -200,7 +200,7 @@ class AppropediaSearch {
 		if ( $profile === 'files' ) {
 
 			// File type
-			$form .= '<select id="search-filter-file-type" style="width: 55px;">';
+			$form .= '<select id="search-filter-file-type" style="width: 62px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-file-type-any' )->text() . '</option>';
 			$options = [
 				$special->msg( 'appropedia-search-file-type-images' )->text() => 'bitmap',
@@ -218,7 +218,7 @@ class AppropediaSearch {
 
 			// File MIME
 			$filemime = $request->getText( 'filemime' );
-			$form .= '<select id="search-filter-file-mime" style="width: 69px;">';
+			$form .= '<select id="search-filter-file-mime" style="width: 76px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-file-format-any' )->text() . '</option>';
 			$options = [
 				'JPG' => 'image/jpeg',
@@ -234,7 +234,7 @@ class AppropediaSearch {
 			$form .= '</select>';
 
 			// File license
-			$form .= '<select id="search-filter-file-license" style="width: 72px;">';
+			$form .= '<select id="search-filter-file-license" style="width: 83px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-file-license-any' )->text() . '</option>';
 			$options = [
 				'CC-BY-SA-4.0' => 'CC-BY-SA-4.0 files',
@@ -257,7 +257,7 @@ class AppropediaSearch {
 
 			// User location
 			$location = $request->getText( 'location' );
-			$form .= '<select id="search-filter-user-location" style="width: 77px;">';
+			$form .= '<select id="search-filter-user-location" style="width: 88px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-user-location-any' )->text() . '</option>';
 			$options = [ 'Argentina', 'Australia', 'Bangladesh', 'Belgium', 'Bolivia', 'Cambodia', 'Canada', 'China', 'Colombia', 'Costa Rica',
 				'Denmark', 'Ecuador', 'El Salvador', 'Ethiopia', 'England', 'France', 'Germany', 'Guatemala', 'Haiti', 'India', 'Indonesia', 'Italy',

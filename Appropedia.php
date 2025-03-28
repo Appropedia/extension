@@ -27,7 +27,6 @@ class Appropedia {
 	 * Set the description meta tag for SEO purposes
 	 */
 	public static function setDescriptionTag( OutputPage $out, Skin $skin ) {
-		// If the 'Title tag' semantic property is set, just use it and be done
 		$title = $skin->getTitle();
 		if ( $title->isContentPage() ) {
 			$property = DIProperty::newFromUserLabel( 'Description' );

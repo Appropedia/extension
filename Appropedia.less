@@ -89,6 +89,9 @@
 .main-page-actions {
 	margin: 10px;
 }
+.main-page-actions .appropedia-install-app {
+	display: none;
+}
 .main-page-gallery .gallerybox {
 	margin-bottom: 5px !important;
 	position: relative;
@@ -169,7 +172,7 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 		color: inherit;
 		font: inherit;
 		margin-right: 1em;
-		padding: .3em 2.3em .3em .7em;
+		padding: .3em 2em .3em 1em;
 	}
 	.searchresults {
 		margin-top: 1em;
@@ -201,17 +204,6 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 	}
 	.mw-search-result-data {
 		display: none;
-	}
-	.searchResultImage {
-		display: block;
-		tbody, tr, td {
-			display: block;
-			padding: 0;
-		}
-		td:first-child {
-			float: right;
-			text-align: right !important;
-		}
 	}
 }
 @media (max-width: @max-width-breakpoint-mobile) {
@@ -256,6 +248,14 @@ body:not( [class*=_doc] ) .tdg-editscreen-main {
 // Special:CreateAccount
 .mw-createacct-benefits-container {
 	display: none;
+}
+
+// Extension:TemplateStyles doesn't allow the some useful properties so we define classes for them here
+.image-fit-cover img {
+	object-fit: cover;
+}
+.no-pointer-events {
+	pointer-events: none;
 }
 
 // Extension:Wikivideos

@@ -75,10 +75,6 @@ class AppropediaMessages {
 				$message = wfMessage( 'appropedia-template-edit-warning', $page )->inLanguage( $code )->text();
 				break;
 
-			case 'categorytree-member-num':
-				$message = "($4)";
-				break;
-
 			case 'noarticletext':
 				$context = RequestContext::getMain();
 				$title = $context->getTitle();
@@ -107,6 +103,16 @@ class AppropediaMessages {
 			case 'upload-form-label-not-own-work-message-generic-local':
 				$page = 'Special:UploadWizard';
 				$message = wfMessage( 'appropedia-not-own-work', $page )->inLanguage( $code )->text();
+				break;
+
+			// Extension:CategoryTree
+			case 'categorytree-member-num':
+				$message = "($4)";
+				break;
+
+			// Extension:Collection
+			case 'coll-savedbook_template':
+				$message = "Publication data";
 				break;
 		}
 	}

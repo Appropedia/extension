@@ -28,6 +28,9 @@ class GenerateManifests extends Maintenance {
 		$category = Category::newFromName( 'Projects' );
 		$members = $category->getMembers();
 		foreach ( $members as $title ) {
+			if ( !$title->isContentPage() ) {
+				continue;
+			}
 			$title = $title->getFullText();
 			if ( preg_match( '#/[a-z]{2}$#', $title ) ) {
 				continue; // Skip automatic translations, for now

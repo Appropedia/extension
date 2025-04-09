@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * This class fixes the wikitext of some pages
  * according to Appropedia standards for each namespace
@@ -42,30 +44,14 @@ class AppropediaWikitext {
 		}
 
 		// Don't fix redirects
-		$content = $wikiPage->getContent();
-		$wikitext = $content->getText();
-		if ( preg_match( "/^#(\S+ ?\[\[.+\]\])/", $wikitext ) ) {
+		if ( $title->isRedirect() ) {
 			return;
 		}
 
-		// Do general fixes
-		$namespace = $wikiPage->getNamespace();
-		switch ( $namespace ) {
-			case 0:
-				$fixed = self::fixContentPage( $wikitext, $title );
-				break;
-			case 2:
-				$fixed = self::fixUserPage( $wikitext, $title );
-				break;
-			case 6:
-				$fixed = self::fixFilePage( $wikitext, $title );
-				break;
-			case 14:
-				$fixed = self::fixCategoryPage( $wikitext, $title );
-				break;
-			default:
-				return;
-		}
+		// Do the fixes
+		$content = $wikiPage->getContent();
+		$wikitext = $content->getText();
+		$fixed = self::fixWikitext( $wikitext, $title );
 
 		// Check if anything changed
 		if ( !self::$fixes ) {
@@ -73,15 +59,26 @@ class AppropediaWikitext {
 		}
 
 		// Save the fixed wikitext
-		$content = ContentHandler::makeContent( $fixed, $title );
-		$user = User::newSystemUser( $wgAppropediaBotAccount );
-		$updater = $wikiPage->newPageUpdater( $user );
-		$updater->setContent( 'main', $content );
-		$summary = implode( ' + ', self::$fixes );
-		$comment = CommentStoreComment::newUnsavedComment( $summary);
-		$updater->saveRevision( $comment, EDIT_SUPPRESS_RC | EDIT_FORCE_BOT | EDIT_MINOR | EDIT_INTERNAL );
+		AppropediaWikitext::saveWikitext( $fixed, $wikiPage );
 	}
 
+	/**
+	 * Fix the given wikitext
+	 */
+	public static function fixWikitext( $wikitext, $title ) {
+		$namespace = $title->getNamespace();
+		switch ( $namespace ) {
+			case NS_MAIN:
+				return self::fixContentPage( $wikitext, $title );
+			case NS_USER:
+				return self::fixUserPage( $wikitext, $title );
+			case NS_FILE:
+				return self::fixFilePage( $wikitext, $title );
+			case NS_CATEGORY:
+				return self::fixCategoryPage( $wikitext, $title );
+		}
+	}
+	
 	/**
 	 * Fix the wikitext of a content page
 	 */
@@ -213,5 +210,24 @@ class AppropediaWikitext {
 		}
 
 		return $wikitext;
+	}
+
+	/**
+	 * @param string $wikitext
+	 * @param WikiPage $wikiPage
+	 * @return void
+	 */
+	public static function saveWikitext( string $wikitext, WikiPage $wikiPage ) {
+		$services = MediaWikiServices::getInstance();
+		$config = $services->getMainConfig();
+		$account = $config->get( 'AppropediaBotAccount' );
+		$user = User::newSystemUser( $account );
+		$updater = $wikiPage->newPageUpdater( $user );
+		$title = $wikiPage->getTitle();
+		$content = ContentHandler::makeContent( $wikitext, $title );
+		$updater->setContent( 'main', $content );
+		$summary = implode( ' + ', self::$fixes );
+		$comment = CommentStoreComment::newUnsavedComment( $summary );
+		$updater->saveRevision( $comment, EDIT_SUPPRESS_RC | EDIT_FORCE_BOT | EDIT_MINOR | EDIT_INTERNAL );
 	}
 }

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This maintenance script runs the wikitext fixes defined at AppropediaWikitext for all pages
+ * For example, it adds {{Page data}} to all content pages, {{User data}} to all user pages, etc.
+ */
+
 $IP = getenv( 'MW_INSTALL_PATH' );
 if ( $IP === false ) {
 	$IP = __DIR__ . '/../../..';
@@ -16,10 +21,15 @@ class FixWikitext extends Maintenance {
 		$services = MediaWikiServices::getInstance();
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
-		$results = $dbr->select( 'page', 'page_id', [
-			'page_content_model' => CONTENT_MODEL_WIKITEXT,
-			'page_namespace' => [ NS_MAIN, NS_USER, NS_FILE, NS_CATEGORY ]
-		] );
+		$results = $dbr->newSelectQueryBuilder()
+			->select( 'page_id' )
+			->from( 'page' )
+			->where( [
+				'page_content_model' => CONTENT_MODEL_WIKITEXT,
+				'page_namespace' => [ NS_MAIN, NS_USER, NS_FILE, NS_CATEGORY ]
+			] )
+			->fetchResultSet();
+
 		foreach ( $results as $result ) {
 
 			// Get the working title

@@ -23,8 +23,8 @@ class DeleteBrokenRedirects extends Maintenance {
 	public function execute() {
 		// Get all the redirects
 		$services = MediaWikiServices::getInstance();
-		$lb = $services->getDBLoadBalancer();
-		$dbr = $lb->getConnection( DB_REPLICA );
+		$provider = $services->getConnectionProvider();
+		$dbr = $provider->getReplicaDatabase();
 		$results = $dbr->newSelectQueryBuilder()
 			->select( [ 'rd_from', 'rd_namespace', 'rd_title' ] )
 			->from( 'redirect' )

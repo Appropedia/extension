@@ -1,10 +1,19 @@
 <?php
 
-require_once '/home/appropedia/public_html/w/maintenance/Maintenance.php';
+/**
+ * This script generates the kiwix.tsv file used by Kiwix for scraping Appropedia
+ */
+
+$IP = getenv( 'MW_INSTALL_PATH' );
+if ( $IP === false ) {
+	$IP = __DIR__ . '/../../..';
+}
+require_once "$IP/maintenance/Maintenance.php";
 
 use MediaWiki\MediaWikiServices;
 
-class generateKiwixList extends Maintenance {
+class GenerateKiwixList extends Maintenance {
+
 	public function execute() {
 		$services = MediaWikiServices::getInstance();
 		$provider = $services->getConnectionProvider();
@@ -24,11 +33,11 @@ class generateKiwixList extends Maintenance {
 		// Build the query
 		$tablePrefix = $dbr->tablePrefix();
 		$query = $dbr->newSelectQueryBuilder();
-		$query->select( 'page_title' );
+		$query->field( 'page_title' );
 		$query->from( 'page' );
 		$query->where( [
-			'page_namespace = 0',
-			'page_is_redirect = 0',
+			'page_namespace' => NS_MAIN,
+			'page_is_redirect' => 0,
 			'page_id NOT IN ( SELECT cl_from FROM ' . $tablePrefix . 'categorylinks WHERE cl_to IN ("' . $privateCategories . '") )'
 		] );
 		$results = $query->fetchResultSet();
@@ -45,5 +54,5 @@ class generateKiwixList extends Maintenance {
 	}
 }
 
-$maintClass = generateKiwixList::class;
+$maintClass = GenerateKiwixList::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

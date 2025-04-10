@@ -11,7 +11,7 @@ if ( $IP === false ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
-class GenerateManifests extends Maintenance {
+class GenerateOpenKnowHowManifests extends Maintenance {
 
 	public function execute() {
 
@@ -58,5 +58,5 @@ class GenerateManifests extends Maintenance {
 	}
 }
 
-$maintClass = GenerateManifests::class;
+$maintClass = GenerateOpenKnowHowManifests::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

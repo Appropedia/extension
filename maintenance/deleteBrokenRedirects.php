@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Delete broken redirects
+ * This maintenance script deletes all broken redirects
  */
 
 $IP = getenv( 'MW_INSTALL_PATH' );
@@ -19,8 +19,9 @@ class DeleteBrokenRedirects extends Maintenance {
 		$this->addDescription( 'Delete broken redirects' );
 		$this->addOption( 'delete', 'Actually do the deletions' );
 	}
-	
+
 	public function execute() {
+
 		// Get all the redirects
 		$services = MediaWikiServices::getInstance();
 		$provider = $services->getConnectionProvider();

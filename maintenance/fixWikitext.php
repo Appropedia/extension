@@ -22,7 +22,7 @@ class FixWikitext extends Maintenance {
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
 		$results = $dbr->newSelectQueryBuilder()
-			->select( 'page_id' )
+			->field( 'page_id' )
 			->from( 'page' )
 			->where( [
 				'page_content_model' => CONTENT_MODEL_WIKITEXT,

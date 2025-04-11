@@ -27,7 +27,7 @@ class DeleteBrokenRedirects extends Maintenance {
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
 		$results = $dbr->newSelectQueryBuilder()
-			->select( [ 'rd_from', 'rd_namespace', 'rd_title' ] )
+			->fields( [ 'rd_from', 'rd_namespace', 'rd_title' ] )
 			->from( 'redirect' )
 			->where( [
 				'rd_namespace > -1', // Exclude special pages

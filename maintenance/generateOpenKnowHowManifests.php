@@ -16,45 +16,38 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 	public function execute() {
 
 		// Make sure the manifests dir exists and is empty
-		$manifests = '/home/appropedia/public_html/manifests';
-		if ( is_dir( $manifests ) ) {
-			exec( "rm -f $manifests/*" );
+		$dir = '/home/appropedia/public_html/manifests';
+		if ( is_dir( $dir ) ) {
+			exec( "rm -f $dir/*" );
 		} else {
-			mkdir( $manifests );
+			mkdir( $dir );
 		}
 
-		// Get all the projects
-		$titles = [];
+		// Make a manifest for each project
+		$manifests = [];
 		$category = Category::newFromName( 'Projects' );
-		$members = $category->getMembers();
-		foreach ( $members as $title ) {
-			if ( !$title->isContentPage() ) {
+		$projects = $category->getMembers();
+		foreach ( $projects as $project ) {
+			if ( !$project->isContentPage() ) {
 				continue;
 			}
-			$title = $title->getFullText();
+			$title = $project->getFullText();
 			if ( preg_match( '#/[a-z]{2}$#', $title ) ) {
 				continue; // Skip automatic translations, for now
 			}
-			$titles[] = $title;
-		}
-		//var_dump( $titles ); exit; // Uncomment to debug
-
-		// Make a manifest for each project
-		$files = [];
-		foreach ( $titles as $title ) {
-			echo $title . PHP_EOL;
-			$titlee = str_replace( ' ', '_', $title ); // Basic encoding
+			$this->output( $title . PHP_EOL );
+			$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
 			$url = "https://www.appropedia.org/scripts/generateOpenKnowHowManifest.php?title=$titlee";
 			$manifest = file_get_contents( $url );
 			$hash = md5( $title );
-			$files[] = "https://www.appropedia.org/manifests/$hash.yaml";
-			file_put_contents( "$manifests/$hash.yaml", $manifest );
+			$manifests[] = "https://www.appropedia.org/manifests/$hash.yaml";
+			file_put_contents( "$dir/$hash.yaml", $manifest );
 			//break; // Uncomment to debug
 		}
 
 		// Make the list.json index
-		$json = json_encode( $files, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
-		file_put_contents( $manifests . '/list.json', $json );
+		$json = json_encode( $manifests, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+		file_put_contents( $dir . '/list.json', $json );
 	}
 }
 

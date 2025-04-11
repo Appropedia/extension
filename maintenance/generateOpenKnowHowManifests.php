@@ -27,7 +27,8 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 		$manifests = [];
 		$category = Category::newFromName( 'Projects' );
 		$projects = $category->getMembers();
-		foreach ( $projects as $project ) {
+		$total = $category->getPageCount( Category::COUNT_CONTENT_PAGES );
+		foreach ( $projects as $count => $project ) {
 			if ( !$project->isContentPage() ) {
 				continue;
 			}
@@ -35,13 +36,13 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 			if ( preg_match( '#/[a-z]{2}$#', $title ) ) {
 				continue; // Skip automatic translations, for now
 			}
-			$this->output( $title . PHP_EOL );
 			$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
 			$url = "https://www.appropedia.org/scripts/generateOpenKnowHowManifest.php?title=$titlee";
 			$manifest = file_get_contents( $url );
 			$hash = md5( $title );
 			$manifests[] = "https://www.appropedia.org/manifests/$hash.yaml";
 			file_put_contents( "$dir/$hash.yaml", $manifest );
+			$this->output( "$count/$total $title" . PHP_EOL );
 			//break; // Uncomment to debug
 		}
 

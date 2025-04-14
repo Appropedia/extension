@@ -13,8 +13,6 @@ class Appropedia {
 	 * Add JS and CSS specific to Appropedia
 	 */
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
-		$out->addModules( 'ext.Appropedia' );
-		$out->addModuleStyles( 'ext.Appropedia.styles' );
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );

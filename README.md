@@ -18,7 +18,7 @@ Many features that were developed specifically for Appropedia have been turned i
 * [Extension:GoogleTranslate](https://www.mediawiki.org/wiki/Extension:GoogleTranslate)
 * [Extension:HTMLPurifier](https://www.mediawiki.org/wiki/Extension:HTMLPurifier)
 
-However, a few features are so specific that can't be turned into extensions, so we clump them all together in Extension:Appropedia:
+However, a few features are so specific that can't be turned into extensions, so we clump them all together here:
 
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
@@ -29,7 +29,7 @@ However, a few features are so specific that can't be turned into extensions, so
 This extension also contains Appropedia's custom Lua library, which exposes some data to [Appropedia's custom Lua module](https://www.appropedia.org/Module:Appropedia):
 
 * emailDomain - Returns the email domain of a given user
-* fileUses - Returns the number of uses of a given fileUses
+* fileUses - Returns the number of uses of a given file
 * pageCategories - Returns the categories of a given page
 * pageExists - Checks wether a given page exists
 

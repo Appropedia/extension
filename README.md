@@ -18,7 +18,7 @@ Many features that were developed specifically for Appropedia have been turned i
 * [Extension:GoogleTranslate](https://www.mediawiki.org/wiki/Extension:GoogleTranslate)
 * [Extension:HTMLPurifier](https://www.mediawiki.org/wiki/Extension:HTMLPurifier)
 
-However, a few features are so specific that can't be turned into extensions, so we clump them all together here:
+However, some features are so specific that cannot be turned into extensions, so we clump them all together in this extension:
 
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)

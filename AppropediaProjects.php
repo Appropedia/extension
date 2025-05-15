@@ -115,7 +115,7 @@ class AppropediaProjects extends SimpleHandler {
 		$favicon = 'https://www.appropedia.org/logos/Appropedia-kiwix.png';
 		$titleObject = Title::newFromText( $title );
 		$image = PageImages::getPageImage( $titleObject );
-var_dump( $image ); exit;
+
 		if ( $image ) {
 			$favicon = $image->createThumb( 100 );
 		}

@@ -1,0 +1,44 @@
+/* Style the cover */
+#cover {
+	padding: 50px;
+	position: relative;
+	text-align: right;
+	height: 1150px;
+}
+#cover header {
+	border-bottom: 1px solid #aaa;
+}
+#cover-title {
+	font-size: 3em;
+}
+#cover-subtitle {
+	font-size: 2em;
+}
+#cover-authors {
+	font-size: 1.5em;
+}
+#cover-qrcode {
+	position: relative;
+	right: -1em;
+	width: 10em;
+	height: 15em; /* Hack! SVG stretches when converted to PDF, so we compensate here */
+}
+#cover footer {
+	padding: 50px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+/* Hide unwanted elements */
+#contentSub,
+#mw-data-after-content,
+#catlinks,
+.vector-header-container,
+.vector-page-toolbar,
+.vector-body-before-content,
+.mw-footer-container,
+.mw-editsection,
+.noprint {
+	display: none !important;
+}

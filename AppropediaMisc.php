@@ -7,10 +7,10 @@ use SMW\StoreFactory;
 /**
  * This class contains all code not covered by more specific classes
  */
-class Appropedia {
+class AppropediaMisc {
 
 	/**
-	 * Add JS and CSS specific to Appropedia
+	 * Set head links and meta tags
 	 */
 	public static function onBeforePageDisplay( OutputPage $out, Skin $skin ) {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
@@ -44,6 +44,7 @@ class Appropedia {
 	 * Set or refine the title meta tags for SEO purposes
 	 */
 	public static function setTitleTags( OutputPage $out, Skin $skin ) {
+
 		// If the 'Title tag' semantic property is set, just use it and be done
 		$title = $skin->getTitle();
 		if ( $title->isContentPage() ) {

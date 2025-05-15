@@ -1,12 +1,13 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "10.0",
+	"version": "10.1",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
 	"license-name": "GPL-3.0-or-later",
 	"type": "other",
+	"load_composer_autoloader": true,
 	"requires": {
 		"MediaWiki": ">= 1.39.0"
 	},
@@ -15,14 +16,18 @@
 			"i18n"
 		]
 	},
+	"SpecialPages": {
+		"Project": "AppropediaProject"
+	},
 	"AutoloadClasses": {
-		"Appropedia": "Appropedia.php",
 		"AppropediaCategories": "AppropediaCategories.php",
+		"AppropediaLua": "AppropediaLua.php",
 		"AppropediaMessages": "AppropediaMessages.php",
+		"AppropediaMisc": "AppropediaMisc.php",
 		"AppropediaNavigation": "AppropediaNavigation.php",
+		"AppropediaProjects": "AppropediaProjects.php",
 		"AppropediaSearch": "AppropediaSearch.php",
-		"AppropediaWikitext": "AppropediaWikitext.php",
-		"AppropediaLua": "AppropediaLua.php"
+		"AppropediaWikitext": "AppropediaWikitext.php"
 	},
 	"ExtensionMessagesFiles": {
 		"AppropediaMagic": "Appropedia.magic.php"
@@ -43,6 +48,13 @@
 		"ScribuntoExternalLibraries": "AppropediaLua::onScribuntoExternalLibraries",
 		"ContentAlterParserOutput": "AppropediaCategories::onContentAlterParserOutput"
 	},
+	"RestRoutes": [
+		{
+			"path": "/projects/{title}/{format}",
+			"method": "GET",
+			"class": "AppropediaProjects"
+		}
+	],
 	"config": {
 		"AppropediaBotAccount": {
 			"value": "Appropedia bot"

@@ -109,11 +109,6 @@ class AppropediaMessages {
 			case 'categorytree-member-num':
 				$message = "($4)";
 				break;
-
-			// Extension:Collection
-			case 'coll-savedbook_template':
-				$message = "Publication data";
-				break;
 		}
 	}
 }

@@ -22,13 +22,16 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * Get the domain of the email of a user
+	 * For example "bar.com" from "foo@bar.com"
 	 *
 	 * @param string $name User name
-	 * @return string Email domain
+	 * @return array Array with the email domain or an empty string if the email is not set or the user does not exist
 	 */
 	public function emailDomain( $name ) {
 		$domain = '';
-		$user = MediaWikiServices::getInstance()->getUserFactory()->newFromName( $name );
+		$services = MediaWikiServices::getInstance();
+		$factory = $services->getUserFactory();
+		$user = $factory->newFromName( $name );
 		if ( $user ) {
 			$email = $user->getEmail();
 			if ( $email ) {
@@ -42,7 +45,7 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 	 * Check if the given page exists
 	 *
 	 * @param string $page Page name
-	 * @return array Lua table
+	 * @return array Array with true if the page exists and false otherwise
 	 */
 	public function pageExists( $page ) {
 		$title = Title::newFromText( $page );

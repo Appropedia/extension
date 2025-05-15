@@ -3,6 +3,7 @@
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\SimpleHandler;
 use Wikimedia\ParamValidator\ParamValidator;
+use PageImages\PageImages;
 use chillerlan\QRCode\QRCode;
 
 /**
@@ -110,6 +111,15 @@ class AppropediaProjects extends SimpleHandler {
 		$dir = $config->get( 'UploadDirectory' );
 
 		$title = str_replace( '_', ' ', $title );
+
+		$favicon = 'https://www.appropedia.org/logos/Appropedia-kiwix.png';
+		$titleObject = Title::newFromText( $title );
+		$image = PageImages::getPageImage( $titleObject );
+var_dump( $image ); exit;
+		if ( $image ) {
+			$favicon = $image->createThumb( 100 );
+		}
+
 		$title = substr( $title, 0, 30 ); // ZIM titles cannot have more than 30 chars
 		$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
 	
@@ -120,13 +130,6 @@ class AppropediaProjects extends SimpleHandler {
 
 		$pages = str_replace( '|', ',', $pages ); // mwoffliner requires a comma-separated list
 		$pages = str_replace( ' ', '_', $pages ); // mwoffliner requires underscores
-
-		$favicon = 'https://www.appropedia.org/logos/Appropedia-kiwix.png';
-		if ( $logo ) {
-			$repo = $services->getRepoGroup();
-			$file = $repo->findFile( $logo );
-			$favicon = $file->createThumb( 100 );
-		}
 
 		// Build the mwoffliner command
 		$command = 'mwoffliner';
@@ -143,7 +146,7 @@ class AppropediaProjects extends SimpleHandler {
 		$command .= ' --webp';
 		$command .= ' --articleList="' . $pages . '"';
 		$command .= ' --verbose';
-		//echo '<pre>' . $command; exit; // Uncomment to debug
+		echo '<pre>' . $command; exit; // Uncomment to debug
 
 		// Make the ZIM file (this may take several seconds)
 		exec( $command, $output );

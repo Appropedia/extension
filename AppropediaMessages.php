@@ -30,6 +30,7 @@ class AppropediaMessages {
 			case 'createacct-username-help': // Special:CreateAccount
 			case 'createacct-useuniquepass': // Special:CreateAccount
 			case 'prefs-help-realname': // Special:CreateAccount and Special:Preferences
+			case 'retrievedfrom': // Print footer
 			case 'privacy': // Footer, see AppropediaNavigation::onSkinAddFooterLinks
 			case 'disclaimers': // Footer, see AppropediaNavigation::onSkinAddFooterLinks
 			case 'lastmodifiedat': // Footer, see AppropediaNavigation::onSkinAddFooterLinks

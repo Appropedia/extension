@@ -49,6 +49,7 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 		// Make the list.json index
 		$json = json_encode( $manifests, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
 		file_put_contents( $dir . '/list.json', $json );
+		$this->output( 'list.json' . PHP_EOL );
 	}
 }
 

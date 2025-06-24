@@ -16,9 +16,6 @@
 			"i18n"
 		]
 	},
-	"SpecialPages": {
-		"Project": "AppropediaProject"
-	},
 	"AutoloadClasses": {
 		"AppropediaCategories": "AppropediaCategories.php",
 		"AppropediaLua": "AppropediaLua.php",
@@ -33,9 +30,9 @@
 		"AppropediaMagic": "Appropedia.magic.php"
 	},
 	"Hooks": {
-		"BeforePageDisplay": "Appropedia::onBeforePageDisplay",
-		"LinkerMakeExternalLink": "Appropedia::onLinkerMakeExternalLink",
-		"ParserFirstCallInit": "Appropedia::onParserFirstCallInit",
+		"BeforePageDisplay": "AppropediaMisc::onBeforePageDisplay",
+		"LinkerMakeExternalLink": "AppropediaMisc::onLinkerMakeExternalLink",
+		"ParserFirstCallInit": "AppropediaMisc::onParserFirstCallInit",
 		"SkinTemplateNavigation::Universal": "AppropediaNavigation::onSkinTemplateNavigationUniversal",
 		"SidebarBeforeOutput": "AppropediaNavigation::onSidebarBeforeOutput",
 		"SkinAddFooterLinks": "AppropediaNavigation::onSkinAddFooterLinks",
@@ -49,6 +46,16 @@
 		"ContentAlterParserOutput": "AppropediaCategories::onContentAlterParserOutput"
 	},
 	"RestRoutes": [
+		{
+			"path": "/projects",
+			"method": "GET",
+			"class": "AppropediaProjects"
+		},
+		{
+			"path": "/projects/{title}",
+			"method": "GET",
+			"class": "AppropediaProjects"
+		},
 		{
 			"path": "/projects/{title}/{format}",
 			"method": "GET",

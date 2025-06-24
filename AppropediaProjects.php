@@ -8,25 +8,63 @@ use chillerlan\QRCode\QRCode;
 
 /**
  * Class to get all projects or a single one in various formats
- * GET /projects/{title}/{format}
+ * GET /projects
+ * GET /projects/{project}
+ * GET /projects/{project}/{format}
  */
 class AppropediaProjects extends SimpleHandler {
 
-	public function run( $title, $format ) {
+	public function run( $project = null, $format = null ) {
+
+		if ( $format ) {
+			self::$format( $project );
+			exit;
+		}
+
+		if ( $project ) {
+			// @todo Only output project-specific data
+			$data = self::getSemanticData( $project );
+			$data['logo'] = self::getLogo( $project );
+			return $data;
+		}
+
+		$projects = [];
+
 		$request = $this->getRequest();
 		$params = $request->getQueryParams();
-		if ( $format ) {
-			self::$format( $title, $params );
+		$language = $params['language'] ?? null;
+		$translations = $params['translations'] ?? null;
+
+		// We may need the following variables in the loop
+		$services = MediaWikiServices::getInstance();
+		$languageUtils = $services->getLanguageNameUtils();
+
+		$category = Category::newFromName( 'Projects' );
+		$members = $category->getMembers();
+		foreach ( $members as $member ) {
+
+			// @todo Find a better way to check for booleans
+			if ( in_array( $translations, [ 'false', 'f', 'no', 'n', 'off', '0' ] ) ) {
+				$subpage = $member->getSubpageText();
+				if ( $languageUtils->isSupportedLanguage( $subpage ) ) {
+					continue;
+				}
+			}
+
+			if ( $language ) {
+				$languageObject = $member->getPageLanguage();
+				$languageCode = $languageObject->getCode();
+				if ( $languageCode !== $language ) {
+					continue;
+				}
+			}
+
+			$projects[] = $member->getFullText();
 		}
+		return $projects;
 	}
 
-	public static function pdf( $title, $params ) {
-		$pages = $params['pages']; // Required
-		$logo = $params['logo'] ?? false;
-		$subtitle = $params['subtitle'] ?? false;
-		$text = $params['text'] ?? false;
-
-		// Start building the command
+	public static function pdf( $project ) {
 		$command = 'wkhtmltopdf';
 		$command .= ' --user-style-sheet ' . __DIR__ . '/resources/AppropediaProjectsPDF.css';
 		$command .= ' --footer-center [page]';
@@ -36,29 +74,24 @@ class AppropediaProjects extends SimpleHandler {
 		$cover .= '<html>';
 		$cover .= '<head>';
 		$cover .= '<meta charset="utf-8">';
-		$cover .= '<title>' . $title . '</title>';
+		$cover .= '<title>' . $project . '</title>';
 		$cover .= '</head>';
 		$cover .= '<body id="cover">';
 		$cover .= '<header>';
+		$logo = self::getLogo( $project );
 		if ( $logo ) {
-			$services = MediaWikiServices::getInstance();
-			$repo = $services->getRepoGroup();
-			$file = $repo->findFile( $logo );
-			$src = $file->createThumb( 100 );
-			$cover .= '<img id="cover-logo" src="' . $src . '" />';
+			$cover .= '<img id="cover-logo" src="' . $logo . '" />';
 		}
-		$cover .= '<h1 id="cover-title">' . $title . '</h1>';
+		$cover .= '<h1 id="cover-title">' . $project . '</h1>';
+		$subtitle = self::getSubtitle( $project );
 		if ( $subtitle ) {
 			$cover .= '<p id="cover-subtitle">' . $subtitle . '</p>';
 		}
 		$cover .= '</header>';
-		if ( $text ) {
-			$cover .= '<p id="cover-text">' . $text . '</p>';
-		}
-		$titleObject = Title::newFromText( $title );
-		$titleUrl = $titleObject->getFullURL();
+		$title = Title::newFromText( $project );
+		$url = $title->getFullURL();
 		$qrcode = new QRCode;
-		$src = $qrcode->render( $titleUrl );
+		$src = $qrcode->render( $url );
 		$cover .= '<img id="cover-qrcode" src="' . $src . '" />';
 		$cover .= '<footer>';
 		$cover .= '<img id="cover-appropedia" src="https://www.appropedia.org/logos/Appropedia-logo.png" />';
@@ -69,10 +102,8 @@ class AppropediaProjects extends SimpleHandler {
 		$command .= ' cover cover.html';
 
 		// Set the pages
-		$pages = explode( '|', $pages );
+		$pages = self::getPages( $project );
 		foreach ( $pages as $page ) {
-			$page = urldecode( $page );
-			$page = trim( $page );
 			$page = str_replace( ' ', '_', $page );
 			$page = urlencode( $page );
 			$url = "https://www.appropedia.org/$page";
@@ -87,48 +118,34 @@ class AppropediaProjects extends SimpleHandler {
 
 		// Download the PDF
 		header( 'Content-Type: application/pdf' );
-		header( 'Content-Disposition: attachment; filename=' . $title . '.pdf' );
+		header( 'Content-Disposition: attachment; filename=' . $project . '.pdf' );
 		readfile( 'temp.pdf' );
 
 		// Clean up
 		unlink( 'temp.pdf' );
 		unlink( 'cover.html' );
-
-		// Exit because the method is expected to return JSON
-		exit;
 	}
 
-	public static function zim( $title, $params ) {
-
-		// Get the params
-		$pages = $params['pages']; // Required
-		$logo = $params['logo'] ?? false;
-		$subtitle = $params['subtitle'] ?? false;
-
-		// Process the params and set some other variables
+	public static function zim( $project ) {
 		$services = MediaWikiServices::getInstance();
 		$config = $services->getMainConfig();
 		$dir = $config->get( 'UploadDirectory' );
 
-		$title = str_replace( '_', ' ', $title );
-
 		$favicon = 'https://www.appropedia.org/logos/Appropedia-kiwix.png';
-		$titleObject = Title::newFromText( $title );
-		$image = PageImages::getPageImage( $titleObject );
-
-		if ( $image ) {
-			$favicon = $image->createThumb( 100 );
+		$logo = self::getLogo( $project );
+		if ( $logo ) {
+			$favicon = 'https://www.appropedia.org' . $logo;
 		}
 
+		$title = str_replace( '_', ' ', $project );
 		$title = substr( $title, 0, 30 ); // ZIM titles cannot have more than 30 chars
 		$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
 	
-		$description = '';
-		if ( $subtitle ) {
-			$description = substr( $subtitle, 0, 80 ); // ZIM descriptions cannot have more than 80 chars
-		}
+		$description = self::getSubtitle( $project );
+		$description = substr( $description, 0, 80 ); // ZIM descriptions cannot have more than 80 chars
 
-		$pages = str_replace( '|', ',', $pages ); // mwoffliner requires a comma-separated list
+		$pages = self::getPages( $project );
+		$pages = implode( ',', $pages );
 		$pages = str_replace( ' ', '_', $pages ); // mwoffliner requires underscores
 
 		// Build the mwoffliner command
@@ -136,7 +153,7 @@ class AppropediaProjects extends SimpleHandler {
 		$command .= ' --adminEmail=admin@appropedia.org';
 		$command .= ' --customZimTitle="' . $title . '"';
 		$command .= ' --customZimFavicon=' . $favicon;
-		$command .= ' --customZimDescription="' . $description . '"';
+		$command .= ' --customZimDescription="' . $subtitle . '"';
 		$command .= ' --filenamePrefix=' . $titlee;
 		$command .= ' --mwUrl=https://www.appropedia.org';
 		$command .= ' --mwWikiPath=/';
@@ -145,8 +162,8 @@ class AppropediaProjects extends SimpleHandler {
 		$command .= ' --publisher=Appropedia';
 		$command .= ' --webp';
 		$command .= ' --articleList="' . $pages . '"';
-		$command .= ' --verbose';
-		echo '<pre>' . $command; exit; // Uncomment to debug
+		//$command .= ' --verbose';
+		//echo '<pre>' . $command; exit; // Uncomment to debug
 
 		// Make the ZIM file (this may take several seconds)
 		exec( $command, $output );
@@ -161,12 +178,9 @@ class AppropediaProjects extends SimpleHandler {
 
 		// Clean up
 		unlink( $filename );
-
-		// Exit because the method is expected to return JSON
-		exit;
 	}
 
-	public static function okh( $title, $params ) {
+	public static function okh( $title ) {
 		$fauxRequest = new FauxRequest( [
 			'titles' => $title,
 			'action' => 'query',
@@ -200,8 +214,7 @@ class AppropediaProjects extends SimpleHandler {
 		//echo '<pre>'; var_dump( $extract, $image, $version, $dateCreated, $dateUpdated ); exit; // Uncomment to debug
 
 		// Get the semantic properties
-		$semanticRestApi = new SemanticRESTAPI;
-		$properties = $semanticRestApi->run( $title );
+		$properties = self::getSemanticData( $title );
 		$keywords = $properties['Keywords'] ?? '';
 		$authors = $properties['Project authors'] ?? $properties['Authors'] ?? '';
 		$status = $properties['Project status'] ?? '';
@@ -276,9 +289,38 @@ documentation-home: https://www.appropedia.org/$titlee
 
 # User-defined fields" . ( $sdg ? "
 sustainable-development-goals: $sdg" : '' );
-		exit;
 	}
 
+	public static function getPages( $project ) {
+		$pages = [];
+		$category = Category::newFromName( $project );
+		$members = $category->getMembers();
+		foreach ( $members as $member ) {
+			if ( $member->isContentPage() ) {
+				$pages[] = $member->getFullText();
+			}
+		}
+		return $pages;
+	}
+
+	public static function getSemanticData( $project ) {
+		$semanticRestApi = new SemanticRESTAPI;
+		$data = $semanticRestApi->run( $project );
+		return $data;
+	}
+	
+	public static function getLogo( $project ) {
+		$title = Title::newFromText( $project );
+		$image = PageImages::getPageImage( $title );
+		if ( $image ) {
+			return $image->createThumb( 100 );
+		}
+	}
+
+	public static function getSubtitle( $project ) {
+		return ''; // @todo
+	}
+	
 	/** @inheritDoc */
 	public function needsWriteAccess() {
 		return false;
@@ -288,31 +330,19 @@ sustainable-development-goals: $sdg" : '' );
 	public function getParamSettings() {
 		return [
 			'title' => [
-				self::PARAM_SOURCE => 'path',
-				ParamValidator::PARAM_REQUIRED => true
+				self::PARAM_SOURCE => 'path'
 			],
 			'format' => [
 				self::PARAM_SOURCE => 'path',
-				ParamValidator::PARAM_TYPE => [ 'pdf', 'zim', 'okh' ],
-				ParamValidator::PARAM_REQUIRED => true
+				ParamValidator::PARAM_TYPE => [ 'pdf', 'zim', 'okh' ]
 			],
-			'pages' => [
-				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'string',
-				ParamValidator::PARAM_ISMULTI => true,
-				ParamValidator::PARAM_REQUIRED => true
-			],
-			'logo' => [
+			'language' => [
 				self::PARAM_SOURCE => 'query',
 				ParamValidator::PARAM_TYPE => 'string'
 			],
-			'subtitle' => [
+			'translations' => [
 				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'string'
-			],
-			'text' => [
-				self::PARAM_SOURCE => 'query',
-				ParamValidator::PARAM_TYPE => 'string'
+				ParamValidator::PARAM_TYPE => 'boolean'
 			]
 		];
 	}

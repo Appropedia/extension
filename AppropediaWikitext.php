@@ -131,7 +131,7 @@ class AppropediaWikitext {
 		// the structure of the file pages it creates, so we can't modify them via config
 		// Therefore, we check every single page save and if it has the structure of
 		// a file page created by Upload Wizard, we transform it to our preferred structure
-		if ( preg_match( "/=={{int:filedesc}}==\n{{Information\n\|description={{en\|1=(.*)}}\n\|date=(.*)\n\|source=(.*)\n\|author=(.*)\n\|permission=(.*)\n\|other versions=(.*)\n}}\n\n=={{int:license-header}}==\n{{(.*)}}\n*(.*)/s", $wikitext, $matches ) ) {
+		if ( preg_match( "/=={{int:filedesc}}==\n{{Information\n\|description={{[a-z]+\|1=(.*)}}\n\|date=(.*)\n\|source=(.*)\n\|author=(.*)\n\|permission=(.*)\n\|other versions=(.*)\n}}\n\n=={{int:license-header}}==\n{{(.*)}}\n*(.*)/s", $wikitext, $matches ) ) {
 
 			// Get data
 			$description = trim( $matches[1] );

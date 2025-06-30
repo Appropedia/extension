@@ -15,7 +15,7 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 
 	public function execute() {
 
-		// Make sure the manifests dir exists and is empty
+		// Make sure the manifests directory exists and is empty
 		$dir = '/home/appropedia/public_html/manifests';
 		if ( is_dir( $dir ) ) {
 			exec( "rm -f $dir/*" );
@@ -38,7 +38,10 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 			}
 			$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
 			$url = "https://www.appropedia.org/scripts/generateOpenKnowHowManifest.php?title=$titlee";
-			$manifest = file_get_contents( $url );
+			$manifest = @file_get_contents( $url );
+			if ( !$manifest or $manifest === 'Page not found' ) {
+				continue;
+			}
 			$hash = md5( $title );
 			$manifests[] = "https://www.appropedia.org/manifests/$hash.yaml";
 			file_put_contents( "$dir/$hash.yaml", $manifest );

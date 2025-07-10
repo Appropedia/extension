@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"appropedia-policies": "Дозанаш",
+	"appropedia-contact": "Контакт",
+	"appropedia-account-created": "Хьан аккаунт кхоьллина!",
+	"appropedia-create-user-page": "Хьайн декъашхочун агӀо кхолла",
+	"appropedia-create-page": "Кхолла хӀара агӀо",
+	"appropedia-select-files": "Чуйаха файлаш харжа",
+	"appropedia-download-pdf": "Схьаэца PDF",
+	"appropedia-searchprofile-pages": "АгӀонаш",
+	"appropedia-searchprofile-files": "Файлаш",
+	"appropedia-searchprofile-users": "Декъашхой",
+	"appropedia-searchprofile-talks": "Дийцарш",
+	"appropedia-searchprofile-other": "Кхийерг",
+	"appropedia-search-page-type-any": "муьлха а тайпа",
+	"appropedia-search-page-type-projects": "Проекташ",
+	"appropedia-search-page-type-devices": "ГӀирс",
+	"appropedia-search-page-type-topics": "Теманаш",
+	"appropedia-search-page-type-maps": "Картанаш",
+	"appropedia-search-page-type-organizations": "Организацеш",
+	"appropedia-search-page-type-guides": "Куьйгалла",
+	"appropedia-search-page-type-essays": "Эссе",
+	"appropedia-search-page-type-papers": "Йаззамаш",
+	"appropedia-search-page-type-books": "Жайнаш",
+	"appropedia-search-page-language-any": "Муьлхха а мотт",
+	"appropedia-search-page-year-any": "Муьлхха а шо",
+	"appropedia-search-file-type-any": "Муьлха а тайпа",
+	"appropedia-search-file-type-images": "Суьрташ",
+	"appropedia-search-file-type-drawings": "Суьрташ дахкар",
+	"appropedia-search-file-type-documents": "Документаш",
+	"appropedia-search-file-type-code": "Код",
+	"appropedia-search-file-type-videos": "Видео",
+	"appropedia-search-file-type-audios": "Аудио",
+	"appropedia-search-file-format-any": "Муьлхха а формат",
+	"appropedia-search-file-license-any": "Муьлхха а лицензи",
+	"appropedia-search-file-license-public-domain": "Йукъараллин рицӀкъ",
+	"appropedia-search-user-location-any": "Муьлхха а локаци"
+}

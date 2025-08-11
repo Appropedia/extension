@@ -1,13 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
+			"Peterxy12",
 			"沈澄心"
 		]
 	},
 	"appropedia-desc": "Appropedia.org的自定义代码",
+	"appropedia-page-title": "$1 - Appropedia，一个永续发展的wiki",
 	"appropedia-policies": "方针",
 	"appropedia-contact": "联系",
 	"appropedia-admin-panel": "管理面板",
+	"appropedia-page-edit-warning": "'''注意！'''所有對{{SITENAME}}作出的貢獻會依據$2授權條款釋出（詳情請見$1）。若您不希望您作出的編輯會被他人修改與重新散佈，請不要提交！您同時需向我們保證是由您自行撰寫，或是複製自公有領域或類似的自由資源內容。'''請勿提交未經許可的受版權保護資料！'''",
+	"appropedia-anon-edit-warning": "'''注意！'''您尚未登入。'''[$1 請登入]'''或是'''[$2 建立帳號]'''讓您作出的編輯歸在您的使用者名稱之下，而非您的IP位址，並享有更多益處。",
+	"appropedia-user-edit-warning": "'''注意！'''您正在編輯另一名使用者的頁面！您要改成[$1 留下訊息]嗎？",
+	"appropedia-interface-edit-warning": "您是否熟悉[[$1|Appropedia的使用者介面指南]]？",
+	"appropedia-template-edit-warning": "您是否熟悉[[$1|Appropedia 的模板指南]]？",
 	"appropedia-account-created": "您的账号已创建！",
 	"appropedia-create-user-page": "创建您的用户页",
 	"appropedia-create-page": "创建该页面",

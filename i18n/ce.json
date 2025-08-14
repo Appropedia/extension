@@ -4,8 +4,10 @@
 			"Умар"
 		]
 	},
+	"appropedia-page-title": "$1 — Appropedia, хаддаза кхиаран хьокъехь вики-ресурс",
 	"appropedia-policies": "Дозанаш",
 	"appropedia-contact": "Контакт",
+	"appropedia-admin-panel": "Админан панель",
 	"appropedia-account-created": "Хьан аккаунт кхоьллина!",
 	"appropedia-create-user-page": "Хьайн декъашхочун агӀо кхолла",
 	"appropedia-create-page": "Кхолла хӀара агӀо",
@@ -26,6 +28,7 @@
 	"appropedia-search-page-type-essays": "Эссе",
 	"appropedia-search-page-type-papers": "Йаззамаш",
 	"appropedia-search-page-type-books": "Жайнаш",
+	"appropedia-search-page-type-literature-reviews": "Литературин гайтамаш",
 	"appropedia-search-page-language-any": "Муьлхха а мотт",
 	"appropedia-search-page-year-any": "Муьлхха а шо",
 	"appropedia-search-file-type-any": "Муьлха а тайпа",

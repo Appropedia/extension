@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"appropedia-desc": "د Appropedia.org دوديز کوډ",
+	"appropedia-page-title": "$1 - Appropedia، د پايښت ويکي",
+	"appropedia-policies": "تگلارې",
+	"appropedia-contact": "اړیکه",
+	"appropedia-admin-panel": "پازوال منځدړه",
+	"appropedia-create-page": "دا مخ جوړول",
+	"appropedia-select-files": "راپورته‌کولو لپاره دوتنې ټاکل",
+	"appropedia-not-own-work": "که چېرې دا دوتنه ستاسو خپل کار نه وي؛ نو مهرباني وکړئ پرځای يې [[$1|دا د راپورته‌کولو فورمه]] وکاروئ.",
+	"appropedia-searchprofile-pages": "مخونه",
+	"appropedia-searchprofile-files": "دوتنې",
+	"appropedia-searchprofile-users": "کارنان",
+	"appropedia-search-page-year-any": "هر کال",
+	"appropedia-search-file-type-any": "هر ډول",
+	"appropedia-search-file-type-images": "انځورونه",
+	"appropedia-search-file-type-drawings": "رسمونه",
+	"appropedia-search-file-type-documents": "لاسوندونه",
+	"appropedia-search-file-type-code": "کوډ",
+	"appropedia-search-file-type-videos": "ويډيوگانې",
+	"appropedia-search-file-type-audios": "غږونه",
+	"appropedia-search-file-format-any": "هره بڼه",
+	"appropedia-search-file-license-any": "هر منښتليک",
+	"appropedia-search-file-license-public-domain": "ټولگړې واک‌سيمه",
+	"appropedia-search-user-location-any": "هر ځای"
+}

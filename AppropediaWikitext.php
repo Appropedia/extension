@@ -131,17 +131,17 @@ class AppropediaWikitext {
 		// the structure of the file pages it creates, so we can't modify them via config
 		// Therefore, we check every single page save and if it has the structure of
 		// a file page created by Upload Wizard, we transform it to our preferred structure
-		if ( preg_match( "/=={{int:filedesc}}==\n{{Information\n\|description={{[a-z]+\|1=(.*)}}\n\|date=(.*)\n\|source=(.*)\n\|author=(.*)\n\|permission=(.*)\n\|other versions=(.*)\n}}\n\n=={{int:license-header}}==\n{{(.*)}}\n*(.*)/s", $wikitext, $matches ) ) {
+		if ( preg_match( "/=={{int:filedesc}}==\n{{Information\n\|description={{[a-z]+\|1= *(?<description>.*) *}}\n\|date=(?<date>.*)\n\|source=(?<source>.*)\n\|author=(?<author>.*)\n\|permission=(?<permission>.*)\n\|other versions=(?<otherVersions>.*)\n}}\n\n=={{int:license-header}}==\n{{(?<license>.*)}}\n*(?<categories>.*)/s", $wikitext, $matches ) ) {
 
 			// Get data
-			$description = trim( $matches[1] );
-			$date = $matches[2];
-			$source = $matches[3];
-			$author = $matches[4];
-			$permission = $matches[5];
-			$otherVersions = $matches[6];
-			$license = $matches[7];
-			$licenseDetails = $matches[8];
+			$description = $matches['description'];
+			$date = $matches['date'];
+			$source = $matches['source'];
+			$author = $matches['author'];
+			$permission = $matches['permission'];
+			$otherVersions = $matches['otherVersions'];
+			$license = $matches['license'];
+			$categories = $matches['categories'];
 
 			// Process data
 			if ( $source === '{{own}}' ) {
@@ -157,17 +157,20 @@ class AppropediaWikitext {
 			} else {
 				$license = strtoupper( $license );
 			}
+			if ( $license === 'CC-ZERO' ) {
+				$license = 'CC0-1.0';
+			}
 			if ( $license === 'PD' ) {
-			  $license = 'Public domain';
+				$license = 'Public domain';
+			}
+			if ( $license === 'PD-US' ) {
+				$license = 'Public domain';
 			}
 			if ( $license === 'PD-USGOV' ) {
-			  $license = 'Public domain';
+				$license = 'Public domain';
 			}
 			if ( $license === 'FAIR USE' ) {
-			  $license = 'Fair use';
-			}
-			if ( $licenseDetails ) {
-				$license = $licenseDetails;
+				$license = 'Fair use';
 			}
 
 			$params = [
@@ -184,6 +187,9 @@ class AppropediaWikitext {
 				$wikitext .= "\n| $param = $value";
 			}
 			$wikitext .= "\n}}";
+			if ( $categories ) {
+				$wikitext .= "\n\n$categories";
+			}
 			self::$fixes[] = 'Fix file page';
 		}
 

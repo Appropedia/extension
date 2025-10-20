@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Tensama0415",
 			"Ykhwong"
 		]
 	},
@@ -10,7 +11,7 @@
 	"appropedia-account-created": "계정이 만들어졌습니다!",
 	"appropedia-create-user-page": "내 사용자 문서 만들기",
 	"appropedia-create-page": "이 문서 만들기",
-	"appropedia-select-files": "올릴 파일 선택",
+	"appropedia-select-files": "업로드할 파일 선택",
 	"appropedia-download-pdf": "PDF 다운로드",
 	"appropedia-searchprofile-pages": "문서",
 	"appropedia-searchprofile-files": "파일",

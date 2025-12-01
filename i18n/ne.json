@@ -1,0 +1,42 @@
+{
+	"@metadata": {
+		"authors": [
+			"पर्वत सुबेदी",
+			"बडा काजी"
+		]
+	},
+	"appropedia-policies": "नीतिहरू",
+	"appropedia-contact": "सम्पर्क",
+	"appropedia-admin-panel": "प्रशासक प्यानल",
+	"appropedia-account-created": "तपाईंको खाता सिर्जना गरिएको छ!",
+	"appropedia-create-user-page": "आफ्नो प्रयोगकर्ता पृष्ठ सिर्जना गर्नुहोस्",
+	"appropedia-create-page": "यो पृष्ठ सृजना गर्नुहोस्",
+	"appropedia-searchprofile-pages": "पृष्ठहरू",
+	"appropedia-searchprofile-files": "चित्रहरू",
+	"appropedia-searchprofile-users": "प्रयोगकर्ताहरू",
+	"appropedia-searchprofile-talks": "वार्तालाप",
+	"appropedia-searchprofile-other": "अन्य",
+	"appropedia-search-page-type-any": "कुनै पनि प्रकारको",
+	"appropedia-search-page-type-projects": "परियोजनाहरू",
+	"appropedia-search-page-type-devices": "उपकरणहरू",
+	"appropedia-search-page-type-topics": "विषय",
+	"appropedia-search-page-type-maps": "नक्साहरू",
+	"appropedia-search-page-type-organizations": "संस्था",
+	"appropedia-search-page-type-essays": "निबन्धहरू",
+	"appropedia-search-page-type-papers": "कागजातहरू",
+	"appropedia-search-page-type-books": "पुस्तकहरू",
+	"appropedia-search-page-type-literature-reviews": "साहित्य समीक्षा",
+	"appropedia-search-page-language-any": "कुनै पनि भाषा",
+	"appropedia-search-page-year-any": "कुनै पनि वर्ष",
+	"appropedia-search-file-type-any": "कुनै पनि प्रकारको",
+	"appropedia-search-file-type-images": "चित्रहरू",
+	"appropedia-search-file-type-drawings": "रेखाचित्र",
+	"appropedia-search-file-type-documents": "दस्ताबेज",
+	"appropedia-search-file-type-code": "कोड",
+	"appropedia-search-file-type-videos": "भिडियो",
+	"appropedia-search-file-type-audios": "श्रव्य",
+	"appropedia-search-file-format-any": "कुनै पनि ढाँचा",
+	"appropedia-search-file-license-any": "कुनै पनि इजाजतपत्र",
+	"appropedia-search-file-license-public-domain": "सार्वजनिक डोमेन",
+	"appropedia-search-user-location-any": "कुनै पनि स्थान"
+}

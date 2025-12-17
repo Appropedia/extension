@@ -12,7 +12,7 @@ require_once "$IP/maintenance/Maintenance.php";
 
 use MediaWiki\MediaWikiServices;
 
-class GenerateKiwixList extends Maintenance {
+class GenerateKiwixFile extends Maintenance {
 
 	public function execute() {
 		$services = MediaWikiServices::getInstance();
@@ -40,6 +40,7 @@ class GenerateKiwixList extends Maintenance {
 			'page_is_redirect' => 0,
 			'page_id NOT IN ( SELECT cl_from FROM ' . $tablePrefix . 'categorylinks WHERE cl_to IN ("' . $privateCategories . '") )'
 		] );
+		$query->orderBy( 'page_title', 'ASC' );
 		$results = $query->fetchResultSet();
 
 		// Make the TSV file
@@ -54,5 +55,5 @@ class GenerateKiwixList extends Maintenance {
 	}
 }
 
-$maintClass = GenerateKiwixList::class;
+$maintClass = GenerateKiwixFile::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMW\StoreFactory;
@@ -16,9 +17,51 @@ class AppropediaMisc {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
+		self::setPageTitle( $out, $skin );
 		self::setDescriptionTag( $out, $skin );
 		self::setTitleTags( $out, $skin );
 		self::setOpenGraphTags( $out, $skin );
+	}
+
+	/**
+	 * Link subpages to their parent pages directly from the title in a breadcrumb-style
+	 * Important! This only works because of a one-line change to includes/Output/OutputPage.php
+	 * that prevents MediaWiki from sanitizing the page title
+	 */
+	public static function setPageTitle( OutputPage $out, Skin $skin ) {
+		$title = $skin->getTitle();
+		if ( !$title->isSubpage() ) {
+			return;
+		}
+		$services = MediaWikiServices::getInstance();
+		$linkRenderer = $services->getLinkRenderer();
+		$pageTitle = $title->getSubpageText();
+		/* What to do when a dispaly title is set?
+		$pageFactory = $services->getWikiPageFactory();
+		$page = $pageFactory->newFromTitle( $title );
+		$parserOutput = $page->getParserOutput();
+		if ( $parserOutput ) {
+			$displayTitle = $parserOutput->getDisplayTitle();
+			if ( $displayTitle ) {
+				$pageTitle = $displayTitle;
+			}
+		}
+		*/
+		while ( $title->isSubpage() ) {
+			$title = $title->getBaseTitle();
+			if ( $title->isSubpage() ) {
+				$text = $title->getSubpageText();
+			} else {
+				$text = $title->getFullText();
+			}
+			$link = $linkRenderer->makeLink( $title, $text );
+			$pageTitle = $link . '<span style="margin: 0 .3em;">/</span>' . $pageTitle;
+		}
+		$out->setPageTitle( $pageTitle );
+	}
+
+	public static function onSkinSubPageSubtitle( &$subpages, Skin $skin, OutputPage $out ) {
+		return false;
 	}
 
 	/**
@@ -27,7 +70,7 @@ class AppropediaMisc {
 	public static function setDescriptionTag( OutputPage $out, Skin $skin ) {
 		$title = $skin->getTitle();
 		if ( $title->isContentPage() ) {
-			$property = DIProperty::newFromUserLabel( 'Description' );
+			$property = DIProperty::newFromUserLabel( 'Page description' );
 			$subject = DIWikiPage::newFromText( $title );
 			$store = StoreFactory::getStore();
 			$data = $store->getSemanticData( $subject );
@@ -45,10 +88,10 @@ class AppropediaMisc {
 	 */
 	public static function setTitleTags( OutputPage $out, Skin $skin ) {
 
-		// If the 'Title tag' semantic property is set, just use it and be done
+		// If the 'Page title tag' semantic property is set, just use it and be done
 		$title = $skin->getTitle();
 		if ( $title->isContentPage() ) {
-			$property = DIProperty::newFromUserLabel( 'Title tag' );
+			$property = DIProperty::newFromUserLabel( 'Page title tag' );
 			$subject = DIWikiPage::newFromText( $title );
 			$store = StoreFactory::getStore();
 			$data = $store->getSemanticData( $subject );

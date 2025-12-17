@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Appropedia",
-	"version": "10.2",
+	"version": "10.3",
 	"url": "https://github.com/Appropedia/extension",
 	"author": "[https://github.com/Sophivorus Sophivorus]",
 	"descriptionmsg": "appropedia-desc",
@@ -31,6 +31,7 @@
 	},
 	"Hooks": {
 		"BeforePageDisplay": "AppropediaMisc::onBeforePageDisplay",
+		"SkinSubPageSubtitle": "AppropediaMisc::onSkinSubPageSubtitle",
 		"LinkerMakeExternalLink": "AppropediaMisc::onLinkerMakeExternalLink",
 		"ParserFirstCallInit": "AppropediaMisc::onParserFirstCallInit",
 		"SkinTemplateNavigation::Universal": "AppropediaNavigation::onSkinTemplateNavigationUniversal",

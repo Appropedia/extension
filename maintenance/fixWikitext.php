@@ -21,25 +21,25 @@ class FixWikitext extends Maintenance {
 		$services = MediaWikiServices::getInstance();
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
-		$results = $dbr->newSelectQueryBuilder()
+		$ids = $dbr->newSelectQueryBuilder()
 			->field( 'page_id' )
 			->from( 'page' )
 			->where( [
+				'page_is_redirect' => 0,
 				'page_content_model' => CONTENT_MODEL_WIKITEXT,
 				'page_namespace' => [ NS_MAIN, NS_USER, NS_FILE, NS_CATEGORY ]
 			] )
-			->fetchResultSet();
+			->fetchFieldValues();
+		$factory = $services->getWikiPageFactory();
 
-		foreach ( $results as $result ) {
+		foreach ( $ids as $id ) {
 
 			// Get the working title
-			$id = $result->page_id;
 			$title = Title::newFromID( $id );
 			$text = $title->getFullText();
 
-			$factory = $services->getWikiPageFactory();
-			$wikiPage = $factory->newFromTitle( $title );
-			$content = $wikiPage->getContent();
+			$page = $factory->newFromTitle( $title );
+			$content = $page->getContent();
 			$wikitext = $content->getText();
 
 			// Check if fixing the wikitext changes anything
@@ -49,7 +49,7 @@ class FixWikitext extends Maintenance {
 			}
 
 			// Save the fixed wikitext
-			AppropediaWikitext::saveWikitext( $fixed, $wikiPage );
+			AppropediaWikitext::saveWikitext( $fixed, $page );
 
 			// Output the edited page
 			$url = $title->getFullURL();

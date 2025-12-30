@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This maintenance script adds the license to all pages that don't have it already
+ * This maintenance script adds a license to {{Page data}} according to the year when the page was created
  */
 
 $IP = getenv( 'MW_INSTALL_PATH' );
@@ -25,11 +25,9 @@ class AddLicense extends Maintenance {
 			->where( [ 'page_is_redirect' => 0, 'page_namespace' => 0 ] )
 			->fetchFieldValues();
 
-		$count = 0;
 		$total = count( $ids );
 		$factory = $services->getWikiPageFactory();
-		foreach ( $ids as $id ) {
-			$count++;
+		foreach ( $ids as $count => $id ) {
 
 			// Subpages inherit their license so we don't need to set it
 			$title = Title::newFromID( $id );
@@ -50,21 +48,21 @@ class AddLicense extends Maintenance {
 			$page = $factory->newFromTitle( $title );
 			$revision = $page->getRevisionRecord();
 			$content = $revision->getContent( 'main' );
-			$text = $content->getText();
-			$text = trim( $text );
-			if ( preg_match( '/{{Page data[^}]*\| *license *= *.+/', $text ) ) {
+			$wikitext = $content->getText();
+			$wikitext = trim( $wikitext );
+			if ( preg_match( '/{{Page data[^}]*\| *license *= *.+/', $wikitext ) ) {
 				continue;
 			}
 
 			// Edit the wikitext
-			if ( preg_match( '/{{Page data}}/', $text ) ) {
-				$text = preg_replace( '/{{Page data}}/', "{{Page data\n| license = CC-BY-SA-3.0\n}}", $text );
-			} else if ( preg_match( '/{{Page data/', $text ) ) {
-				$text = preg_replace( '/{{Page data/', "{{Page data\n| license = CC-BY-SA-3.0", $text );
-			} else if ( preg_match( '/\[\[Category:.*\]\]$/s', $text ) ) {
-				$text = preg_replace( '/\[\[Category:.*\]\]$/s', "{{Page data\n| license = CC-BY-SA-3.0\n}}\n\n$0", $text );
+			if ( preg_match( '/{{Page data}}/', $wikitext ) ) {
+				$wikitext = preg_replace( '/{{Page data}}/', "{{Page data\n| license = CC-BY-SA-3.0\n}}", $wikitext );
+			} else if ( preg_match( '/{{Page data/', $wikitext ) ) {
+				$wikitext = preg_replace( '/{{Page data/', "{{Page data\n| license = CC-BY-SA-3.0", $wikitext );
+			} else if ( preg_match( '/\[\[Category:.*\]\]$/s', $wikitext ) ) {
+				$wikitext = preg_replace( '/\[\[Category:.*\]\]$/s', "{{Page data\n| license = CC-BY-SA-3.0\n}}\n\n$0", $wikitext );
 			} else {
-				$text .= "\n\n{{Page data\n| license = CC-BY-SA-3.0\n}}";
+				$wikitext .= "\n\n{{Page data\n| license = CC-BY-SA-3.0\n}}";
 			}
 
 			// Output the progress
@@ -73,7 +71,7 @@ class AddLicense extends Maintenance {
 			$this->output( "$percent%	$url" . PHP_EOL );
 
 			// Save the page
-			$content = ContentHandler::makeContent( $text, $title );
+			$content = ContentHandler::makeContent( $wikitext, $title );
 			$user = User::newSystemUser( User::MAINTENANCE_SCRIPT_USER, [ 'steal' => true ] );
 			$updater = $page->newPageUpdater( $user );
 			$updater->setContent( 'main', $content );

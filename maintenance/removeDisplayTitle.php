@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This maintenance script removes display titles that are identical to the real title
+ * This maintenance script removes the "title" parameter from {{Page data}} when it is identical to the real title of the page
  */
 
 $IP = getenv( 'MW_INSTALL_PATH' );
@@ -25,19 +25,17 @@ class RemoveDisplayTitle extends Maintenance {
 			->where( [ 'page_is_redirect' => 0, 'page_namespace' => 0 ] )
 			->fetchFieldValues();
 
-		$count = 0;
 		$total = count( $ids );
 		$factory = $services->getWikiPageFactory();
-		foreach ( $ids as $id ) {
-			$count++;
+		foreach ( $ids as $count => $id ) {
 
 			// Check if the page has a display title set
 			$title = Title::newFromID( $id );
 			$page = $factory->newFromTitle( $title );
 			$revision = $page->getRevisionRecord();
 			$content = $revision->getContent( 'main' );
-			$text = $content->getText();
-			if ( !preg_match( '/{{Page data[^}]*\| *title *= *(.+)/', $text, $matches ) ) {
+			$wikitext = $content->getText();
+			if ( !preg_match( '/{{Page data[^}]*\| *title *= *(.+)/', $wikitext, $matches ) ) {
 				continue;
 			}
 
@@ -49,7 +47,7 @@ class RemoveDisplayTitle extends Maintenance {
 			}
 
 			// Edit the wikitext
-			$text = preg_replace( '/{{Page data([^}]*)\| *title *= *(.+)\n/', '{{Page data$1', $text );
+			$wikitext = preg_replace( '/{{Page data([^}]*)\| *title *= *(.+)\n/', '{{Page data$1', $wikitext );
 
 			// Output the progress
 			$url = $title->getFullURL();
@@ -57,7 +55,7 @@ class RemoveDisplayTitle extends Maintenance {
 			$this->output( "$percent%	$url" . PHP_EOL );
 
 			// Save the page
-			$content = ContentHandler::makeContent( $text, $title );
+			$content = ContentHandler::makeContent( $wikitext, $title );
 			$user = User::newSystemUser( User::MAINTENANCE_SCRIPT_USER, [ 'steal' => true ] );
 			$updater = $page->newPageUpdater( $user );
 			$updater->setContent( 'main', $content );

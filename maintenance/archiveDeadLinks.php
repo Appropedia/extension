@@ -11,14 +11,21 @@ if ( $IP === false ) {
 require_once "$IP/maintenance/Maintenance.php";
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\ExternalLinks\LinkFilter;
+use Miraheze\RottenLinks\RottenLinks;
+
+error_reporting( E_ALL );
+ini_set( 'display_errors', 1 );
+$wgShowSQLErrors = true;
+$wgShowExceptionDetails = true;
+$wgDebugToolbar = true;
+$wgDevelopmentWarnings = true;
 
 class ArchiveDeadLinks extends Maintenance {
 
 	public function __construct() {
 		parent::__construct();
 		$this->addDescription( 'Replace dead links for the latest archive.org snapshot' );
-		$this->addOption( 'id', 'Only fix dead links for this page ID.', false, true );
-		$this->addOption( 'offset', 'How many pages to skip', false, true );
 	}
 
 	public function execute() {
@@ -30,115 +37,80 @@ class ArchiveDeadLinks extends Maintenance {
 		$account = $config->get( 'AppropediaBotAccount' );
 		$user = User::newSystemUser( $account );
 
-		// Get the ids to process
-		$id = $this->getOption( 'id' );
-		if ( $id ) {
-			$ids = [ $id ];
-		} else {
-			$provider = $services->getConnectionProvider();
-			$dbr = $provider->getReplicaDatabase();
-			$ids = $dbr->newSelectQueryBuilder()
-				->fields( 'DISTINCT el_from' )
-				->from( 'externallinks' )
-				->fetchFieldValues();
-		}
-		$total = count( $ids );
+		// Get the external links
+		$provider = $services->getConnectionProvider();
+		$dbr = $provider->getReplicaDatabase();
+		$results = $dbr->newSelectQueryBuilder()
+			->select( [ 'el_from', 'el_to_domain_index', 'el_to_path' ] )
+			->from( 'externallinks' )
+			->where( 'el_to_domain_index != "https://org.archive.web."' )
+			->caller( __METHOD__ )
+			->fetchResultSet();
+		$total = count( $results );
 
-		$offset = $this->getOption( 'offset', 0 );
-		foreach ( $ids as $count => $id ) {
-			if ( $count < $offset ) {
+		foreach ( $results as $count => $result ) {
+
+			// Get the URL
+			$toDomainIndex = $result->el_to_domain_index;
+			$toPath = $result->el_to_path;
+			$url = LinkFilter::reverseIndexes( $toDomainIndex ) . $toPath;
+
+			// Get the response code
+			$response = RottenLinks::getResponse( $url );
+			$badCodes = $config->get( 'RottenLinksBadCodes' );
+			if ( !in_array( $response, $badCodes ) ) {
 				continue;
 			}
 
-			// Output how far we've gone
-			$this->output( $count + 1 . '/' . $total );
+			// Output the working URL
+			$percent = round( $count / $total * 100, 2 );
+			$this->output( "$percent% $response $url" );
 
-			// Get the title
+			// Get the latest snapshot
+			sleep( 1 ); // Don't overload archive.org
+			$curl = curl_init();
+			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+			curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, true );
+			curl_setopt( $curl, CURLOPT_URL, 'https://archive.org/wayback/available?url=' . urlencode( $url ) );
+			$json = curl_exec( $curl );
+			curl_close( $curl );
+			if ( !$json ) {
+				$this->output( ' .. archive.org returned no JSON' . PHP_EOL );
+				continue;
+			}
+			$json = json_decode( $json, true );
+			if ( empty( $json['archived_snapshots'] ) or empty( $json['archived_snapshots']['closest'] ) ) {
+				$this->output( ' .. archive.org returned no snapshots' . PHP_EOL );
+				continue;
+			}
+			$archived = $json['archived_snapshots']['closest']['url'];
+			if ( !trim( $archived ) ) {
+				$this->output( ' .. archive.org returned no closest URL' . PHP_EOL );
+				continue;
+			}
+			
+			// Get the wikitext
+			$id = $result->el_from;
 			$title = Title::newFromID( $id );
-			if ( !$title->exists() ) {
-				$this->output( ' .. page does not exist' . PHP_EOL );
-				continue;
-			}
 			$page = $factory->newFromTitle( $title );
 			$content = $page->getContent();
-			if ( $title->isRedirect() ) {
-				$title = $content->getRedirectTarget();
-				if ( !$title->exists() ) {
-					$this->output( ' .. redirect target does not exist' . PHP_EOL );
-					continue;
-				}
-			}
 			$text = $title->getFullText();
-			$this->output( ' ' . $text . PHP_EOL );
-
-			// Find all the external URLs in the wikitext
-			$regex = "(https?\:\/\/)"; // Scheme
-			$regex .= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host
-			$regex .= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path
-			$regex .= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // Query
-			$regex .= "(#[a-z_.-][a-z0-9+\$_.-]*)?"; // Anchor
 			$wikitext = $content->getText();
-			preg_match_all( "/$regex/", $wikitext, $matches );
-			$urls = $matches[0];
 
-			foreach ( $urls as $url ) {
+			// Replace the dead URL
+			$archived = 'http://web.archive.org/' . $url;
+			$wikitext = str_replace( $url, $archived, $wikitext );
 
-				// Check the URL response code
-				$curl = curl_init( $url );
-				curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, true );
-				curl_setopt( $curl, CURLOPT_NOBODY, true );
-				curl_setopt( $curl, CURLOPT_TIMEOUT_MS, 9999 );
-				curl_setopt( $curl, CURLOPT_CONNECTTIMEOUT_MS, 9999 );
-				curl_exec( $curl );
-				$httpCode = curl_getinfo( $curl, CURLINFO_HTTP_CODE );
-				curl_close( $curl );
-				if ( !in_array( $httpCode, [ 0, 403, 404, 410 ] ) ) {
-					continue;
-				}
+			// Save the changes
+			$content = ContentHandler::makeContent( $wikitext, $title );
+			$updater = $page->newPageUpdater( $user );
+			$updater->setContent( 'main', $content );
+			$comment = CommentStoreComment::newUnsavedComment( 'Replace dead link for archived version' );
+			$updater->saveRevision( $comment, EDIT_SUPPRESS_RC | EDIT_FORCE_BOT | EDIT_MINOR | EDIT_INTERNAL );
 
-				// Output where we're at
-				$this->output( $url . ' ' . $httpCode );
+			$this->output( ' .. archived!' . PHP_EOL );
 
-				// Don't double-archive dead archive.org links
-				if ( preg_match( '@https?://web\.archive\.org/web/\d+/(.+)@', $url, $matches ) ) {
-					$url = $matches[1];
-				}
-
-				// Get the archived link
-				sleep( 1 ); // Don't overload archive.org
-				$curl = curl_init();
-				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-				curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, true );
-				curl_setopt( $curl, CURLOPT_URL, 'https://archive.org/wayback/available?url=' . urlencode( $url ) );
-				$json = curl_exec( $curl );
-				curl_close( $curl );
-				if ( !$json ) {
-					$this->output( ' .. archive.org returned no JSON' . PHP_EOL );
-					continue;
-				}
-				$json = json_decode( $json, true );
-				if ( empty( $json['archived_snapshots'] ) or empty( $json['archived_snapshots']['closest'] ) ) {
-					$this->output( ' .. archive.org returned no snapshots' . PHP_EOL );
-					continue;
-				}
-				$archived = $json['archived_snapshots']['closest']['url'];
-				if ( !trim( $archived ) ) {
-					$this->output( ' .. archive.org returned no closest URL' . PHP_EOL );
-					continue;
-				}
-
-				// Replace the dead URL
-				$wikitext = str_replace( $url, $archived, $wikitext );
-
-				// Save the changes
-				$content = ContentHandler::makeContent( $wikitext, $title );
-				$updater = $page->newPageUpdater( $user );
-				$updater->setContent( 'main', $content );
-				$comment = CommentStoreComment::newUnsavedComment( 'Replace dead link for archived version' );
-				$updater->saveRevision( $comment, EDIT_SUPPRESS_RC | EDIT_FORCE_BOT | EDIT_MINOR | EDIT_INTERNAL );
-
-				$this->output( ' .. archived!' . PHP_EOL );
-			}
+			break;
 		}
 	}
 }

@@ -49,7 +49,7 @@ class RemoveDisplayTitle extends Maintenance {
 
 			// Output the progress
 			$percent = round( $count / $total * 100, 2 );
-			$this->output( "$percent% Remove redundant display title: $url" . PHP_EOL );
+			$this->output( "$percent%	$url" . PHP_EOL );
 
 			// Save the page
 			$content = ContentHandler::makeContent( $text, $title );

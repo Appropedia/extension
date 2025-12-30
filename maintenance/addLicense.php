@@ -51,20 +51,18 @@ class AddLicense extends Maintenance {
 			if ( preg_match( '/{{Page data[^}]*\| *license *= *.+/', $text ) ) {
 				continue;
 			} else if ( preg_match( '/{{Page data}}/', $text ) ) {
-				$pattern = 1;
 				$text = preg_replace( '/{{Page data}}/', "{{Page data\n| license = CC-BY-SA-3.0\n}}", $text );
 			} else if ( preg_match( '/{{Page data/', $text ) ) {
-				$pattern = 2;
 				$text = preg_replace( '/{{Page data/', "{{Page data\n| license = CC-BY-SA-3.0", $text );
 			} else if ( preg_match( '/\[\[Category:.*\]\]$/s', $text ) ) {
-				$pattern = 3;
 				$text = preg_replace( '/\[\[Category:.*\]\]$/s', "{{Page data\n| license = CC-BY-SA-3.0\n}}\n\n$0", $text );
 			} else {
-				$pattern = 4;
 				$text .= "\n\n{{Page data\n| license = CC-BY-SA-3.0\n}}";
 			}
+
+			// Output the progress
 			$percent = round( $count / $total * 100, 2 );
-			$this->output( "$percent% Add license (pattern $pattern): $url" . PHP_EOL );
+			$this->output( "$percent%	$url" . PHP_EOL );
 
 			// Save the page
 			$content = ContentHandler::makeContent( $text, $title );

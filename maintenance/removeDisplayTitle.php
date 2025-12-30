@@ -31,8 +31,8 @@ class RemoveDisplayTitle extends Maintenance {
 		foreach ( $ids as $id ) {
 			$count++;
 
+			// Check if the page has a display title set
 			$title = Title::newFromID( $id );
-			$url = $title->getFullURL();
 			$page = $factory->newFromTitle( $title );
 			$revision = $page->getRevisionRecord();
 			$content = $revision->getContent( 'main' );
@@ -40,14 +40,19 @@ class RemoveDisplayTitle extends Maintenance {
 			if ( !preg_match( '/{{Page data[^}]*\| *title *= *(.+)/', $text, $matches ) ) {
 				continue;
 			}
+
+			// Check if the display title is equal to the real title
 			$displayTitle = $matches[1];
 			$subpageText = $title->getSubpageText();
 			if ( $displayTitle != $subpageText ) {
 				continue;
 			}
+
+			// Edit the wikitext
 			$text = preg_replace( '/{{Page data([^}]*)\| *title *= *(.+)\n/', '{{Page data$1', $text );
 
 			// Output the progress
+			$url = $title->getFullURL();
 			$percent = round( $count / $total * 100, 2 );
 			$this->output( "$percent%	$url" . PHP_EOL );
 

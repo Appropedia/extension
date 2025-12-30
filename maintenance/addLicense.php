@@ -31,10 +31,13 @@ class AddLicense extends Maintenance {
 		foreach ( $ids as $id ) {
 			$count++;
 
+			// Subpages inherit their license so we don't need to set it
 			$title = Title::newFromID( $id );
 			if ( $title->isSubpage() ) {
 				continue;
 			}
+
+			// In 2019 we changed our license from CC-BY-SA-3.0 to CC-BY-SA-4.0
 			$revision = $services->getRevisionLookup()->getFirstRevision( $title );
 			$timestamp = $revision->getTimestamp();
 			$year = substr( $timestamp, 0, 4 );
@@ -42,7 +45,8 @@ class AddLicense extends Maintenance {
 			if ( $year > 2019 ) {
 				continue;
 			}
-			$url = $title->getFullURL();
+
+			// Check if the page already has a license set
 			$page = $factory->newFromTitle( $title );
 			$revision = $page->getRevisionRecord();
 			$content = $revision->getContent( 'main' );
@@ -50,7 +54,10 @@ class AddLicense extends Maintenance {
 			$text = trim( $text );
 			if ( preg_match( '/{{Page data[^}]*\| *license *= *.+/', $text ) ) {
 				continue;
-			} else if ( preg_match( '/{{Page data}}/', $text ) ) {
+			}
+
+			// Edit the wikitext
+			if ( preg_match( '/{{Page data}}/', $text ) ) {
 				$text = preg_replace( '/{{Page data}}/', "{{Page data\n| license = CC-BY-SA-3.0\n}}", $text );
 			} else if ( preg_match( '/{{Page data/', $text ) ) {
 				$text = preg_replace( '/{{Page data/', "{{Page data\n| license = CC-BY-SA-3.0", $text );
@@ -61,6 +68,7 @@ class AddLicense extends Maintenance {
 			}
 
 			// Output the progress
+			$url = $title->getFullURL();
 			$percent = round( $count / $total * 100, 2 );
 			$this->output( "$percent%	$url" . PHP_EOL );
 

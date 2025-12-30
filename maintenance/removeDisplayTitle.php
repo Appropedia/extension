@@ -35,14 +35,14 @@ class RemoveDisplayTitle extends Maintenance {
 			$revision = $page->getRevisionRecord();
 			$content = $revision->getContent( 'main' );
 			$wikitext = $content->getText();
-			if ( !preg_match( '/{{Page data[^}]*\| *title *= *(.+)/', $wikitext, $matches ) ) {
+			if ( !preg_match( '/{{Page data[^}]*\| *title *= *(.+) */', $wikitext, $matches ) ) {
 				continue;
 			}
 
 			// Check if the display title is equal to the real title
 			$displayTitle = $matches[1];
 			$subpageText = $title->getSubpageText();
-			if ( $displayTitle != $subpageText ) {
+			if ( strtolower( $displayTitle ) != strtolower( $subpageText ) ) {
 				continue;
 			}
 

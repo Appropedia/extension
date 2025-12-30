@@ -35,8 +35,10 @@ This extension also contains Appropedia's custom Lua library, which exposes some
 
 Finally, this extension contains a few custom maintenance scripts:
 
+* [addLicense](maintenance/addLicense.php) - Adds a license to {{Page data}} according to the year when the page was created
 * [deleteBrokenRedirects](maintenance/deleteBrokenRedirects.php) - Deletes all [broken redirects](https://www.appropedia.org/Special:BrokenRedirects)
 * [deleteDuplicateFiles](maintenance/deleteDuplicateFiles.php) - Deletes all [duplicate files](https://www.appropedia.org/Special:ListDuplicatedFiles)
 * [fixWikitext](maintenance/fixWikitext.php) - Forces Appropedia's wikitext conventions on all pages
 * [generateKiwixList](maintenance/generateKiwixList.php) - Generates [kiwix.tsv](https://www.appropedia.org/kiwix.tsv) for use by the [Kiwix scraper](https://farm.openzim.org/recipes/appropedia_en_all/config).
 * [generateOpenKnowHowManifests](maintenance/generateOpenKnowHowManifests.php) - Generates an Open Know How Manifest for each project in Appropedia as well as [an index](https://www.appropedia.org/manifests/list.json) for use by scrapers
+* [removeDisplayTitle](maintenance/removeDisplayTitle.php) - Remove the "title" parameter from {{Page data}} when it is identical to the real title of the page

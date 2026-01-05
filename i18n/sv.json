@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Ludvig Broman",
-			"Sabelöga"
+			"Sabelöga",
+			"Stefan2255"
 		]
 	},
 	"appropedia-desc": "Anpassad kod för Appropedia.org",
+	"appropedia-page-title": "$1 - Appropedia, hållbarhetswikin",
 	"appropedia-policies": "Policyer",
 	"appropedia-contact": "Kontakt",
 	"appropedia-admin-panel": "Administratörspanel",
@@ -28,7 +30,10 @@
 	"appropedia-search-page-type-any": "Valfri typ",
 	"appropedia-search-page-type-projects": "Projekt",
 	"appropedia-search-page-type-devices": "Enheter",
+	"appropedia-search-page-type-topics": "Ämnen",
+	"appropedia-search-page-type-maps": "Kartor",
 	"appropedia-search-page-type-organizations": "Organisationer",
+	"appropedia-search-page-type-guides": "Guider",
 	"appropedia-search-page-type-essays": "Essäer",
 	"appropedia-search-page-type-papers": "Artiklar",
 	"appropedia-search-page-type-books": "Böcker",
@@ -52,6 +57,7 @@
 	"appropedia-search-page-sdg-16": "SDG16 Fred, rättvisa och starka institutioner",
 	"appropedia-search-page-sdg-17": "SDG17 Partnerskap för målen",
 	"appropedia-search-page-language-any": "Alla språk",
+	"appropedia-search-page-year-any": "Vilket år som helst",
 	"appropedia-search-file-type-any": "Valfri typ",
 	"appropedia-search-file-type-images": "Bilder",
 	"appropedia-search-file-type-drawings": "Teckningar",

@@ -5,6 +5,9 @@
 			"Yurina Tatiana"
 		]
 	},
+	"appropedia-policies": "Политики",
+	"appropedia-contact": "Контакты",
+	"appropedia-admin-panel": "Админ-панель",
 	"appropedia-user-edit-warning": "'''Внимание!''' Вы собираетесь править страницу другого пользователя! Возможно, вы хотите [$1 оставить сообщение вместо этого]?",
 	"appropedia-account-created": "Ваша учётная запись создана!",
 	"appropedia-create-page": "Создать эту страницу",
@@ -25,14 +28,17 @@
 	"appropedia-search-page-type-essays": "Эссе",
 	"appropedia-search-page-type-papers": "Статьи",
 	"appropedia-search-page-type-books": "Книги",
+	"appropedia-search-page-language-any": "Любой язык",
 	"appropedia-search-page-year-any": "Любой год",
 	"appropedia-search-file-type-any": "Любой тип",
 	"appropedia-search-file-type-images": "Изображения",
+	"appropedia-search-file-type-drawings": "Рисунки",
 	"appropedia-search-file-type-documents": "Документы",
 	"appropedia-search-file-type-code": "Код",
 	"appropedia-search-file-type-videos": "Видео",
 	"appropedia-search-file-type-audios": "Аудио",
 	"appropedia-search-file-format-any": "Любой формат",
 	"appropedia-search-file-license-any": "Любая лицензия",
-	"appropedia-search-file-license-public-domain": "Общественное достояние"
+	"appropedia-search-file-license-public-domain": "Общественное достояние",
+	"appropedia-search-user-location-any": "Любое местоположение"
 }

@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cabal"
+		]
+	},
+	"appropedia-policies": "ਨੀਤੀਆਂ",
+	"appropedia-contact": "ਰਾਬਤਾ ਬਣਾਓ",
+	"appropedia-create-user-page": "ਆਪਣਾ ਵਰਤੋਂਕਾਰ ਵਰਕਾ ਬਣਾਓ",
+	"appropedia-create-page": "ਇਹ ਵਰਕਾ ਬਣਾਓ",
+	"appropedia-select-files": "ਚੜ੍ਹਾਉਣ ਵਾਸਤੇ ਫ਼ਾਈਲਾਂ ਚੁਣੋ",
+	"appropedia-searchprofile-pages": "ਸਫ਼ੇ",
+	"appropedia-searchprofile-users": "ਵਰਤੋਂਕਾਰ",
+	"appropedia-searchprofile-other": "ਹੋਰ",
+	"appropedia-search-page-type-any": "ਕਿਸੇ ਵੀ ਕਿਸਮ",
+	"appropedia-search-page-type-devices": "ਜੰਤਰ",
+	"appropedia-search-page-type-topics": "ਵਿਸ਼ੇ",
+	"appropedia-search-page-type-maps": "ਨਕਸ਼ੇ",
+	"appropedia-search-page-type-guides": "ਦਸਤੀਆਂ",
+	"appropedia-search-page-type-essays": "ਲੇਖ",
+	"appropedia-search-page-type-papers": "ਕਾਗਜ਼ਾਤ",
+	"appropedia-search-page-type-books": "ਕਿਤਾਬਾਂ",
+	"appropedia-search-page-type-literature-reviews": "ਸਾਹਿਤ ਸਮੀਖਿਆਵਾਂ",
+	"appropedia-search-page-language-any": "ਕੋਈ ਵੀ ਭਾਸ਼ਾ",
+	"appropedia-search-page-year-any": "ਕੋਈ ਵੀ ਸਾਲ",
+	"appropedia-search-file-type-any": "ਕਿਸੇ ਵੀ ਕਿਸਮ ਦੀ",
+	"appropedia-search-file-type-images": "ਤਸਵੀਰਾਂ",
+	"appropedia-search-file-type-documents": "ਲਿਖਤਾਂ",
+	"appropedia-search-file-type-audios": "ਧੁਨੀਆਂ",
+	"appropedia-search-file-license-any": "ਕੋਈ ਵੀ ਲਸੰਸ",
+	"appropedia-search-file-license-public-domain": "ਜਨਤਕ ਖੇਤਰ",
+	"appropedia-search-user-location-any": "ਕੋਈ ਵੀ ਟਿਕਾਣਾ"
+}

@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 /**
  * This class contains all PHP code related to search customization
@@ -101,7 +102,7 @@ class AppropediaSearch {
 	 *
 	 * This new markup interacts with Appropedia.js
 	 */
-	public static function onSpecialSearchProfileForm( $special, &$form, &$profile, $term, array $opts ) {
+	public static function onSpecialSearchProfileForm( SpecialSearch $special, &$form, &$profile, $term, array $opts ) {
 		$form = '<div class="mw-search-profile-form">';
 		$request = $special->getRequest();
 		$search = $request->getText( 'search' );

@@ -21,6 +21,7 @@ class AppropediaMisc {
 		self::setDescriptionTag( $out, $skin );
 		self::setTitleTags( $out, $skin );
 		self::setOpenGraphTags( $out, $skin );
+		//self::setProjectAuthors( $out, $skin );
 	}
 
 	/**
@@ -62,6 +63,50 @@ class AppropediaMisc {
 
 	public static function onSkinSubPageSubtitle( &$subpages, Skin $skin, OutputPage $out ) {
 		return false;
+	}
+
+	/**
+	 * If the page is a project, add the authors to the subtitle
+	 */
+	public static function setProjectAuthors( OutputPage $out, Skin $skin ) {
+		$title = $skin->getTitle();
+		if ( !$title->isContentPage() ) {
+			return;
+		}
+		$categories = $out->getCategories( 'normal' );
+		if ( !in_array( 'Projects', $categories ) ) {
+			return;
+		}
+		$property = DIProperty::newFromUserLabel( 'Project authors' );
+		$subject = DIWikiPage::newFromText( $title );
+		$store = StoreFactory::getStore();
+		$data = $store->getSemanticData( $subject );
+		$values = $data->getPropertyValues( $property );
+		if ( !$values ) {
+			return;
+		}
+		$services = MediaWikiServices::getInstance();
+		$linkRenderer = $services->getLinkRenderer();
+		$authors = [];
+		foreach ( $values as $value ) {
+			$page = $value->getTitle();
+			$text = $page->getText();
+			$user = User::newFromName( $text );
+			if ( $user->isRegistered() ) {
+				$name = $user->getName();
+				$realName = $user->getRealName();
+				if ( $realName ) {
+					$name = $realName;
+				}
+				$author = $linkRenderer->makeLink( $page, $name );
+			} else {
+				$author = $text;
+			}
+			$authors[] = $author;
+		}
+		$authors = implode( ', ', $authors );
+		$subtitle = '<div class="authors">by ' . $authors . '</div>';
+		$out->setSubtitle( $subtitle );
 	}
 
 	/**

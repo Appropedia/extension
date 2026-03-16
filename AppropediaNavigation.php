@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Html\Html;
 
 /**
  * This class customizes the various navigation menus

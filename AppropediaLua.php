@@ -72,13 +72,14 @@ class AppropediaLua extends Scribunto_LuaLibraryBase {
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
 		$results = $dbr->newSelectQueryBuilder()
-			->select( 'cl_to' )
+			->select( 'lt_title' )
 			->from( 'categorylinks' )
+			->join( 'linktarget', null, 'cl_target_id=lt_id' )
 			->where( [ 'cl_from' => $id ] )
 			->fetchResultSet();
 		$categories = [];
 		foreach ( $results as $result ) {
-			$category = $result->cl_to;
+			$category = $result->lt_title;
 			$category = str_replace( '_', ' ', $category );
 			$categories[] = $category;
 		}

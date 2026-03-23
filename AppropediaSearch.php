@@ -189,7 +189,7 @@ class AppropediaSearch {
 			// Year
 			$form .= '<select id="search-filter-page-year" style="width: 63px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-year-any' )->text() . '</option>';
-			$options = [ 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006 ];
+			$options = [ 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006 ];
 			foreach ( $options as $year ) {
 				$value = 'incategory:' . $year;
 				$form .= '<option' . ( in_array( $value, $terms ) ? ' selected' : '' ) . ' value="' . $value . '">' . $year . '</option>';

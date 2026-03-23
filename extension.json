@@ -22,7 +22,6 @@
 		"AppropediaMessages": "AppropediaMessages.php",
 		"AppropediaMisc": "AppropediaMisc.php",
 		"AppropediaNavigation": "AppropediaNavigation.php",
-		"AppropediaProjects": "AppropediaProjects.php",
 		"AppropediaSearch": "AppropediaSearch.php",
 		"AppropediaWikitext": "AppropediaWikitext.php"
 	},
@@ -46,23 +45,6 @@
 		"ScribuntoExternalLibraries": "AppropediaLua::onScribuntoExternalLibraries",
 		"ContentAlterParserOutput": "AppropediaCategories::onContentAlterParserOutput"
 	},
-	"RestRoutes": [
-		{
-			"path": "/projects",
-			"method": "GET",
-			"class": "AppropediaProjects"
-		},
-		{
-			"path": "/projects/{title}",
-			"method": "GET",
-			"class": "AppropediaProjects"
-		},
-		{
-			"path": "/projects/{title}/{format}",
-			"method": "GET",
-			"class": "AppropediaProjects"
-		}
-	],
 	"config": {
 		"AppropediaBotAccount": {
 			"value": "Appropedia bot"

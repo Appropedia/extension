@@ -1,8 +1,8 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
-use SMW\DIProperty;
-use SMW\DIWikiPage;
+use SMW\DataItems\Property;
+use SMW\DataItems\WikiPage;
 use SMW\StoreFactory;
 
 /**
@@ -70,14 +70,13 @@ class AppropediaMisc {
 	public static function setDescriptionTag( OutputPage $out, Skin $skin ) {
 		$title = $skin->getTitle();
 		if ( $title->isContentPage() ) {
-			$property = DIProperty::newFromUserLabel( 'Page description' );
-			$subject = DIWikiPage::newFromText( $title );
+			$property = Property::newFromUserLabel( 'Page description' );
+			$subject = WikiPage::newFromText( $title );
 			$store = StoreFactory::getStore();
 			$data = $store->getSemanticData( $subject );
 			$values = $data->getPropertyValues( $property );
 			if ( $values ) {
-				$value = array_shift( $values );
-				$description = $value->getString();
+				$description = array_shift( $values );
 				$out->addMeta( 'description', $description );
 			}
 		}
@@ -91,14 +90,13 @@ class AppropediaMisc {
 		// If the 'Page title tag' semantic property is set, just use it and be done
 		$title = $skin->getTitle();
 		if ( $title->isContentPage() ) {
-			$property = DIProperty::newFromUserLabel( 'Page title tag' );
-			$subject = DIWikiPage::newFromText( $title );
+			$property = Property::newFromUserLabel( 'Page title tag' );
+			$subject = WikiPage::newFromText( $title );
 			$store = StoreFactory::getStore();
 			$data = $store->getSemanticData( $subject );
 			$values = $data->getPropertyValues( $property );
 			if ( $values ) {
-				$value = array_shift( $values );
-				$titleTag = $value->getString();
+				$titleTag = array_shift( $values );
 				$out->setHTMLTitle( $titleTag );
 				$out->addMeta( 'title', $titleTag );
 				$out->addMeta( 'og:title', $titleTag );

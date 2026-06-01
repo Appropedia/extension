@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Asma",
+			"HakanIST",
 			"Hedda"
 		]
 	},
 	"appropedia-desc": "Appropedia.org için özel kod",
+	"appropedia-page-title": "$1 - Appropedia, sürdürülebilirlik vikisi",
 	"appropedia-policies": "İlkeler",
 	"appropedia-contact": "İletişim",
 	"appropedia-admin-panel": "Yönetici paneli",
@@ -29,6 +31,7 @@
 	"appropedia-search-page-type-projects": "Projeler",
 	"appropedia-search-page-type-devices": "Aygıtlar",
 	"appropedia-search-page-type-topics": "Konular",
+	"appropedia-search-page-type-maps": "Haritalar",
 	"appropedia-search-page-type-organizations": "Organizasyonlar",
 	"appropedia-search-page-type-guides": "Kılavuzlar",
 	"appropedia-search-page-type-essays": "Denemeler",
@@ -54,6 +57,7 @@
 	"appropedia-search-page-sdg-16": "SDG16 Barış, adalet ve güçlü kurumlar",
 	"appropedia-search-page-sdg-17": "SDG17 Hedeflere yönelik ortaklıklar",
 	"appropedia-search-page-language-any": "Herhangi bir dil",
+	"appropedia-search-page-year-any": "Herhangi bir yıl",
 	"appropedia-search-file-type-any": "Herhangi bir tür",
 	"appropedia-search-file-type-images": "Resimler",
 	"appropedia-search-file-type-drawings": "Çizimler",

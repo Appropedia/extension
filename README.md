@@ -2,23 +2,7 @@
 
 Extension:Appropedia contains all PHP code specific to Appropedia.
 
-Many features that were developed specifically for Appropedia have been turned into standalone extensions:
-
-* [Extension:CategoryLockdown](https://www.mediawiki.org/wiki/Extension:CategoryLockdown)
-* [Extension:PageAuthors](https://www.mediawiki.org/wiki/Extension:PageAuthors)
-* [Extension:StandardWikitext](https://www.mediawiki.org/wiki/Extension:StandardWikitext)
-* [Extension:SearchParserFunction](https://www.mediawiki.org/wiki/Extension:SearchParserFunction)
-* [Extension:SearchThumbs](https://www.mediawiki.org/wiki/Extension:SearchThumbs)
-* [Extension:SemanticRESTAPI](https://www.mediawiki.org/wiki/Extension:SemanticRESTAPI)
-* [Extension:InterwikiExtracts](https://www.mediawiki.org/wiki/Extension:InterwikiExtracts)
-* [Extension:Analytics](https://www.mediawiki.org/wiki/Extension:Analytics)
-* [Extension:CloudflarePurge](https://www.mediawiki.org/wiki/Extension:CloudflarePurge)
-* [Extension:WikiVideos](https://www.mediawiki.org/wiki/Extension:WikiVideos)
-* [Extension:ReadAloud](https://www.mediawiki.org/wiki/Extension:ReadAloud)
-* [Extension:GoogleTranslate](https://www.mediawiki.org/wiki/Extension:GoogleTranslate)
-* [Extension:HTMLPurifier](https://www.mediawiki.org/wiki/Extension:HTMLPurifier)
-
-However, some features are so specific that cannot be turned into extensions, so we clump them all together in this extension:
+Many features that were developed specifically for Appropedia have been turned into standalone extensions. However, some features are so specific that cannot be turned into extensions, so we clump them all together in this extension:
 
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
@@ -33,7 +17,13 @@ This extension also contains Appropedia's custom Lua library, which exposes some
 * pageCategories - Returns the categories of a given page
 * pageExists - Checks wether a given page exists
 
-Finally, this extension contains a few custom maintenance scripts:
+It also contains a few scripts that output stuff in formats not supported by MediaWiki's API. These scripts are meant to be public and run from the browser.
+
+* generatePDF.php - Generates a PDF containing a specified set of pages. It uses the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library to generate the PDF.
+* generateZIM.php - Generates a ZIM file containing a specified set of pages. It uses the [mwoffliner](https://github.com/openzim/mwoffliner) library to generate the ZIM file, and [EasyWiki](https://github.com/Sophivorus/EasyWiki) to interact with the Appropedia Action API.
+* generateOpenKnowHow.php - Generates a YAML file containing the Open Know How Manifest for a given project. The Open Know How schema specification can be found [here](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json). It uses [EasyWiki](https://github.com/Sophivorus/EasyWiki) to interact with the Appropedia Action API.
+
+Finally, it contains a few custom maintenance scripts:
 
 * [addLicense](maintenance/addLicense.php) - Adds a license to {{Page data}} according to the year when the page was created
 * [deleteBrokenRedirects](maintenance/deleteBrokenRedirects.php) - Deletes all [broken redirects](https://www.appropedia.org/Special:BrokenRedirects)

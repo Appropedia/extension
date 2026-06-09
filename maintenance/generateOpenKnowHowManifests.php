@@ -11,6 +11,8 @@ if ( $IP === false ) {
 }
 require_once "$IP/maintenance/Maintenance.php";
 
+use MediaWiki\Category\Category;
+
 class GenerateOpenKnowHowManifests extends Maintenance {
 
 	public function execute() {
@@ -37,8 +39,9 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 				continue; // Skip automatic translations, for now
 			}
 			$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
-			$url = "https://www.appropedia.org/scripts/generateOpenKnowHowManifest.php?title=$titlee";
-			$manifest = @file_get_contents( $url );
+			$command = 'php /home/appropedia/public_html/w/extensions/Appropedia/scripts/generateOpenKnowHowManifest.php "' . $titlee . '"';
+			$result = exec( $command, $output );
+			$manifest = implode( PHP_EOL, $output );
 			if ( !$manifest or $manifest === 'Page not found' ) {
 				continue;
 			}

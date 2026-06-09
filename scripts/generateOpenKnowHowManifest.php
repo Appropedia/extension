@@ -2,7 +2,6 @@
 
 /**
  * This script generates a YAML file containing the Open Know How Manifest for a given project.
- * See the README for details.
  */
 
 // Debug mode
@@ -12,13 +11,13 @@ if ( $debug ) {
 	ini_set( 'display_errors', 1 );
 }
 
-$title = $_GET['title'] ?? exit( 'Error! The "title" param is required.' );
+$title = $_GET['title'] ?? $argv[1] ?? exit( 'Error! The "title" param is required.' );
 $title = stripcslashes( str_replace( '_', ' ', $title ) ); // Basic decoding
 $titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
 $titlee = urlencode( $titlee );
 
 // Connect to the API using EasyWiki (https://github.com/Sophivorus/EasyWiki)
-require 'vendor/autoload.php';
+require '/home/appropedia/public_html/w/extensions/Appropedia/vendor/autoload.php';
 $api = new EasyWiki( 'https://www.appropedia.org/w/api.php' );
 
 // Get the page properties

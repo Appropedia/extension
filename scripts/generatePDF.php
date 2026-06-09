@@ -17,17 +17,12 @@ require '../vendor/autoload.php';
 use chillerlan\QRCode\QRCode;
 
 // Get the params
+$pages = $_GET['pages'] ?? exit( 'Error! The "pages" param is required.' );
 $title = $_GET['title'] ?? null;
 $subtitle = $_GET['subtitle'] ?? null;
 $logo = $_GET['logo'] ?? null;
 $logowidth = $_GET['logowidth'] ?? 100;
 $qrpage = $_GET['qrpage'] ?? null;
-$pages = $_GET['pages'] ?? null;
-
-// If no pages are given, use Appropedia's main page to avoid throwing an error
-if ( !$pages ) {
-	$pages = 'Welcome to Appropedia';
-}
 
 // Start building the command
 $command = 'wkhtmltopdf';

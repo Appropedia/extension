@@ -2,7 +2,7 @@
 
 /**
  * This script generates a PDF containing a specified set of pages.
- * See the README for details.
+ * @todo Switch from wkhtmltopdf to dompdf or mPDF or headless Chrome
  */
 
 // Debug mode

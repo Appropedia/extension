@@ -19,9 +19,8 @@ This extension also contains Appropedia's custom Lua library, which exposes some
 
 It also contains a few scripts that output stuff in formats not supported by MediaWiki's API. These scripts are meant to be public and run from the browser.
 
-* generatePDF.php - Generates a PDF containing a specified set of pages. It uses the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library to generate the PDF.
-* generateZIM.php - Generates a ZIM file containing a specified set of pages. It uses the [mwoffliner](https://github.com/openzim/mwoffliner) library to generate the ZIM file, and [EasyWiki](https://github.com/Sophivorus/EasyWiki) to interact with the Appropedia Action API.
-* generateOpenKnowHow.php - Generates a YAML file containing the Open Know How Manifest for a given project. The Open Know How schema specification can be found [here](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json). It uses [EasyWiki](https://github.com/Sophivorus/EasyWiki) to interact with the Appropedia Action API.
+* [generatePDF](scripts/generatePDF.php) - Generates a PDF containing a specified set of pages. It uses the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library to generate the PDF.
+* [generateOpenKnowHowManifest](scripts/generateOpenKnowHowManifest.php) - Generates a YAML file containing the Open Know How Manifest for a given project. The Open Know How schema specification can be found [here](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json). It uses [EasyWiki](https://github.com/Sophivorus/EasyWiki) to interact with the Appropedia Action API.
 
 Finally, it contains a few custom maintenance scripts:
 

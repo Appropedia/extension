@@ -2,6 +2,7 @@
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\Category\Category;
 
 /**
  * This class adds pages to maintenance categories
@@ -9,6 +10,14 @@ use MediaWiki\Title\Title;
 class AppropediaCategories {
 
 	public static function onContentAlterParserOutput( Content $content, Title $title, ParserOutput &$output ) {
+
+		if ( $title->isRedirect() && $title->getNamespace() === NS_CATEGORY ) {
+			$category = Category::newFromTitle( $title );
+			$count = $category->getMemberCount();
+			if ( $count > 0 ) {
+				$output->addCategory( 'Categories_that_are_redirects_and_not_empty' );
+			}
+		}
 
 		// Ignore redirects
 		if ( $title->isRedirect() ) {

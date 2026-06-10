@@ -1,19 +1,21 @@
 <?php
 
-use MediaWiki\Category\Category;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\FauxRequest;
 use MediaWiki\Rest\SimpleHandler;
-use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
-use PageImages\PageImages;
-use chillerlan\QRCode\QRCode;
 
 /**
  * This endpoint returns a YAML file containing the Open Know How Manifest for a given project
+ * @todo Upgrade to OKH 2.0
  */
 class AppropediaOKH extends SimpleHandler {
 
 	public function run() {
+
+		$params = $this->getValidatedParams();
+		$title = $params['title'];
+
+		// @todo Validate that the page is a project
 
 		$fauxRequest = new FauxRequest( [
 			'titles' => $title,
@@ -31,7 +33,7 @@ class AppropediaOKH extends SimpleHandler {
 		$api->execute();
 		$result = $api->getResult();
 		$data = $result->getResultData( [ 'query', 'pages' ], [ 'Strip' => 'all' ] );
-		//echo '<pre>'; var_dump( $data ); exit; // Uncomment to debug
+		//return $data; // Uncomment to debug
 
 		// Extract and process the data
 		$page = array_shift( $data );
@@ -45,10 +47,11 @@ class AppropediaOKH extends SimpleHandler {
 		$dateCreated = substr( $dateCreated, 0, -10 );
 		$dateUpdated = reset( $revisions )['timestamp'];
 		$dateUpdated = substr( $dateUpdated, 0, -10 );
-		//echo '<pre>'; var_dump( $extract, $image, $version, $dateCreated, $dateUpdated ); exit; // Uncomment to debug
+		//return [ $extract, $image, $version, $dateCreated, $dateUpdated ]; // Uncomment to debug
 
 		// Get the semantic properties
-		$properties = self::getSemanticData( $title );
+		$semanticRestApi = new SemanticRESTAPI;
+		$properties = $semanticRestApi->run( $title );
 		$keywords = $properties['Keywords'] ?? '';
 		$authors = $properties['Project authors'] ?? $properties['Authors'] ?? '';
 		$status = $properties['Project status'] ?? '';
@@ -60,7 +63,7 @@ class AppropediaOKH extends SimpleHandler {
 		$organizations = $properties['Organizations'] ?? '';
 		$sdg = $properties['SDG'] ?? '';
 		$language = $properties['Language code'] ?? 'en';
-		//echo '<pre>'; var_dump( $properties ); exit; // Uncomment to debug
+		//return $properties; // Uncomment to debug
 
 		// Process the properties
 		$titlee = str_replace( ' ', '_', $title );
@@ -74,11 +77,8 @@ class AppropediaOKH extends SimpleHandler {
 		$location = explode( ',', $location );
 		$location = $location[0];
 
-		// Build the YAML file
-		header( "Content-Type: application/x-yaml" );
-		header( "Content-Disposition: attachment; filename=$title.yaml" );
-
-		echo "# Open know-how manifest 1.0
+		// @todo Avoid this ugly long string
+		$yaml = "# Open know-how manifest 1.0
 # The content of this manifest file is licensed under a Creative Commons Attribution 4.0 International License. 
 # Licenses for modification and distribution of the hardware, documentation, source-code, etc are stated separately.
 
@@ -123,6 +123,13 @@ documentation-home: https://www.appropedia.org/$titlee
 
 # User-defined fields" . ( $sdg ? "
 sustainable-development-goals: $sdg" : '' );
+
+		// Return the YAML file
+		$response = $this->getResponseFactory()->create();
+		$response->setHeader( 'Content-Type', 'text/yaml; charset=utf-8' );
+		$response->setHeader( 'Content-Disposition', 'attachment; filename=' . $title . '.yaml' );
+		$response->getBody()->write( $yaml );
+        return $response;
 	}
 
 	/** @inheritDoc */

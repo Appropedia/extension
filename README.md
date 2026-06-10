@@ -7,8 +7,8 @@ Many features that were developed specifically for Appropedia have been turned i
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
 * [AppropediaNavigation](AppropediaNavigation.php) - Customizes Appropedia's sidebar and footer
-* [AppropediaPDF](AppropediaPDF.php) - REST API endpoint that returns a PDF containing a specified set of pages. It uses the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library to generate the PDF.
-* [AppropediaOKH](AppropediaPDF.php) - REST API endpoint htat returns a YAML file containing the [Open Know How Manifest](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json) for a given project.
+* [AppropediaPDF](AppropediaPDF.php) - REST API endpoint that returns a PDF containing a specified set of pages, using the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library
+* [AppropediaOKH](AppropediaPDF.php) - REST API endpoint that returns a YAML file containing the [Open Know How Manifest](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json) for a given project
 * [AppropediaSearch](AppropediaSearch.php) - Customizes Appropedia's UX/UI at [Special:Search](https://www.appropedia.org/Special:Search)
 * [AppropediaWikitext](AppropediaWikitext.php) - Forces Appropedia's wikitext conventions after every edit (like adding {{[Page data](https://www.appropedia.org/Template:Page_data)}} to content pages)
 

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
-			"McDutchie"
+			"McDutchie",
+			"Siebrand"
 		]
 	},
 	"appropedia-desc": "Aangepaste code voor Appropedia.org",
@@ -20,7 +21,7 @@
 	"appropedia-create-page": "Deze pagina aanmaken",
 	"appropedia-select-files": "Selecteer bestanden om te uploaden",
 	"appropedia-not-own-work": "Als het bestand niet uw eigen werk is, gebruikt u in plaats daarvan [[$1|dit uploadformulier]].",
-	"appropedia-download-pdf": "PDF downloaden",
+	"appropedia-download-pdf": "pdf downloaden",
 	"appropedia-searchprofile-pages": "Pagina's",
 	"appropedia-searchprofile-files": "Bestanden",
 	"appropedia-searchprofile-users": "Gebruikers",

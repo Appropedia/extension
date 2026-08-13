@@ -11,6 +11,7 @@ if ( $IP === false ) {
 require_once "$IP/maintenance/Maintenance.php";
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 class RemoveDisplayTitle extends Maintenance {
 

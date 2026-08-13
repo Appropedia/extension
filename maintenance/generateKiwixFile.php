@@ -38,7 +38,7 @@ class GenerateKiwixFile extends Maintenance {
 		$query->where( [
 			'page_namespace' => NS_MAIN,
 			'page_is_redirect' => 0,
-			'page_id NOT IN ( SELECT cl_from FROM ' . $tablePrefix . 'categorylinks WHERE cl_to IN ("' . $privateCategories . '") )'
+			'page_id NOT IN ( SELECT cl_from FROM ' . $tablePrefix . 'categorylinks JOIN linktarget ON cl_target_id = lt_id WHERE lt_title IN ("' . $privateCategories . '") )'
 		] );
 		$query->orderBy( 'page_title', 'ASC' );
 		$results = $query->fetchResultSet();

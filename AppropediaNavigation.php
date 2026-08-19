@@ -1,7 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
 
 /**
  * This class customizes the various navigation menus
@@ -12,11 +12,13 @@ class AppropediaNavigation {
 
 		// Add a link to the admin panel to the user menu of admins
 		$user = $skinTemplate->getUser();
-		$groups = MediaWikiServices::getInstance()->getUserGroupManager()->getUserGroups( $user );
+		$services = MediaWikiServices::getInstance();
+		$groupManager = $services->getUserGroupManager();
+		$groups = $groupManager->getUserGroups( $user );
 		if ( in_array( 'sysop', $groups ) ) {
 			$link = [
 				'href' => '/Appropedia:Admin_panel',
-				'text' => wfMessage( 'appropedia-admin-panel' )->text(),
+				'text' => $skinTemplate->msg( 'appropedia-admin-panel' ),
 				'icon' => 'unStar'
 			];
 			array_splice( $links['user-menu'], 2, 0, [ $link ] );
@@ -24,23 +26,27 @@ class AppropediaNavigation {
 	}
 
 	/**
-	 * Remove global tools from the toolbox because it should only refer to the current page
+	 * Remove upload tool from the toolbox because tools should only refer to the current page
 	 */
 	public static function onSidebarBeforeOutput( Skin $skin, &$sidebar ) {
 		unset( $sidebar['TOOLBOX']['upload'] );
-		unset( $sidebar['TOOLBOX']['specialpages'] );
 	}
 
 	/**
-	 * Customize the footer
-	 *
-	 * This hook cannot remove existing links. We remove links by emptying
-	 * the associated message keys via AppropediaMessages.php
+	 * Add links to the footer
 	 */
 	public static function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerlinks ) {
 		if ( $key === 'places' ) {
-			$footerlinks['policies'] = Html::rawElement( 'a', [ 'href' => '/Appropedia:Policies' ], $skin->msg( 'appropedia-policies' )->text() );
-			$footerlinks['contact'] = Html::rawElement( 'a', [ 'href' => '/Appropedia:Contact' ], $skin->msg( 'appropedia-contact' )->text() );
-		};
+			$services = MediaWikiServices::getInstance();
+			$linkRenderer = $services->getLinkRenderer();
+
+			$policiesTitle = Title::newFromText( 'Policies', NS_PROJECT );
+			$policiesText = $skin->msg( 'appropedia-policies' );
+			$footerlinks['policies'] = $linkRenderer->makePreloadedLink( $policiesTitle, $policiesText );
+
+			$contactTitle = Title::newFromText( 'Contact', NS_PROJECT );
+			$contactText = $skin->msg( 'appropedia-contact' );
+			$footerlinks['contact'] = $linkRenderer->makePreloadedLink( $contactTitle, $contactText );
+		}
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This maintenance script runs the wikitext fixes defined at AppropediaWikitext for all pages
+ * This maintenance script fixes the wikitext of all pages using AppropediaWikitext
  * For example, it adds {{Page data}} to all content pages, {{User data}} to all user pages, etc.
  */
 

@@ -1,15 +1,15 @@
 <?php
 
+use chillerlan\QRCode\QRCode;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Stream;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
-use chillerlan\QRCode\QRCode;
 
 /**
  * This endpoint returns a PDF containing a specified set of pages
- * @todo Switch from wkhtmltopdf to dompdf or mPDF or headless Chrome
+ * @todo Maybe switch from wkhtmltopdf to dompdf or mPDF or headless Chrome
  */
 class AppropediaPDF extends SimpleHandler {
 

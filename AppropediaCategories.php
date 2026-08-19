@@ -1,8 +1,8 @@
 <?php
 
+use MediaWiki\Category\Category;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MediaWiki\Category\Category;
 
 /**
  * This class adds pages to maintenance categories
@@ -11,6 +11,7 @@ class AppropediaCategories {
 
 	public static function onContentAlterParserOutput( Content $content, Title $title, ParserOutput &$output ) {
 
+		// Categories that are redirects and not empty
 		if ( $title->isRedirect() && $title->getNamespace() === NS_CATEGORY ) {
 			$category = Category::newFromTitle( $title );
 			$count = $category->getMemberCount();

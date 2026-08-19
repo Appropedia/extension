@@ -1,33 +1,29 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Title\Title;
 
 /**
  * This class contains all PHP code related to search customization
- *
- * @note There's relevant code at Appropedia.js too
  */
 class AppropediaSearch {
 
 	/**
-	 * Customize the title of search results
+	 * Show the display title rather than the title
+	 * @see https://phabricator.wikimedia.org/T65975
 	 */
-	public static function onShowSearchHitTitle( Title &$title, &$titleSnippet, SearchResult $result, $terms, SpecialSearch $specialSearch, array &$query, array &$attributes ) {
-
-		// Show the display title rather than the title
-		// See https://phabricator.wikimedia.org/T65975
+	public static function onShowSearchHitTitle( &$title, &$titleSnippet, $result, $terms, $specialSearch, array &$query, array &$attributes ) {
 		$services = MediaWikiServices::getInstance();
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
-		$displayTitle = $dbr->selectField( 'page_props', 'pp_value', [ 'pp_propname' => 'displaytitle', 'pp_page' => $title->getArticleId() ] );
+		$articleID = $title->getArticleId();
+		$displayTitle = $dbr->selectField( 'page_props', 'pp_value', [ 'pp_propname' => 'displaytitle', 'pp_page' => $articleID ] );
 		if ( $displayTitle ) {
 			$titleSnippet = $displayTitle;
 		}
 	}
 
 	/**
-	 * Cusomize the default search profile
+	 * Set the default search profile
 	 */
 	public static function onSpecialPageBeforeExecute( $special ) {
 		if ( $special->getName() === 'Search' ) {
@@ -72,7 +68,6 @@ class AppropediaSearch {
 					NS_MEDIAWIKI_TALK,
 					NS_TEMPLATE_TALK,
 					NS_HELP_TALK,
-					//NS_PRELOAD_TALK,
 					NS_CATEGORY_TALK,
 					275, // Widget talk
 					829, // Lua modules talk
@@ -87,7 +82,6 @@ class AppropediaSearch {
 					NS_MEDIAWIKI,
 					NS_TEMPLATE,
 					NS_HELP,
-					//NS_PRELOAD,
 					NS_CATEGORY,
 					274, // Widgets
 					828, // Lua modules
@@ -99,8 +93,7 @@ class AppropediaSearch {
 
 	/**
 	 * Customize the search profile form
-	 *
-	 * This new markup interacts with Appropedia.js
+	 * @see https://www.appropedia.org/MediaWiki:Gadget-SpecialSearch.js
 	 */
 	public static function onSpecialSearchProfileForm( SpecialSearch $special, &$form, &$profile, $term, array $opts ) {
 		$form = '<div class="mw-search-profile-form">';
@@ -162,20 +155,22 @@ class AppropediaSearch {
 
 			// Language
 			$services = MediaWikiServices::getInstance();
-			$lb = $services->getDBLoadBalancer();
-			$dbr = $lb->getConnection( DB_REPLICA );
+			$provider = $services->getConnectionProvider();
+			$dbr = $provider->getReplicaDatabase();
 			$query = $dbr->newSelectQueryBuilder()
 				->select( 'DISTINCT pp_value AS language' )
 				->from( 'page_props' )
 				->where( [ 'pp_propname' => 'pagelanguage' ] );
 			$results = $query->fetchResultSet();
 			$userLanguage = $special->getContext()->getLanguage()->getCode();
-			$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
+			$languageNameUtils = $services->getLanguageNameUtils();
 			$options = [ 'English' => 'en' ];
 			foreach ( $results as $result ) {
 				$value = $result->language;
-				$text = ucfirst( $languageNameUtils->getLanguageName( $value, $userLanguage ) );
-				$options[ $text ] = $value;
+				$languageName = ucfirst( $languageNameUtils->getLanguageName( $value, $userLanguage ) );
+				if ( $languageName ) {
+					$options[ $languageName ] = $value;
+				}
 			}
 			ksort( $options );
 			$form .= '<select id="search-filter-page-language" style="width: 99px;">';
@@ -189,9 +184,10 @@ class AppropediaSearch {
 			// Year
 			$form .= '<select id="search-filter-page-year" style="width: 63px;">';
 			$form .= '<option value="">' . $special->msg( 'appropedia-search-page-year-any' )->text() . '</option>';
-			$options = [ 2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006 ];
-			foreach ( $options as $year ) {
-				$value = 'incategory:' . $year;
+			$currentYear = date( 'Y' );
+			$firstYear = 2006;
+			for ( $year = $currentYear; $year >= $firstYear; $year-- ) {
+				$value = 'creationdate:' . $year;
 				$form .= '<option' . ( in_array( $value, $terms ) ? ' selected' : '' ) . ' value="' . $value . '">' . $year . '</option>';
 			}
 			$form .= '</select>';

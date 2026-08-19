@@ -19,16 +19,16 @@ class AppropediaWikitext {
 	 * and triggers the fixes that will be performed by a bot account
 	 */
 	public static function onPageSaveComplete( WikiPage $wikiPage, MediaWiki\User\UserIdentity $user, string $summary, int $flags, MediaWiki\Revision\RevisionRecord $revisionRecord, MediaWiki\Storage\EditResult $editResult ) {
+
+		// Prevent infinite loops
 		global $wgAppropediaBotAccount;
+		if ( $user->getName() === $wgAppropediaBotAccount ) {
+			return;
+		}
 
 		// The main page is always an exception
 		$title = $wikiPage->getTitle();
 		if ( $title->isMainPage() ) {
-			return;
-		}
-
-		// Prevent infinite loops
-		if ( $user->getName() === $wgAppropediaBotAccount ) {
 			return;
 		}
 
@@ -48,9 +48,14 @@ class AppropediaWikitext {
 			return;
 		}
 
-		// Do the fixes
+		// Don't fix new redirects either
 		$content = $wikiPage->getContent();
 		$wikitext = $content->getText();
+		if ( preg_match( '/^#(.+ ?\[\[.+\]\])/', $wikitext ) ) {
+			return;
+		}
+
+		// Do the fixes
 		$fixed = self::fixWikitext( $wikitext, $title );
 
 		// Check if anything changed
@@ -59,7 +64,7 @@ class AppropediaWikitext {
 		}
 
 		// Save the fixed wikitext
-		AppropediaWikitext::saveWikitext( $fixed, $wikiPage );
+		self::saveWikitext( $fixed, $wikiPage );
 	}
 
 	/**
@@ -70,24 +75,31 @@ class AppropediaWikitext {
 		switch ( $namespace ) {
 			case NS_MAIN:
 				return self::fixContentPage( $wikitext, $title );
+				break;
 			case NS_USER:
 				return self::fixUserPage( $wikitext, $title );
+				break;
 			case NS_FILE:
 				return self::fixFilePage( $wikitext, $title );
+				break;
 			case NS_CATEGORY:
 				return self::fixCategoryPage( $wikitext, $title );
+				break;
 		}
 	}
-	
+
 	/**
 	 * Fix the wikitext of a content page
 	 */
 	public static function fixContentPage( $wikitext, $title ) {
+
+		// Don't touch automatic translations
+		if ( preg_match( '/^{{Automatic translation notice/', $wikitext ) ) {
+			return;
+		}
+
 		// Append {{Page data}}
-		if ( !preg_match( '/{{[Pp]age[_ ]data/', $wikitext )
-			&& !preg_match( '/^{{Automatic translation notice/', $wikitext ) // except automatic translations
-			&& !preg_match( '/^#(.+ ?\[\[.+\]\])/', $wikitext ) // and redirects
-		) {
+		if ( !preg_match( '/{{[Pp]age[_ ]data/', $wikitext ) ) {
 			$wikitext .= "\n\n{{Page data}}";
 			self::$fixes[] = 'Add [[Template:Page data]]';
 		}
@@ -99,6 +111,8 @@ class AppropediaWikitext {
 	 * Fix the wikitext of a user page
 	 */
 	public static function fixUserPage( $wikitext, $title ) {
+
+		// Skip subpages
 		if ( $title->isSubpage() ) {
 			return;
 		}
@@ -108,6 +122,7 @@ class AppropediaWikitext {
 			$wikitext = "{{User data}}\n\n$wikitext";
 			self::$fixes[] = 'Add [[Template:User data]]';
 		}
+
 		return $wikitext;
 	}
 
@@ -115,11 +130,13 @@ class AppropediaWikitext {
 	 * Fix the wikitext of a category page
 	 */
 	public static function fixCategoryPage( $wikitext, $title ) {
+
 		// Prepend {{Category data}}
 		if ( !preg_match( '/{{[Cc]ategory[_ ]data/', $wikitext ) ) {
 			$wikitext = "{{Category data}}\n\n$wikitext";
 			self::$fixes[] = 'Add [[Template:Category data]]';
 		}
+
 		return $wikitext;
 	}
 
@@ -127,6 +144,7 @@ class AppropediaWikitext {
 	 * Fix the wikitext of a file page
 	 */
 	public static function fixFilePage( $wikitext, $title ) {
+
 		// This ugly contraption is here because Extension:UploadWizard has hard-coded
 		// the structure of the file pages it creates, so we can't modify them via config
 		// Therefore, we check every single page save and if it has the structure of
@@ -209,7 +227,7 @@ class AppropediaWikitext {
 			self::$fixes[] = 'Fix file page';
 		}
 
-		// Fix empty file pages
+		// Append {{File data}}
 		if ( !preg_match( '/{{[Ff]ile[_ ]data/', $wikitext ) ) {
 			$wikitext .= "\n\n{{File data}}";
 			self::$fixes[] = 'Add [[Template:File data]]';

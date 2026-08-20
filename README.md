@@ -5,6 +5,7 @@ Extension:Appropedia contains all PHP code specific to Appropedia.
 Many features that were developed specifically for Appropedia have been turned into standalone extensions. However, some features are so specific that cannot be turned into extensions, so we clump them all together in this extension:
 
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
+* [AppropediaLua](AppropediaLua.php) - Appropedia's Lua library, which exposes some data to [Appropedia's Lua module](https://www.appropedia.org/Module:Appropedia)
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
 * [AppropediaMisc](AppropediaMisc.php) - Handles random features that don't fit elsewhere
 * [AppropediaNavigation](AppropediaNavigation.php) - Customizes Appropedia's sidebar and footer
@@ -13,14 +14,7 @@ Many features that were developed specifically for Appropedia have been turned i
 * [AppropediaSearch](AppropediaSearch.php) - Customizes Appropedia's UX/UI at [Special:Search](https://www.appropedia.org/Special:Search)
 * [AppropediaWikitext](AppropediaWikitext.php) - Forces Appropedia's wikitext conventions after every edit (like adding {{[Page data](https://www.appropedia.org/Template:Page_data)}} to content pages)
 
-This extension also contains Appropedia's Lua library, which exposes some data to [Appropedia's Lua module](https://www.appropedia.org/Module:Appropedia):
-
-* emailDomain - Returns the email domain of a given user
-* fileUses - Returns the number of uses of a given file
-* pageCategories - Returns the categories of a given page
-* pageExists - Checks wether a given page exists
-
-Finally, it contains a few custom maintenance scripts:
+This extension also contains a few custom maintenance scripts:
 
 * [addLicense](maintenance/addLicense.php) - Adds a license to {{Page data}} according to the year when the page was created
 * [deleteBrokenRedirects](maintenance/deleteBrokenRedirects.php) - Deletes all [broken redirects](https://www.appropedia.org/Special:BrokenRedirects)

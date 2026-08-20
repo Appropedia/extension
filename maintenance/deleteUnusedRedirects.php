@@ -50,12 +50,16 @@ class DeleteUnusedRedirects extends Maintenance {
 				continue;
 			}
 			$backlinkCache = $backlinkCacheFactory->getBacklinkCache( $title );
-			if ( $title->getNamespace() === NS_FILE ) {
-				$links = $backlinkCache->hasLinks( 'imagelinks' );
-			} else {
-				$links = $backlinkCache->hasLinks( 'pagelinks' );
+			$pagelinks = $backlinkCache->hasLinks( 'pagelinks' );
+			if ( $pagelinks ) {
+				continue;
 			}
-			if ( $links ) {
+			$imagelinks = $backlinkCache->hasLinks( 'imagelinks' );
+			if ( $imagelinks ) {
+				continue;
+			}
+			$templatelinks = $backlinkCache->hasLinks( 'templatelinks' );
+			if ( $templatelinks ) {
 				continue;
 			}
 			$url = $title->getFullUrl();
@@ -69,7 +73,7 @@ class DeleteUnusedRedirects extends Maintenance {
 			}
 			$this->output( PHP_EOL );
 
-			//break; // Uncomment to debug
+			break; // Uncomment to debug
 		}
 	}
 }

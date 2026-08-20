@@ -29,7 +29,6 @@ class DeleteDuplicateFiles extends Maintenance {
 		$repo = $group->getLocalRepo();
 
 		// Get files with duplicates
-		$services = MediaWikiServices::getInstance();
 		$provider = $services->getConnectionProvider();
 		$dbr = $provider->getReplicaDatabase();
 		$results = $dbr->newSelectQueryBuilder()
@@ -53,7 +52,7 @@ class DeleteDuplicateFiles extends Maintenance {
 				->fetchResultSet();
 
 			// Select the version with most info as canonical
-			// @todo Prioritize files with uses
+			// @todo Maybe select the oldest file, or the one with most uses
 			$canonical = null;
 			foreach ( $duplicates as $duplicate ) {
 				$title = Title::newFromText( $duplicate->name, NS_FILE );
@@ -110,6 +109,7 @@ class DeleteDuplicateFiles extends Maintenance {
 					$this->output( ' .. file deleted but redirect could not be created' . PHP_EOL );
 				}
 			}
+
 			//break; // Uncomment to debug
 		}
 	}

@@ -27,5 +27,5 @@ Finally, it contains a few custom maintenance scripts:
 * [deleteUnusedRedirects](maintenance/deleteUnusedRedirects.php) - Deletes all unused redirects (redirects with no incoming links)
 * [fixWikitext](maintenance/fixWikitext.php) - Forces Appropedia's wikitext conventions on all pages
 * [generateKiwixList](maintenance/generateKiwixList.php) - Generates [kiwix.tsv](https://www.appropedia.org/kiwix.tsv) for use by the [Kiwix scraper](https://farm.openzim.org/recipes/appropedia_en_all/config).
-* [generateOpenKnowHowManifests](maintenance/generateOpenKnowHowManifests.php) - Generates an Open Know How Manifest for each project in Appropedia and links them from [list.json](https://www.appropedia.org/manifests/list.json) for use by scrapers
+* [generateOpenKnowHowManifests](maintenance/generateOpenKnowHowManifests.php) - Generates an Open Know How Manifest for each project in Appropedia and then generates [list.json](https://www.appropedia.org/manifests/list.json) for use by scrapers
 * [removeDisplayTitle](maintenance/removeDisplayTitle.php) - Remove the "title" parameter from {{Page data}} when it is identical to the real title of the page

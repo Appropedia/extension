@@ -45,10 +45,6 @@ class DeleteUnusedRedirects extends Maintenance {
 		// Delete the ones that are not linked from anywhere
 		foreach ( $results as $result ) {
 			$title = Title::newFromID( $result->rd_from );
-			$titleText = $title->getFullText();
-			if ( str_starts_with( $titleText, 'TissueDB' ) ) {
-				continue;
-			}
 			$backlinkCache = $backlinkCacheFactory->getBacklinkCache( $title );
 			$pagelinks = $backlinkCache->hasLinks( 'pagelinks' );
 			if ( $pagelinks ) {
@@ -56,6 +52,10 @@ class DeleteUnusedRedirects extends Maintenance {
 			}
 			$imagelinks = $backlinkCache->hasLinks( 'imagelinks' );
 			if ( $imagelinks ) {
+				continue;
+			}
+			$categorylinks = $backlinkCache->hasLinks( 'categorylinks' );
+			if ( $categorylinks ) {
 				continue;
 			}
 			$templatelinks = $backlinkCache->hasLinks( 'templatelinks' );

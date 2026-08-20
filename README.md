@@ -6,7 +6,7 @@ Many features that were developed specifically for Appropedia have been turned i
 
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
 * [AppropediaLua](AppropediaLua.php) - Appropedia's Lua library, which exposes some data to [Appropedia's Lua module](https://www.appropedia.org/Module:Appropedia)
-* [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
+* [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
 * [AppropediaMisc](AppropediaMisc.php) - Handles random features that don't fit elsewhere
 * [AppropediaNavigation](AppropediaNavigation.php) - Customizes Appropedia's sidebar and footer
 * [AppropediaPDF](AppropediaPDF.php) - REST API endpoint that returns a PDF containing a specified set of pages, using the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library

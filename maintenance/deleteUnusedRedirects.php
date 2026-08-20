@@ -73,7 +73,7 @@ class DeleteUnusedRedirects extends Maintenance {
 			}
 			$this->output( PHP_EOL );
 
-			break; // Uncomment to debug
+			//break; // Uncomment to debug
 		}
 	}
 }

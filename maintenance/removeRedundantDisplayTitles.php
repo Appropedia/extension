@@ -13,7 +13,7 @@ require_once "$IP/maintenance/Maintenance.php";
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 
-class RemoveDisplayTitle extends Maintenance {
+class RemoveRedundantDisplayTitles extends Maintenance {
 
 	public function execute() {
 
@@ -66,5 +66,5 @@ class RemoveDisplayTitle extends Maintenance {
 	}
 }
 
-$maintClass = RemoveDisplayTitle::class;
+$maintClass = RemoveRedundantDisplayTitles::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

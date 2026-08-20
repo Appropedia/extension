@@ -110,7 +110,7 @@ class ArchiveDeadLinks extends Maintenance {
 
 			$this->output( ' .. archived!' . PHP_EOL );
 
-			break;
+			//break; // Uncomment to debug
 		}
 	}
 }

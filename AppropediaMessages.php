@@ -5,8 +5,9 @@
  *
  * We use this class rather than editing the MediaWiki namespace
  * because editing the MediaWiki namespace only changes one language at a time,
- * whereas here it changes all languages at once
+ * whereas this class changes all languages at once
  * and also sends the messages for translation to translatewiki.net
+ * @see https://translatewiki.net/wiki/Translating:Appropedia
  *
  * Note! When calling wfMessage, we specify the language code to prevent T302754
  */
@@ -27,7 +28,7 @@ class AppropediaMessages {
 				break;
 
 			// Remove unwanted elements from the footer
-			// @see https://www.mediawiki.org/wiki/Project:Support_desk#Remove_footer_links
+			// @see https://phabricator.wikimedia.org/T435469
 			case 'privacy':
 			case 'disclaimers':
 			case 'lastmodifiedat':

@@ -9,7 +9,7 @@ use MediaWiki\MediaWikiServices;
 class AppropediaWikitext {
 
 	/**
-	 * This array will contain the fixes actually performed
+	 * This array will hold the fixes actually performed
 	 * in order to generate an informative edit summary
 	 */
 	public static $fixes = [];

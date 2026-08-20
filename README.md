@@ -8,11 +8,11 @@ Many features that were developed specifically for Appropedia have been turned i
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
 * [AppropediaNavigation](AppropediaNavigation.php) - Customizes Appropedia's sidebar and footer
 * [AppropediaPDF](AppropediaPDF.php) - REST API endpoint that returns a PDF containing a specified set of pages, using the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library
-* [AppropediaOKH](AppropediaPDF.php) - REST API endpoint that returns a YAML file containing the [Open Know How Manifest](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json) for a given project
+* [AppropediaOKH](AppropediaOKH.php) - REST API endpoint that returns a YAML file containing the [Open Know How Manifest](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json) for a given project
 * [AppropediaSearch](AppropediaSearch.php) - Customizes Appropedia's UX/UI at [Special:Search](https://www.appropedia.org/Special:Search)
 * [AppropediaWikitext](AppropediaWikitext.php) - Forces Appropedia's wikitext conventions after every edit (like adding {{[Page data](https://www.appropedia.org/Template:Page_data)}} to content pages)
 
-This extension also contains Appropedia's custom Lua library, which exposes some data to [Appropedia's custom Lua module](https://www.appropedia.org/Module:Appropedia):
+This extension also contains Appropedia's Lua library, which exposes some data to [Appropedia's Lua module](https://www.appropedia.org/Module:Appropedia):
 
 * emailDomain - Returns the email domain of a given user
 * fileUses - Returns the number of uses of a given file

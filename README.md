@@ -6,6 +6,7 @@ Many features that were developed specifically for Appropedia have been turned i
 
 * [AppropediaCategories](AppropediaCategories.php) - Handles automatic categorization for [Appropedia's admin panel](https://www.appropedia.org/Appropedia:Admin_panel)
 * [AppropediaMessages](AppropediaMessages.php) - Handles custom interface messages, most of which are localized from [Appropedia's project at TranslateWiki](https://translatewiki.net/wiki/Translating:Appropedia)
+* [AppropediaMisc](AppropediaMisc.php) - Handles random features that don't fit elsewhere
 * [AppropediaNavigation](AppropediaNavigation.php) - Customizes Appropedia's sidebar and footer
 * [AppropediaPDF](AppropediaPDF.php) - REST API endpoint that returns a PDF containing a specified set of pages, using the [wkhtmltopdf](https://wkhtmltopdf.org/usage/wkhtmltopdf.txt) library
 * [AppropediaOKH](AppropediaOKH.php) - REST API endpoint that returns a YAML file containing the [Open Know How Manifest](https://github.com/iop-alliance/OpenKnowHow/blob/master/src/schema/okh.schema.json) for a given project
@@ -26,6 +27,6 @@ Finally, it contains a few custom maintenance scripts:
 * [deleteDuplicateFiles](maintenance/deleteDuplicateFiles.php) - Deletes all [duplicate files](https://www.appropedia.org/Special:ListDuplicatedFiles)
 * [deleteUnusedRedirects](maintenance/deleteUnusedRedirects.php) - Deletes all unused redirects (redirects with no incoming links)
 * [fixWikitext](maintenance/fixWikitext.php) - Forces Appropedia's wikitext conventions on all pages
-* [generateKiwixList](maintenance/generateKiwixList.php) - Generates [kiwix.tsv](https://www.appropedia.org/kiwix.tsv) for use by the [Kiwix scraper](https://farm.openzim.org/recipes/appropedia_en_all/config).
+* [generateKiwixList](maintenance/generateKiwixList.php) - Generates [kiwix.tsv](https://www.appropedia.org/kiwix.tsv) for use by the [Kiwix scraper](https://farm.openzim.org/recipes/appropedia_en_all/config)
 * [generateOpenKnowHowManifests](maintenance/generateOpenKnowHowManifests.php) - Generates an Open Know How Manifest for each project in Appropedia and then generates [list.json](https://www.appropedia.org/manifests/list.json) for use by scrapers
 * [removeRedundantDisplayTitles](maintenance/removeRedundantDisplayTitles.php) - Remove the "title" parameter from {{Page data}} when it is identical to the real title of the page

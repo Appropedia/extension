@@ -61,8 +61,10 @@ class DeleteUnusedRedirects extends Maintenance {
 			$url = $title->getFullUrl();
 			$this->output( $url );
 			if ( $delete ) {
+				$target = Title::newFromText( $result->rd_title, $result->rd_namespace );
+				$targetText = $target->getFullText();
 				$page = $wikiPageFactory->newFromTitle( $title );
-				$page->doDeleteArticleReal( 'Unused redirect', $user );
+				$page->doDeleteArticleReal( "Unused redirect to [[$targetText]]", $user );
 				$this->output( ' .. deleted!' );
 			}
 			$this->output( PHP_EOL );

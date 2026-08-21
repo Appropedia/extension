@@ -58,7 +58,6 @@ class AppropediaMisc {
 			} else {
 				$parentText = $parent->getFullText();
 			}
-			$parentLink = $linkRenderer->makeLink( $parent, $parentText );
 			if ( $parent->exists() ) {
 				$parentLink = $linkRenderer->makeLink( $parent, $parentText );
 				$pageTitle = $parentLink . '<span style="margin: 0 .3em;">/</span>' . $pageTitle;

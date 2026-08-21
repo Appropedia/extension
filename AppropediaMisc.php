@@ -33,30 +33,41 @@ class AppropediaMisc {
 		if ( !$title->isSubpage() ) {
 			return;
 		}
+
+		// Prioritize the display title
 		$services = MediaWikiServices::getInstance();
+		$pageID = $title->getArticleID();
+		$pageProps = $services->getPageProps();
+		$properties = $pageProps->getProperties( $title, 'displaytitle' );
+		if ( array_key_exists( $pageID, $properties ) ) {
+			$pageTitle = $properties[ $pageID ];
+		} else {
+			$pageTitle = $title->getSubpageText();
+		}
+
 		$linkRenderer = $services->getLinkRenderer();
-		$pageTitle = $title->getSubpageText();
-		/* What to do when a dispaly title is set?
-		$pageFactory = $services->getWikiPageFactory();
-		$page = $pageFactory->newFromTitle( $title );
-		$parserOutput = $page->getParserOutput();
-		if ( $parserOutput ) {
-			$displayTitle = $parserOutput->getDisplayTitle();
-			if ( $displayTitle ) {
-				$pageTitle = $displayTitle;
-			}
-		}
-		*/
 		while ( $title->isSubpage() ) {
-			$title = $title->getBaseTitle();
-			if ( $title->isSubpage() ) {
-				$text = $title->getSubpageText();
+			$parent = $title->getBaseTitle();
+			$parentID = $parent->getArticleID();
+			$parentProps = $services->getPageProps();
+			$parentProperties = $parentProps->getProperties( $parent, 'displaytitle' );
+			if ( array_key_exists( $parentID, $parentProperties ) ) {
+				$parentText = $parentProperties[ $parentID ];
+			} else if ( $parent->isSubpage() ) {
+				$parentText = $parent->getSubpageText();
 			} else {
-				$text = $title->getFullText();
+				$parentText = $parent->getFullText();
 			}
-			$link = $linkRenderer->makeLink( $title, $text );
-			$pageTitle = $link . '<span style="margin: 0 .3em;">/</span>' . $pageTitle;
+			$parentLink = $linkRenderer->makeLink( $parent, $parentText );
+			if ( $parent->exists() ) {
+				$parentLink = $linkRenderer->makeLink( $parent, $parentText );
+				$pageTitle = $parentLink . '<span style="margin: 0 .3em;">/</span>' . $pageTitle;
+			} else {
+				$pageTitle = $parentText . '/' . $pageTitle;
+			}
+			$title = $parent;
 		}
+
 		$out->setPageTitle( $pageTitle );
 	}
 

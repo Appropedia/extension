@@ -2,11 +2,11 @@
 
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Rest\SimpleHandler;
+use Symfony\Component\Yaml\Yaml;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
  * This endpoint returns a YAML file containing the Open Know How Manifest for a given project
- * @todo Upgrade to OKH 2.0
  */
 class AppropediaOKH extends SimpleHandler {
 
@@ -52,83 +52,79 @@ class AppropediaOKH extends SimpleHandler {
 		// Get the semantic properties
 		$semanticRestApi = new SemanticRESTAPI;
 		$properties = $semanticRestApi->run( $title );
-		$keywords = $properties['Keywords'] ?? '';
-		$authors = $properties['Project authors'] ?? $properties['Authors'] ?? '';
-		$status = $properties['Project status'] ?? '';
-		$made = $properties['Project was made'] ?? '';
-		$uses = $properties['Project uses'] ?? '';
-		$type = $properties['Project type'] ?? '';
-		$location = $properties['Location'] ?? '';
-		$license = $properties['License'] ?? 'CC-BY-SA-4.0';
-		$organizations = $properties['Organizations'] ?? '';
-		$sdg = $properties['SDG'] ?? '';
-		$language = $properties['Language code'] ?? 'en';
+		$keywords = $properties['Page keywords'] ?? [];
+		$author = $properties['Project authors'][0] ?? $properties['Page authors'][0] ?? '';
+		$status = $properties['Project status'][0] ?? '';
+		$made = $properties['Project was made'][0] ?? '';
+		$use = $properties['Project uses'][0] ?? '';
+		$type = $properties['Project type'][0] ?? '';
+		$location = $properties['Page location'][0] ?? '';
+		$license = $properties['Page license'][0] ?? 'CC-BY-SA-4.0';
+		$affiliation = $properties['Page affiliations'][0] ?? '';
+		$language = $properties['Page language'][0] ?? 'en';
 		//return $properties; // Uncomment to debug
 
-		// Process the properties
-		$titlee = str_replace( ' ', '_', $title );
-		$authors = explode( ',', $authors );
-		$mainAuthor = $authors[0]; // @todo The next version of OKH will support multiple authors
-		if ( $mainAuthor == 'User:Anonymous1 ') {
-			$mainAuthor = '';
-		}
-		$organizations = explode( ',', $organizations );
-		$affiliation = $organizations[0];
-		$location = explode( ',', $location );
-		$location = $location[0];
+		$yaml = [
 
-		// @todo Avoid this ugly long string
-		$yaml = "# Open know-how manifest 1.0
-# The content of this manifest file is licensed under a Creative Commons Attribution 4.0 International License. 
-# Licenses for modification and distribution of the hardware, documentation, source-code, etc are stated separately.
+			// Manifest metadata
+			// @see https://standards.internetofproduction.org/pub/okh#manifest-metadata
+			'date-created' => $dateCreated,
+			'date-updated' => $dateUpdated,
+			'manifest-author' => [
+				'name' => 'Appropedia',
+				'email' => 'admin@appropedia.org'
+			],
 
-# Manifest metadata
-date-created: $dateCreated
-date-updated: $dateUpdated
-manifest-author:
-name: OKH Bot
-affiliation: Appropedia
-email: admin@appropedia.org
-documentation-language: $language
+			// Descriptive properties
+			// @see https://standards.internetofproduction.org/pub/okh#descriptive-properties
+			'title' => str_replace( '_', ' ', $title ),
+			'description' => $extract,
+			'intended-use' => $uses,
+			'keywords' => $keywords,
+			'project-link' => 'https://www.appropedia.org/' . str_replace( ' ', '_', $title ),
+			'contact' => [
+				'name' => $author,
+				'social' => [
+					'platform' => 'Appropedia',
+					'user-handle' => $author,
+				]
+			],
+			'version' => $version,
+			'development-stage' => $status,
+			'made' => $made === 't',
+			'image' => $image,
+			'variant-of' => [
+				'title' => $type,
+				'web' => $type ? 'https://www.appropedia.org/' . str_replace( ' ', '_', $type ) : null,
+			],
+			'license' => [
+				'documentation' => $license,
+			],
+			'licensor' => [
+				'name' => $author,
+				'affliation' => $affiliation,
+				'contact' => 'https://www.appropedia.org/' . str_replace( ' ', '_', $author ),
+			],
 
-# Properties
-title: $title" . ( $extract ? ( "
-description: $extract" ) : '' ) . ( $uses ? ( "
-intended-use: $uses" ) : '' ) . ( $keywords ? ( '
-keywords:
-- ' . str_replace( ',', "\n  -", $keywords ) ) : '' ) . "
-project-link: https://www.appropedia.org/$titlee
-contact:
-name: $mainAuthor
-social:
-- platform: Appropedia
-user-handle: $mainAuthor" . ( $location ? "
-location: $location" : '' ). ( $image ? "
-image: $image" : '' ) . ( $version ? "
-version: $version" : '' ) . ( $status ? "
-development-stage: $status" : '' ) . ( $made ? "
-made: " . ( $made === 't' ? 'true' : 'false' ) : '' ) . ( $type ? "
-variant-of:
-name: $type
-web: https://www.appropedia.org/" . str_replace( ' ', '_', $type ) : '' ) . "
+			// Documentation
+			// @see https://standards.internetofproduction.org/pub/okh#documentation
+			'documentation-home' => 'https://www.appropedia.org/' . str_replace( ' ', '_', $title ),
 
-# License
-license:
-documentation: $license
-licensor:
-name: $mainAuthor" . ( $affiliation ? "
-affiliation: $affiliation" : '' ) . "
-contact: https://www.appropedia.org/" . str_replace( ' ', '_', $mainAuthor ) . "
-documentation-home: https://www.appropedia.org/$titlee
+			// Language and translation
+			// @see https://standards.internetofproduction.org/pub/okh#language-and-translation
+			'documentation-language' => $language,
 
-# User-defined fields" . ( $sdg ? "
-sustainable-development-goals: $sdg" : '' );
+		];
+
+		// Remove null and empty values
+		$yaml = self::array_filter_recursive( $yaml );
 
 		// Return the YAML file
+		$dump = Yaml::dump( $yaml, 3 );
 		$response = $this->getResponseFactory()->create();
 		$response->setHeader( 'Content-Type', 'text/yaml; charset=utf-8' );
 		$response->setHeader( 'Content-Disposition', 'attachment; filename=' . $title . '.yaml' );
-		$response->getBody()->write( $yaml );
+		$response->getBody()->write( $dump );
         return $response;
 	}
 
@@ -146,5 +142,17 @@ sustainable-development-goals: $sdg" : '' );
 				ParamValidator::PARAM_REQUIRED => true
 			]
 		];
+	}
+
+	private static function array_filter_recursive( array $array ): array {
+		foreach ( $array as $key => &$value ) {
+			if ( is_array( $value ) ) {
+				$value = self::array_filter_recursive( $value );
+			}
+			if ( $value === null || $value === '' || $value === [] ) {
+				unset( $array[ $key ] );
+			}
+		}
+		return $array;
 	}
 }

@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16",
+			"Luca.favorido"
+		]
+	},
+	"appropedia-page-title": "$1 - Appropedia, la wiki della sostenibilità",
+	"appropedia-search-page-type-any": "Qualsiasi tipo",
+	"appropedia-search-page-type-projects": "Progetti",
+	"appropedia-search-page-type-devices": "Dispositivi",
+	"appropedia-search-page-type-topics": "Argomenti",
+	"appropedia-search-page-type-maps": "Mappe",
+	"appropedia-search-page-type-organizations": "Organizzazioni",
+	"appropedia-search-page-type-books": "Libri",
+	"appropedia-search-page-language-any": "Qualsiasi lingua",
+	"appropedia-search-page-year-any": "Qualsiasi anno",
+	"appropedia-search-file-type-any": "Qualsiasi tipo",
+	"appropedia-search-file-type-code": "Codice",
+	"appropedia-search-file-format-any": "Qualsiasi formato",
+	"appropedia-search-file-license-any": "Qualsiasi licenza",
+	"appropedia-search-user-location-any": "Qualsiasi posizione"
+}

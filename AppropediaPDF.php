@@ -15,6 +15,7 @@ class AppropediaPDF extends SimpleHandler {
 
 	public function run() {
 
+		// Get the relevant params
 		$params = $this->getValidatedParams();
 		$pages = $params['pages'];
 		$title = $params['title'];
@@ -22,10 +23,12 @@ class AppropediaPDF extends SimpleHandler {
 		$logo = $params['logo'];
 		$qrpage = $params['qrpage'];
 
+		// Set some paths
 		$tempDir = wfTempDir();
 		$coverPath = $tempDir . '/cover.html';
 		$pdfPath = $tempDir . '/temp.pdf';
 
+		// Start building the command
 		$command = 'wkhtmltopdf';
 		$command .= ' --print-media-type';
 		$command .= ' --user-style-sheet ' . __DIR__ . '/resources/AppropediaPDF.css';
@@ -85,8 +88,8 @@ class AppropediaPDF extends SimpleHandler {
 		unlink( $coverPath );
 
 		// Return the PDF
-        $factory = $this->getResponseFactory();
-        $response = $factory->createNoContent(); 
+        $responseFactory = $this->getResponseFactory();
+        $response = $responseFactory->createNoContent(); 
         $response->setStatus( 200 );
         $response->setHeader( 'Content-Type', 'application/pdf' );
         $response->setHeader( 'Content-Length', (string)filesize( $pdfPath ) );
@@ -94,11 +97,6 @@ class AppropediaPDF extends SimpleHandler {
         $stream = new Stream( $pdfResource );
         $response->setBody( $stream );
 		return $response;
-	}
-
-	/** @inheritDoc */
-	public function needsWriteAccess() {
-		return false;
 	}
 
 	/** @inheritDoc */

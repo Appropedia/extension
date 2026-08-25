@@ -38,11 +38,8 @@ class GenerateOpenKnowHowManifests extends Maintenance {
 			if ( preg_match( '#/[a-z]{2}$#', $title ) ) {
 				continue; // Skip automatic translations, for now
 			}
-			$titlee = str_replace( ' ', '_', $title ); // Extra "e" means "encoded"
-			$command = 'php /home/appropedia/public_html/w/extensions/Appropedia/scripts/generateOpenKnowHowManifest.php "' . $titlee . '"';
-			$result = exec( $command, $output );
-			$manifest = implode( PHP_EOL, $output );
-			if ( !$manifest or $manifest === 'Page not found' ) {
+			$manifest = AppropediaOKH::getManifest( $title );
+			if ( !$manifest ) {
 				continue;
 			}
 			$hash = md5( $title );

@@ -11,12 +11,26 @@ use Wikimedia\ParamValidator\ParamValidator;
 class AppropediaOKH extends SimpleHandler {
 
 	public function run() {
-
 		$params = $this->getValidatedParams();
 		$title = $params['title'];
+		$manifest = self::getManifest( $title );
+		$response = $this->getResponseFactory()->create();
+		$response->setHeader( 'Content-Type', 'text/yaml; charset=utf-8' );
+		$response->setHeader( 'Content-Disposition', 'attachment; filename=' . $title . '.yaml' );
+		$response->getBody()->write( $manifest );
+    	return $response;
+	}
 
-		// @todo Validate that the page is a project
+	/**
+	 * Make the Open Know-How Manifest for the given title
+	 * This method is also called from maintenance/generateOpenKnowHowManifests.php
+	 *
+	 * @see https://standards.internetofproduction.org/pub/okh
+	 * @todo Validate that the given title is a project
+ 	 */
+	public static function getManifest( string $title ): string {
 
+		// Get the extract, main image, etc
 		$fauxRequest = new FauxRequest( [
 			'titles' => $title,
 			'action' => 'query',
@@ -35,12 +49,12 @@ class AppropediaOKH extends SimpleHandler {
 		$data = $result->getResultData( [ 'query', 'pages' ], [ 'Strip' => 'all' ] );
 		//return $data; // Uncomment to debug
 
-		// Extract and process the data
+		// Process the data
 		$page = array_shift( $data );
 		$extract = $page['extract']['*'];
 		$extract = str_replace( "\n", ' ', $extract );
 		$extract = trim( $extract );
-		$image = $page['thumbnail']['source'];
+		$image = isset( $page['thumbnail'] ) ? $page['thumbnail']['source'] : null;
 		$revisions = $page['revisions'];
 		$version = count( $revisions );
 		$dateCreated = end( $revisions )['timestamp'];
@@ -67,7 +81,6 @@ class AppropediaOKH extends SimpleHandler {
 		$yaml = [
 
 			// Manifest metadata
-			// @see https://standards.internetofproduction.org/pub/okh#manifest-metadata
 			'date-created' => $dateCreated,
 			'date-updated' => $dateUpdated,
 			'manifest-author' => [
@@ -76,10 +89,9 @@ class AppropediaOKH extends SimpleHandler {
 			],
 
 			// Descriptive properties
-			// @see https://standards.internetofproduction.org/pub/okh#descriptive-properties
 			'title' => str_replace( '_', ' ', $title ),
 			'description' => $extract,
-			'intended-use' => $uses,
+			'intended-use' => $use,
 			'keywords' => $keywords,
 			'project-link' => 'https://www.appropedia.org/' . str_replace( ' ', '_', $title ),
 			'contact' => [
@@ -107,30 +119,32 @@ class AppropediaOKH extends SimpleHandler {
 			],
 
 			// Documentation
-			// @see https://standards.internetofproduction.org/pub/okh#documentation
 			'documentation-home' => 'https://www.appropedia.org/' . str_replace( ' ', '_', $title ),
 
 			// Language and translation
-			// @see https://standards.internetofproduction.org/pub/okh#language-and-translation
 			'documentation-language' => $language,
-
 		];
 
 		// Remove null and empty values
-		$yaml = self::array_filter_recursive( $yaml );
+		$yaml = self::filterRecursively( $yaml );
 
-		// Return the YAML file
-		$dump = Yaml::dump( $yaml, 3 );
-		$response = $this->getResponseFactory()->create();
-		$response->setHeader( 'Content-Type', 'text/yaml; charset=utf-8' );
-		$response->setHeader( 'Content-Disposition', 'attachment; filename=' . $title . '.yaml' );
-		$response->getBody()->write( $dump );
-        return $response;
+		// Return the YAML string
+		return Yaml::dump( $yaml, 3 );
 	}
 
-	/** @inheritDoc */
-	public function needsWriteAccess() {
-		return false;
+	/**
+	 * Helper method to remove falsy values from an array recursively
+ 	 */
+	private static function filterRecursively( array $array ): array {
+		foreach ( $array as $key => &$value ) {
+			if ( is_array( $value ) ) {
+				$value = self::filterRecursively( $value );
+			}
+			if ( $value === null || $value === '' || $value === [] ) {
+				unset( $array[ $key ] );
+			}
+		}
+		return $array;
 	}
 
 	/** @inheritDoc */
@@ -142,17 +156,5 @@ class AppropediaOKH extends SimpleHandler {
 				ParamValidator::PARAM_REQUIRED => true
 			]
 		];
-	}
-
-	private static function array_filter_recursive( array $array ): array {
-		foreach ( $array as $key => &$value ) {
-			if ( is_array( $value ) ) {
-				$value = self::array_filter_recursive( $value );
-			}
-			if ( $value === null || $value === '' || $value === [] ) {
-				unset( $array[ $key ] );
-			}
-		}
-		return $array;
 	}
 }

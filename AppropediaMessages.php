@@ -88,7 +88,16 @@ class AppropediaMessages {
 
 			// Special:UploadWizard
 			case 'mwe-upwiz-add-file-0-free':
-				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code );
+				$message = wfMessage( 'appropedia-select-files' )->inLanguage( $code )->text();
+				break;
+			case 'mwe-upwiz-source-ownwork-purpose-option-personal-warning':
+			case 'mwe-upwiz-source-ownwork-origin-option-others-freelicense':
+			case 'mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text':
+			case 'mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text':
+			case 'mwe-upwiz-source-ownwork-origin-option-ai':
+			case 'mwe-upwiz-license-unknown-warning':
+			case 'mwe-upwiz-license-unknown-subhead':
+				$message = wfMessage( 'appropedia-' . $key )->inLanguage( $code )->text();
 				break;
 
 			// Upload dialog in Extension:VisualEditor

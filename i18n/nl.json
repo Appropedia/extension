@@ -64,5 +64,12 @@
 	"appropedia-search-file-format-any": "Elk formaat",
 	"appropedia-search-file-license-any": "Elke licentie",
 	"appropedia-search-file-license-public-domain": "Publiek domein",
-	"appropedia-search-user-location-any": "Elke locatie"
+	"appropedia-search-user-location-any": "Elke locatie",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>Upload {{PLURAL:$1|dit bestand|deze bestanden}} niet!</b> Bij {{SITENAME}} mogen geen persoonlijke bestanden of privébestanden worden ondergebracht.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "Ja, de maker heeft {{PLURAL:$1|het werk|de werken}} onder een vrije licentie gepubliceerd, zoals die van Creative Commons.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>Upload {{PLURAL:$1|dit bestand|deze bestanden}} niet!</b> Bij {{SITENAME}} mogen geen auteursrechtelijk beschermde bestanden worden ondergebracht. Alleen materiaal met vrije licenties of dat zich in het publieke domein bevindt is op {{SITENAME}} toegestaan.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>Upload {{PLURAL:$1|dit bestand|deze bestanden}} niet!</b> Alleen materiaal met vrije licenties of dat zich in het publieke domein bevindt is op {{SITENAME}} toegestaan.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|Ik}} heb {{PLURAL:$1|dit werk|deze werken}} gegenereerd met behulp van kunstmatige intelligentie.",
+	"appropedia-mwe-upwiz-license-unknown-warning": "<b>Upload {{PLURAL:$1|dit bestand|deze bestanden}} niet</b> tenzij u zeker bent van de licentie waaronder {{PLURAL:$1|het is|ze zijn}} gepubliceerd.",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>Upload {{PLURAL:$1|dit bestand|deze bestanden}} niet!</b> Alleen materiaal met vrije licenties of dat zich in het publieke domein bevindt is op {{SITENAME}} toegestaan."
 }

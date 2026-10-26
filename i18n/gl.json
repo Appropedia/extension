@@ -62,5 +62,12 @@
 	"appropedia-search-file-format-any": "Calquera formato",
 	"appropedia-search-file-license-any": "Calquera licenza",
 	"appropedia-search-file-license-public-domain": "Dominio público",
-	"appropedia-search-user-location-any": "Calquera localización"
+	"appropedia-search-user-location-any": "Calquera localización",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>Non subas {{PLURAL:$1|este ficheiro|estes ficheiros}}!</b> {{SITENAME}} non permite aloxar contido multimedia persoal ou privado.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "Si, a persoa creadora publicou {{PLURAL:$1|a obra|as obras}} baixo unha licenza libre; por exemplo, licenzas Creative Commons",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>Non subas {{PLURAL:$1|este ficheiro|estes ficheiros}}!</b> {{SITENAME}} non aloxa contido multimedia protexido por dereitos de autoría. En {{SITENAME}} só se permiten contidos multimedia con licenzas libres ou de dominio público.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>Non subas {{PLURAL:$1|este ficheiro|estes ficheiros}}!</b> En {{SITENAME}} só se permiten contidos multimedia con licenzas libres ou de dominio público.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|Eu}} xerei {{PLURAL:$1|esta obra|estas obras}} usando unha ferramenta de intelixencia artificial.",
+	"appropedia-mwe-upwiz-license-unknown-warning": "<b>Non subas {{PLURAL:$1|este ficheiro|estes ficheiros}}</b> a menos que teñas certeza da licenza baixo a cal {{PLURAL:$1|foi publicado|foron publicados}}.",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>Non subas {{PLURAL:$1|este ficheiro|estes ficheiros}}!</b> En {{SITENAME}} só se permiten contidos multimedia con licenzas libres ou de dominio público."
 }

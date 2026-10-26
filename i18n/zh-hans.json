@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"GuoPC",
 			"Peterxy",
 			"Peterxy12",
 			"沈澄心"
@@ -64,5 +65,12 @@
 	"appropedia-search-file-format-any": "任何格式",
 	"appropedia-search-file-license-any": "任何许可协议",
 	"appropedia-search-file-license-public-domain": "公有领域",
-	"appropedia-search-user-location-any": "任何位置"
+	"appropedia-search-user-location-any": "任何位置",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>请勿上传{{PLURAL:$1|此文件|这些文件}}！</b>{{SITENAME}}不允许托管个人或私有媒体。",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "是的，创作者已将{{PLURAL:$1|作品}}以自由许可协议（例如知识共享许可协议）发布",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>请勿上传{{PLURAL:$1|此文件|这些文件}}！</b>{{SITENAME}}不托管受版权保护的媒体。{{SITENAME}}仅允许上传具有自由许可协议或属于公有领域的媒体。",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>请勿上传{{PLURAL:$1|此文件|这些文件}}！</b>{{SITENAME}}仅允许上传具有自由许可协议或属于公有领域的媒体。",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|我}}是使用人工智能工具生成的{{PLURAL:$1|此作品|这些作品}}。",
+	"appropedia-mwe-upwiz-license-unknown-warning": "<b>请勿上传{{PLURAL:$1|此文件|这些文件}}</b>，除非您能确定其发布时所采用的许可协议。",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>请勿上传{{PLURAL:$1|此文件|这些文件}}！</b>{{SITENAME}}仅允许上传具有自由许可协议或属于公有领域的媒体。"
 }

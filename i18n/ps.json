@@ -62,5 +62,12 @@
 	"appropedia-search-file-format-any": "هره بڼه",
 	"appropedia-search-file-license-any": "هر منښتليک",
 	"appropedia-search-file-license-public-domain": "ټولگړې واک‌سيمه",
-	"appropedia-search-user-location-any": "هر ځای"
+	"appropedia-search-user-location-any": "هر ځای",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>{{PLURAL:$1|دا دوتنه|دا دوتنې}} مه راپورته کوئ</b> {{SITENAME}} د ځانواله يا پټواله رسنيو کوربه‌توب ته اجازه نه ورکوي.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "هو، پنځوونکي دا {{PLURAL:$1|کار|کارونه}} د وړيا منښتليک لاندې خپاره کړې دي د بېلگې په توگپ ټولگړې پنځونې منښتليکونه",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>{{PLURAL:$1|دا دوتنه|دا دوتنې}} مه راپورته کوئ</b> {{SITENAME}} د بيا خپراوي رښتو لرونکي ژغورل شويو رسنيو کوربه‌توب ته اجازه نه ورکوي. {{SITENAME}} کې يوازې د وړيا منښتليک لرونکې يا ټولواله شپول کې پرتې رسنۍ د خپرېدو اجازه لري‌.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>{{PLURAL:$1|دا دوتنه|دا دوتنې}} مه راپورته کوئ</b> {{SITENAME}}! {{SITENAME}} کې يوازې د وړيا منښتليک لرونکې يا ټولواله شپول کې پرتې رسنۍ د خپرېدو اجازه لري‌.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|ما}} {{PLURAL:$1|دا کار|دا کارونه}} د مصنوعي ځيرکتيا کارتوکي کارولو سره جوړ کړې دي.",
+	"appropedia-mwe-upwiz-license-unknown-warning": "<b>{{PLURAL:$1|دا دوتنه|دا دوتنې}} مه راپورته کوئ</b> {{SITENAME}}! تر هغه چې تاسو د هغه منښتليک په اړه ډاډه نشئ چې دا ترې لاندې خپروئ.",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>{{PLURAL:$1|دا دوتنه|دا دوتنې}} مه راپورته کوئ</b> {{SITENAME}}! {{SITENAME}} کې يوازې د وړيا منښتليک لرونکې يا ټولواله شپول کې پرتې رسنۍ د خپرېدو اجازه لري‌."
 }

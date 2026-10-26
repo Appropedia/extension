@@ -19,5 +19,12 @@
 	"appropedia-search-file-type-code": "Codice",
 	"appropedia-search-file-format-any": "Qualsiasi formato",
 	"appropedia-search-file-license-any": "Qualsiasi licenza",
-	"appropedia-search-user-location-any": "Qualsiasi posizione"
+	"appropedia-search-user-location-any": "Qualsiasi posizione",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>Non caricare {{PLURAL:$1|questo file|questi file}}!</b> {{SITENAME}} non consente l'hosting di contenuti multimediali personali o privati.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "Sì, il creatore ha pubblicato {{PLURAL:$1|l'opera|le opere}} con una licenza libera, ad esempio una licenza Creative Commons.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>Non caricare {{PLURAL:$1|questo file|questi file}}!</b> {{SITENAME}} non ospita contenuti multimediali protetti da copyright. Su {{SITENAME}} sono consentiti solo contenuti multimediali con licenze libere o di pubblico dominio.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>Non caricare {{PLURAL:$1|questo file|questi file}}!</b> Su {{SITENAME}} sono consentiti solo contenuti multimediali con licenze libere o di pubblico dominio.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|Ho generato}} {{PLURAL:$1|quest'opera|queste opere}} utilizzando uno strumento di intelligenza artificiale.",
+	"appropedia-mwe-upwiz-license-unknown-warning": "<b>Non caricare {{PLURAL:$1|questo file|questi file}}</b> a meno che tu non sia certo della licenza con cui è stato pubblicato.",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>Non caricare {{PLURAL:$1|questo file|questi file}}!</b> Su {{SITENAME}} sono consentiti solo contenuti multimediali con licenze libere o di pubblico dominio."
 }

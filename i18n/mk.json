@@ -62,5 +62,12 @@
 	"appropedia-search-file-format-any": "Било кој формат",
 	"appropedia-search-file-license-any": "Било која лиценца",
 	"appropedia-search-file-license-public-domain": "Јавна сопственост",
-	"appropedia-search-user-location-any": "Било кое место"
+	"appropedia-search-user-location-any": "Било кое место",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>Не подигајте {{PLURAL:$1|ја оваа податотека|ги овие податотеки}}!</b> {{SITENAME}} не дозволува лични или приватни содржини.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "Да, творецот {{PLURAL:$1|го објавил делото|ги објавил делата}} под слободна лиценца како на пр. оние на Криејтив комонс",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>Не подигајте {{PLURAL:$1|ја оваа податотека|ги овие податотеки}}!</b> {{SITENAME}} не дозволува содржини заштитени со авторски права. На {{SITENAME}} се дозволени само содржини под слободни лиценци или во јавна сопственост.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>Не подигајте {{PLURAL:$1|ја оваа податотека|ги овие податотеки}}!</b> На {{SITENAME}} се дозволени само содржини под слободни лиценци или во јавна сопственост.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|Јас}} {{PLURAL:$1|го создадов ова дело|ги создадов овие дела}} користејќи вештачки интелигентна алатка.",
+	"appropedia-mwe-upwiz-license-unknown-warning": "<b>Не подигајте {{PLURAL:$1|ја оваа податотека|ги овие податотеки}}</b> ако не сте сигурни под која лиценца {{PLURAL:$1|е објавена|ги се објавени}}.",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>Не подигајте {{PLURAL:$1|ја оваа податотека|ги овие податотеки}}!</b> На {{SITENAME}} се дозволени само содржини под слободни лиценци или во јавна сопственост."
 }

@@ -46,7 +46,11 @@ class GenerateKiwixFile extends Maintenance {
 		// Make the TSV file
 		$titles = [];
 		foreach ( $results as $result ) {
-			$titles[] = $result->page_title;
+			$title = $result->page_title;
+			if ( preg_match( '#/[a-z]{2}$#', $title ) ) {
+				continue; // Skip automatic translations
+			}
+			$titles[] = $title;
 		}
 		$titles = implode( PHP_EOL, $titles );
 		$file = '/home/appropedia/public_html/kiwix.tsv';

@@ -17,7 +17,7 @@ class AppropediaMisc {
 		$out->addLink( [ 'rel' => 'manifest', 'href' => '/manifest.json' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => '/logos/favicon-32x32.png' ] );
 		$out->addLink( [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => '/logos/favicon-16x16.png' ] );
-		self::setPageTitle( $out, $skin );
+		self::setSubpageTitle( $out, $skin );
 		self::setDescriptionTag( $out, $skin );
 		self::setTitleTags( $out, $skin );
 		self::setOpenGraphTags( $out, $skin );
@@ -28,7 +28,7 @@ class AppropediaMisc {
 	 * Important! This only works because of a one-line change to includes/Output/OutputPage.php
 	 * that prevents MediaWiki from sanitizing the page title
 	 */
-	public static function setPageTitle( OutputPage $out, Skin $skin ) {
+	public static function setSubpageTitle( OutputPage $out, Skin $skin ) {
 		$title = $skin->getTitle();
 		if ( !$title->isSubpage() ) {
 			return;
@@ -117,6 +117,7 @@ class AppropediaMisc {
 		// Set the <meta name="title"> and <meta name="og:title"> tags
 		$pageTitle = $out->getPageTitle();
 		$pageTitle = strip_tags( $pageTitle );
+		$pageTitle = html_entity_decode( $pageTitle );
 		$out->addMeta( 'title', $pageTitle );
 		$out->addMeta( 'og:title', $pageTitle );
 

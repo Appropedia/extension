@@ -148,11 +148,23 @@ class AppropediaWikitext {
 		// This ugly contraption is here because Extension:UploadWizard has hard-coded
 		// the structure of the file pages it creates, so we can't modify them via config
 		// Therefore, we check every single page save and if it has the structure of
-		// a file page created by Upload Wizard, we transform it to our preferred structure
-		if ( preg_match( "/=={{int:filedesc}}==\n{{Information\n\|description={{[a-z]+\|1= *(?<description>.*) *}}\n\|date=(?<date>.*)\n\|source=(?<source>.*)\n\|author=(?<author>.*)\n\|permission=(?<permission>.*)\n\|other versions=(?<otherVersions>.*)\n}}\n\n=={{int:license-header}}==\n{{(?<license>.*)}}\n*(?<categories>.*)/s", $wikitext, $matches ) ) {
+		// a file page created by UploadWizard, we transform it to our preferred structure
+		if ( preg_match( "/=={{int:filedesc}}==
+{{Information
+\|description={{[a-z]+\|1= *(?<description>[^@]*?) *}}(\n\|Other fields 1={{Prompt\| *(?<prompt>[^@]*?) *}})?
+\|date=(?<date>.*)
+\|source=(?<source>.*)
+\|author=(?<author>.*)
+\|permission=(?<permission>.*)
+\|other versions=(?<otherVersions>.*)
+}}
+
+=={{int:license-header}}==
+{{(?<license>.*)}}(\n{{PD\-algorithm}})?\n*(?<categories>[^@]*)/", $wikitext, $matches ) ) {
 
 			// Get data
 			$description = $matches['description'];
+			$prompt = $matches['prompt'];
 			$date = $matches['date'];
 			$source = $matches['source'];
 			$author = $matches['author'];
@@ -161,34 +173,44 @@ class AppropediaWikitext {
 			$license = $matches['license'];
 			$categories = $matches['categories'];
 
-			// Process data
+			// Normalize data
+			if ( $prompt ) {
+				$description = "{{AI notice}}\n\n$description\n\nPrompt: $prompt";
+			}
+
+			if ( $date === 'Unknown' ) {
+				$date = null;
+			}
+
+			if ( $author === 'Unknown' || $author === '{{Unknown|author}}' ) {
+				$author = null;
+			} else if ( preg_match( '/\[\[([^|]+)\|[^]]+\]\]/', $author, $matches ) ) {
+				$author = $matches[1];
+			}
+
 			if ( $source === '{{own}}' ) {
 				$source = 'Own work';
 			}
-			if ( preg_match( '/\[\[([^|]+)\|[^]]+\]\]/', $author, $matches ) ) {
-				$author = $matches[1];
-			}
-			if ( $license === 'subst:uwl' ) {
-				$license = null; // Unknown license
+
+			if ( $license === 'subst:uwl' || $license === 'Permission_pending' ) {
+				$license = null;
 			} else if ( preg_match( '/self\|(.*)/', $license, $matches ) ) {
 				$license = strtoupper( $matches[1] );
 			} else {
 				$license = strtoupper( $license );
 			}
-			if ( $license === 'CC-ZERO' ) {
-				$license = 'CC0-1.0';
-			}
-			if ( $license === 'PD' ) {
-				$license = 'Public domain';
-			}
-			if ( $license === 'PD-US' ) {
-				$license = 'Public domain';
-			}
-			if ( $license === 'PD-USGOV' ) {
-				$license = 'Public domain';
-			}
-			if ( $license === 'FAIR USE' ) {
-				$license = 'Fair use';
+			switch ( $license ) {
+				case 'CC-ZERO':
+					$license = 'CC0-1.0';
+					break;
+				case 'PD':
+				case 'PD-US':
+				case 'PD-USGOV':
+					$license = 'Public domain';
+					break;
+				case 'FAIR USE':
+					$license = 'Fair use';
+					break;
 			}
 
 			$params = [

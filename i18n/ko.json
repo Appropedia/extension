@@ -63,5 +63,12 @@
 	"appropedia-search-file-format-any": "모든 형식",
 	"appropedia-search-file-license-any": "모든 라이선스",
 	"appropedia-search-file-license-public-domain": "퍼블릭 도메인",
-	"appropedia-search-user-location-any": "모든 위치"
+	"appropedia-search-user-location-any": "모든 위치",
+	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>{{PLURAL:$1|이 파일|이 파일들}}을 업로드하지 마세요!</b> {{SITENAME}}에서는 개인적 또는 사적인 미디어의 호스팅을 허용하지 않습니다.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "네, 제작자가 {{PLURAL:$1|이 작품|이 작품들}}을 크리에이티브 커먼즈 라이선스 등의 자유 라이선스 하에 배포했습니다",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>{{PLURAL:$1|이 파일|이 파일들}}을 업로드하지 마세요!</b> {{SITENAME}}에서는 저작권으로 보호된 미디어는 호스팅하지 않습니다. {{SITENAME}}에서는 자유 라이선스 또는 퍼블릭 도메인에 속한 미디어만이 허용됩니다.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>{{PLURAL:$1|이 파일|이 파일들}}을 업로드하지 마세요!</b> {{SITENAME}}에서는 자유 라이선스 또는 퍼블릭 도메인에 속한 미디어만이 허용됩니다.",
+	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|제가}} {{PLURAL:$1|이 작품|이 작품들}}을 인공지능 도구를 사용해서 생성했습니다.",
+	"appropedia-mwe-upwiz-license-unknown-warning": "{{PLURAL:$1|이 파일|이 파일들}}이 배포된 라이선스에 대해 확실하지 않다면 <b>{{PLURAL:$1|이 파일|이 파일들}}을 업로드하지 마세요!</b>",
+	"appropedia-mwe-upwiz-license-unknown-subhead": "<b>{{PLURAL:$1|이 파일|이 파일들}}을 업로드하지 마세요!</b> {{SITENAME}}에서는 자유 라이선스 또는 퍼블릭 도메인에 속한 미디어만이 허용됩니다."
 }

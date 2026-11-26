@@ -63,10 +63,5 @@
 	"appropedia-search-file-format-any": "כל תסדיר",
 	"appropedia-search-file-license-any": "כל רישיון",
 	"appropedia-search-file-license-public-domain": "נחלת הכלל",
-	"appropedia-search-user-location-any": "כל מיקום",
-	"appropedia-mwe-upwiz-source-ownwork-purpose-option-personal-warning": "<b>אין להעלות את {{PLURAL:$1|הקובץ הזה|הקבצים האלה}}!</b> אתר {{SITENAME}} אינו מאפשר לאחסן קובצי מדיה אישיים או פרטיים.",
-	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-freelicense": "כן, היוצר פרסם את {{PLURAL:$1|היצירה|היצירות}} ברישיון חופשי, למשל אחד מרישיונות Creative Commons",
-	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-copyrighted-warning-text": "<b>אין להעלות את {{PLURAL:$1|הקובץ הזה|הקבצים האלה}}!</b> אתר {{SITENAME}} אינו מארח קובצי מדיה המוגנים בזכויות יוצרים. באתר {{SITENAME}} מותר להעלות רק קובצי מדיה בעלי רישיונות חופשיים או כאלה שנמצאים בנחלת הכלל.",
-	"appropedia-mwe-upwiz-source-ownwork-origin-option-others-unknown-warning-text": "<b>אין להעלות את {{PLURAL:$1|הקובץ הזה|הקבצים האלה}}!</b> באתר {{SITENAME}} מותר להעלות רק קובצי מדיה בעלי רישיונות חופשיים או כאלה שנמצאים בנחלת הכלל.",
-	"appropedia-mwe-upwiz-source-ownwork-origin-option-ai": "{{GENDER:$2|יצרתי}} את {{PLURAL:$1|היצירה הזאת|היצירות האלה}} באמצעות כלי בינה מלאכותית."
+	"appropedia-search-user-location-any": "כל מיקום"
 }
